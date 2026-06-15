@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>configui | 虚無猫Plugin作業記録</title>
+  <meta name="description" content="ローカル設定UIとRailway反映ボタン">
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="kicker">吹田珈琲BOT / 虚無猫Plugin</span>
+      <h1>configui</h1>
+      <p class="lead">ローカル設定UIとRailway反映ボタン</p>
+      <div class="meta">
+        <span>最終更新：2026-06-16</span>
+        <span>対象：base-bot / Voidcat Plugin</span>
+        <span>公開用メモ：秘密値なし</span>
+      </div>
+    </div>
+  </header>
+  <div class="page">
+    <aside class="sidebar">
+      <h2>ページツリー</h2>
+      <ul class="nav">
+        <li><a href="index.html">概要</a></li>
+<li><a href="timeline.html">全体タイムライン</a></li>
+<li><a href="railway.html">Railway / GitHub</a></li>
+<li><a href="persona.html">虚無猫人格設定</a></li>
+<li><a class="current" href="configui.html">configui</a></li>
+<li><a href="share.html">共有・配布方針</a></li>
+<li><a href="next.html">次回作業</a></li>
+      </ul>
+    </aside>
+    <main class="content">
+      
+<section class="card">
+  <h2>configuiとは</h2>
+  <p>ローカル専用のブラウザ設定UI。persona.jsonを安全に編集するために追加した。</p>
+<pre><code>cd C:\dev\mixi2-plugins\base-bot
+go run ./cmd/configui</code></pre>
+  <p>ブラウザで <code>http://127.0.0.1:8787</code> を開く。</p>
+</section>
+<section class="card">
+  <h2>ボタンの意味</h2>
+  <table class="table">
+    <tr><th>ボタン</th><th>動作</th></tr>
+    <tr><td>保存</td><td>ローカルのpersona.jsonを保存。バックアップ作成。</td></tr>
+    <tr><td>保存してRailway反映</td><td>persona.jsonを保存し、git commit / push。Railwayが再デプロイ。</td></tr>
+    <tr><td>バックアップのみ</td><td>現在のpersona.jsonをバックアップ。</td></tr>
+  </table>
+  <div class="callout warning">
+    <p>FEATURESやスケジュール変更はRailway Variables側の手動変更が必要。自動反映対象は基本的にpersona.jsonのみ。</p>
+  </div>
+</section>
+<section class="card">
+  <h2>今後の改善</h2>
+  <ul>
+    <li>ボタン名を「人格を保存してRailway反映」に変更</li>
+    <li>人格切替ドロップダウン追加</li>
+    <li>新規人格作成</li>
+    <li>保存前差分表示</li>
+  </ul>
+</section>
+
+    </main>
+  </div>
+  <footer class="footer">
+    <p>このサイトは作業共有用。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p>
+  </footer>
+</body>
+</html>
