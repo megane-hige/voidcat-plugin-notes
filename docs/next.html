@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>次回作業 | 虚無猫Plugin作業記録</title>
   <meta name="description" content="人格切替・呼称管理・デスクトップ化">
-  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
   <header class="site-header">
@@ -26,6 +26,7 @@
       <ul class="nav">
         <li><a href="index.html">概要</a></li>
 <li><a href="timeline.html">全体タイムライン</a></li>
+<li><a href="articles/index.html">詳細記事一覧</a></li>
 <li><a href="railway.html">Railway / GitHub</a></li>
 <li><a href="persona.html">虚無猫人格設定</a></li>
 <li><a href="configui.html">configui</a></li>
@@ -43,18 +44,6 @@
     <li><strong>呼称管理</strong><br>user_prefs構造を確認し、mixi2管理コマンドで呼称確認・設定・削除を実装。</li>
     <li><strong>デスクトップアプリ化</strong><br>まずはconfigui + 起動bat。次にWailsでWindowsアプリ化を検討。</li>
   </ol>
-</section>
-<section class="card">
-  <h2>人格切り替えの実現性</h2>
-  <p>高い。現在すでにPERSONA / PERSONA_PATH / personas配下の構成があるため、UIにドロップダウンを足せば実装可能。</p>
-</section>
-<section class="card">
-  <h2>呼称管理の実現性</h2>
-  <p>高い。USER_PREFS_PATHがあるため、本番ではmixi2管理コマンドからRailway Volume上のuser_prefs.jsonを更新する方式が自然。</p>
-</section>
-<section class="card">
-  <h2>デスクトップアプリ化の実現性</h2>
-  <p>中〜高。最初はconfigui.exe + bat起動で十分。本格化するならGo資産を活かせるWailsが候補。</p>
 </section>
 
     </main>

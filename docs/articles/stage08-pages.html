@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第08回：作業ログをGitHub Pagesで公開する | 虚無猫Plugin作業記録</title>
+  <meta name="description" content="Plugin本体とは別の公開用repoで、読める開発記録にする。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="kicker">吹田珈琲BOT / 虚無猫Plugin</span>
+      <h1>第08回：作業ログをGitHub Pagesで公開する</h1>
+      <p class="lead">Plugin本体とは別の公開用repoで、読める開発記録にする。</p>
+      <div class="meta">
+        <span>最終更新：2026-06-16</span>
+        <span>対象：base-bot / Voidcat Plugin</span>
+        <span>公開用メモ：秘密値なし</span>
+      </div>
+    </div>
+  </header>
+  <div class="page">
+    <aside class="sidebar">
+      <h2>ページツリー</h2>
+      <ul class="nav">
+        <li><a href="../index.html">概要</a></li>
+<li><a href="../timeline.html">全体タイムライン</a></li>
+<li><a href="../articles/index.html">詳細記事一覧</a></li>
+<li><a href="../railway.html">Railway / GitHub</a></li>
+<li><a href="../persona.html">虚無猫人格設定</a></li>
+<li><a href="../configui.html">configui</a></li>
+<li><a href="../share.html">共有・配布方針</a></li>
+<li><a href="../next.html">次回作業</a></li>
+      </ul>
+    </aside>
+    <main class="content">
+      
+<section class="card article-card">
+  <div class="article-meta">第46段階 / 共有サイト</div>
+  <h2>作業メモを、読める記事にする</h2>
+  <p>最後に、作業メモをGitHub Pagesで公開できる形にした。Plugin本体repoはPrivateなので、公開用に <code>voidcat-plugin-notes</code> を分ける方針にした。</p>
+
+  <h3>公開用repoの構成</h3>
+<pre><code>voidcat-plugin-notes/
+  README.md
+  docs/
+    index.html
+    timeline.html
+    articles/
+    assets/
+      style.css</code></pre>
+  <p>ここには作業概要だけを置く。.env、ログ、APIキー、Railway Variables、個人データは置かない。</p>
+
+  <h3>GitHub Pages設定</h3>
+<pre><code>Settings
+→ Pages
+→ Source: Deploy from a branch
+→ Branch: main
+→ Folder: /docs
+→ Save</code></pre>
+  <p>公開URLは <code>https://megane-hige.github.io/voidcat-plugin-notes/</code> の形になる。</p>
+  <div class="callout">
+    <p>今後は、BOT制作の記録を人間が読める記事として増やしていく。コマンド集ではなく、設計意図とフォルダ構成が分かる読み物にする。</p>
+  </div>
+</section>
+<div class="nextprev"><a href="stage07-configui.html">← 第07回：虚無猫の人格を直し、ブラウザ編集UIを作る</a><a href="index.html">詳細記事一覧へ</a></div>
+    </main>
+  </div>
+  <footer class="footer">
+    <p>このサイトは作業共有用。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p>
+  </footer>
+</body>
+</html>

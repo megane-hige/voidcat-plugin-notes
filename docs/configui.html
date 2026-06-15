@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>configui | 虚無猫Plugin作業記録</title>
   <meta name="description" content="ローカル設定UIとRailway反映ボタン">
-  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
   <header class="site-header">
@@ -26,6 +26,7 @@
       <ul class="nav">
         <li><a href="index.html">概要</a></li>
 <li><a href="timeline.html">全体タイムライン</a></li>
+<li><a href="articles/index.html">詳細記事一覧</a></li>
 <li><a href="railway.html">Railway / GitHub</a></li>
 <li><a href="persona.html">虚無猫人格設定</a></li>
 <li><a class="current" href="configui.html">configui</a></li>
@@ -38,8 +39,7 @@
 <section class="card">
   <h2>configuiとは</h2>
   <p>ローカル専用のブラウザ設定UI。persona.jsonを安全に編集するために追加した。</p>
-<pre><code>cd C:\dev\mixi2-plugins\base-bot
-go run ./cmd/configui</code></pre>
+<pre><code>cd C:\\dev\\mixi2-plugins\\base-bot\ngo run ./cmd/configui</code></pre>
   <p>ブラウザで <code>http://127.0.0.1:8787</code> を開く。</p>
 </section>
 <section class="card">
@@ -50,18 +50,6 @@ go run ./cmd/configui</code></pre>
     <tr><td>保存してRailway反映</td><td>persona.jsonを保存し、git commit / push。Railwayが再デプロイ。</td></tr>
     <tr><td>バックアップのみ</td><td>現在のpersona.jsonをバックアップ。</td></tr>
   </table>
-  <div class="callout warning">
-    <p>FEATURESやスケジュール変更はRailway Variables側の手動変更が必要。自動反映対象は基本的にpersona.jsonのみ。</p>
-  </div>
-</section>
-<section class="card">
-  <h2>今後の改善</h2>
-  <ul>
-    <li>ボタン名を「人格を保存してRailway反映」に変更</li>
-    <li>人格切替ドロップダウン追加</li>
-    <li>新規人格作成</li>
-    <li>保存前差分表示</li>
-  </ul>
 </section>
 
     </main>

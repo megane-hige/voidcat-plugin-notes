@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第01回：シベリア・フジタPluginをbase-botにする | 虚無猫Plugin作業記録</title>
+  <meta name="description" content="コピーから始める。まずは壊さずに動く土台を作る。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="kicker">吹田珈琲BOT / 虚無猫Plugin</span>
+      <h1>第01回：シベリア・フジタPluginをbase-botにする</h1>
+      <p class="lead">コピーから始める。まずは壊さずに動く土台を作る。</p>
+      <div class="meta">
+        <span>最終更新：2026-06-16</span>
+        <span>対象：base-bot / Voidcat Plugin</span>
+        <span>公開用メモ：秘密値なし</span>
+      </div>
+    </div>
+  </header>
+  <div class="page">
+    <aside class="sidebar">
+      <h2>ページツリー</h2>
+      <ul class="nav">
+        <li><a href="../index.html">概要</a></li>
+<li><a href="../timeline.html">全体タイムライン</a></li>
+<li><a href="../articles/index.html">詳細記事一覧</a></li>
+<li><a href="../railway.html">Railway / GitHub</a></li>
+<li><a href="../persona.html">虚無猫人格設定</a></li>
+<li><a href="../configui.html">configui</a></li>
+<li><a href="../share.html">共有・配布方針</a></li>
+<li><a href="../next.html">次回作業</a></li>
+      </ul>
+    </aside>
+    <main class="content">
+      
+<section class="card article-card">
+  <div class="article-meta">第01〜08段階 / 土台づくり</div>
+  <h2>まずは「動いているPlugin」を壊さずコピーする</h2>
+  <p>今回の作業は、ゼロからBOTを書くところから始めていない。すでに動いているシベリア・フジタPluginがあり、それをベースにして「他の人格にも使い回せるbase-bot」を作るところから始めた。</p>
+  <p>これは地味だけど大事だった。最初から設計だけ綺麗にしようとすると、どこがmixi2連携で、どこが人格で、どこが投稿制御なのか分からなくなる。なので最初は、動くものを丸ごとコピーして、そこから少しずつ分解する方針にした。</p>
+
+  <h3>作業フォルダ</h3>
+  <p>作業本体はここ。</p>
+<pre><code>C:\dev\mixi2-plugins\base-bot</code></pre>
+  <p>元になったPluginは別フォルダにあり、そこからbase-botへコピーした。ここで大事なのは、元のPluginを直接いじらず、実験用の作業場を切ったこと。</p>
+
+  <h3>最初に見たフォルダ構成</h3>
+<pre><code>base-bot/
+  cmd/
+  internal/
+  personas/
+  assets/
+  scripts/
+  docs/
+  Dockerfile
+  go.mod
+  railway.toml</code></pre>
+  <p><code>cmd</code> は起動コマンド置き場。<code>internal</code> はPlugin本体の処理。<code>personas</code> は人格設定。<code>assets</code> は画像参照などの素材置き場。<code>scripts</code> はPowerShell補助、<code>docs</code> は作業メモや仕様書を入れる場所として使うことにした。</p>
+
+  <h3>GPTとの対話で決めたこと</h3>
+  <p>最初の方針はかなり単純だった。「人格だけ入れ替えたい」「機能をON/OFFしたい」「別コミュニティに持っていけるようにしたい」。この3つをGPTに投げて、既存構造を壊さない範囲で設定項目を増やしていった。</p>
+  <p>この段階では、まだ綺麗な管理画面もない。PowerShellで確認しながら、Goのビルドが通るか、personaを切り替えられるかを一つずつ見ていった。</p>
+
+  <h3>この段階で見えたBOT制作の概要</h3>
+  <p>mixi2 PluginのBOT制作は、ざっくり言うと「イベントを受ける」「投稿内容を見る」「必要ならAIで文章を作る」「mixi2へ返す」という流れになっている。人格ファイルは、そのAIに渡すキャラクター説明の役割を持つ。</p>
+  <div class="callout">
+    <p>最初の学び：BOT本体と人格を分けると、同じPluginの仕組みを別キャラに転用できる。</p>
+  </div>
+</section>
+<div class="nextprev"><a href="index.html">詳細記事一覧へ</a><a href="stage02-persona.html">第02回：人格と機能を切り替えられるBOTにする →</a></div>
+    </main>
+  </div>
+  <footer class="footer">
+    <p>このサイトは作業共有用。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p>
+  </footer>
+</body>
+</html>
