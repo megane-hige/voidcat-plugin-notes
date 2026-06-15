@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第05回：OpenAI APIとmixi2 Pluginにつなぐ | 虚無猫Plugin制作記</title>
+  <meta name="description" content="外部ID、Requirement、timeline取得、投稿確認。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>第05回：OpenAI APIとmixi2 Pluginにつなぐ</h1>
+    <p class="lead">外部ID、Requirement、timeline取得、投稿確認。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>詳細記事リンク修正版</span>
+      <span>秘密値なし</span>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="../index.html">トップ</a></li>
+<li><a href="../architecture.html">構成解説</a></li>
+<li><a href="../features.html">機能一覧</a></li>
+<li><a href="../config.html">configui詳説</a></li>
+<li><a href="../timeline.html">全体タイムライン</a></li>
+<li><a href="../articles/index.html">詳細記事</a></li>
+<li><a href="../share.html">共有方針</a></li></ul>
+  </aside>
+  <main class="content">
+<section class="card article-card">
+  <div class="article-meta">第28〜37段階 / mixi2 Plugin接続</div>
+  <h2>ローカルの器を、実際のmixi2 Pluginへつなぐ</h2>
+  <p>ここからは外部接続。OpenAI APIキー、mixi2 Pluginアプリ、Client ID、Client Secret、Community IDを用意し、実際にtimeline取得と投稿確認を行った。</p>
+  <div class="chat"><div class="bubble user"><span class="label">作業者</span>botじゃなくてプラグインね</div><div class="bubble gpt"><span class="label">GPT</span>以後はmixi2 Pluginとして扱います。認証情報もPluginごとに取得する前提で進めます。</div></div>
+  <p>OpenAI接続は <code>gptcheck</code>、mixi2接続は <code>mixi2check</code>、timeline取得は <code>timelinecheck</code> のように、段階ごとに確認した。いきなり本番返信を試さず、外部接続を一つずつ分けたのが安全だった。</p>
+  <h3>Requirementで詰まった</h3>
+  <p>途中で <code>PermissionDenied</code> が出た。これはコードの問題ではなく、mixi2 Plugin側のRequirement不足だった。投稿読み取り、投稿、返信、イベント受信などは、Plugin設定側で許可が必要になる。</p>
+  <div class="callout warning"><p>Requirementを変更した後は、Application Version更新、再インストール、再許可が必要。ここを忘れると、コードが正しくてもPermissionDeniedになる。</p></div>
+</section>
+<div class="nextprev"><a href="stage04-tools.html">← 前の記事</a><a href="index.html">記事一覧へ</a><a href="stage06-railway.html">次の記事 →</a></div></main>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+</body>
+</html>

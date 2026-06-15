@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第01回：動いているPluginをbase-botへ分岐する | 虚無猫Plugin制作記</title>
+  <meta name="description" content="既存Pluginのコピーから、汎用化の入口まで。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>第01回：動いているPluginをbase-botへ分岐する</h1>
+    <p class="lead">既存Pluginのコピーから、汎用化の入口まで。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>詳細記事リンク修正版</span>
+      <span>秘密値なし</span>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="../index.html">トップ</a></li>
+<li><a href="../architecture.html">構成解説</a></li>
+<li><a href="../features.html">機能一覧</a></li>
+<li><a href="../config.html">configui詳説</a></li>
+<li><a href="../timeline.html">全体タイムライン</a></li>
+<li><a href="../articles/index.html">詳細記事</a></li>
+<li><a href="../share.html">共有方針</a></li></ul>
+  </aside>
+  <main class="content">
+<section class="card article-card">
+  <div class="article-meta">第01〜08段階 / 既存Pluginからbase-botへ</div>
+  <h2>動くものをコピーして、壊さずに汎用化する</h2>
+  <p>最初にやったのは、シベリア・フジタPluginをそのまま <code>base-bot</code> にコピーすることだった。新規開発ではなく、すでにmixi2と会話できるPluginを元にする。ここで重要なのは、最初から理想の構成へ書き換えないこと。動いている部分を残し、人格や素材だけを少しずつ外に出していく。</p>
+  <div class="chat"><div class="bubble user"><span class="label">作業者</span>これ、フジタ専用じゃなくて他のコミュニティ用にも使えるベースにしたい</div><div class="bubble gpt"><span class="label">GPT</span>まずコピーしてビルドが通る状態を固定しましょう。次に人格、画像素材、機能フラグを順に切り出すのが安全です。</div></div>
+  <p>この判断で、作業はかなり安定した。もし最初にhandlerを全面改造していたら、mixi2認証なのか、OpenAI接続なのか、人格設定なのか、どこで壊れたか分からなくなる。まずはビルドが通る線を維持し、変更点を小さくした。</p>
+  <figure class="snapshot"><img src="../assets/snapshots/tree-base-bot.svg" alt="base-botの構成。cmd、internal、personas、assets、scripts、docsに役割を分けた。"><figcaption class="caption">base-botの構成。cmd、internal、personas、assets、scripts、docsに役割を分けた。</figcaption></figure>
+  <h3>この段階で見えたBOT制作の骨格</h3>
+  <p>BOT制作といっても、実際には複数の層に分かれている。mixi2からイベントを受ける層、投稿内容を判断する層、OpenAIに文章を作らせる層、mixi2へ投稿する層。そして、それらに人格をかぶせる層だ。</p>
+  <div class="diagram"><div class="flow"><div class="box">イベント受信<small>mixi2から来る</small></div><div class="box">判定<small>handlerが見る</small></div><div class="box">生成<small>OpenAIへ渡す</small></div><div class="box">返信<small>mixi2へ返す</small></div></div></div>
+  <p>この時点では、まだ虚無猫ではない。ただ「キャラを入れ替えられる器」としてのbase-botが見え始めた段階だった。</p>
+</section>
+<div class="nextprev"><a href="index.html">記事一覧へ</a><a href="stage02-persona.html">次の記事 →</a></div></main>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+</body>
+</html>

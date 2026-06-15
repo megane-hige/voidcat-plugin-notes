@@ -33,19 +33,70 @@
   </aside>
   <main class="content">
 <section class="card">
-  <h2>Plugin機能一覧</h2>
-  <p>このPluginは「全部入り」ではあるが、<code>FEATURES</code> で必要な機能だけをONにできる。コミュニティの運用方針に合わせて、返信だけ、歓迎だけ、定時投稿だけ、という切り方ができる。</p>
-  <table class='table'><tr><th>機能</th><th>役割</th><th>主な場所</th><th>ON/OFF</th></tr><tr><td><code>reply</code><br>通常返信</td><td>投稿内容を見て虚無猫が返信する中心機能。</td><td><code>internal/handler/reply_entry.go</code></td><td><code>FEATURES=reply</code></td></tr><tr><td><code>theme</code><br>お題投稿</td><td>コミュニティ活性化用のお題や話題を出す。</td><td><code>internal/handler/theme_entry.go</code></td><td><code>FEATURES=theme</code></td></tr><tr><td><code>scheduled_image</code><br>定時画像投稿</td><td>朝・夜など決めた時間に画像付き投稿を行う。</td><td><code>internal/scheduler/scheduler_entry.go</code></td><td><code>FEATURES=scheduled_image</code></td></tr><tr><td><code>idle_post</code><br>放置投稿</td><td>一定時間投稿がない時に場を動かす投稿を行う。</td><td><code>internal/scheduler/scheduler_entry.go</code></td><td><code>FEATURES=idle_post</code></td></tr><tr><td><code>image_reply</code><br>画像返信</td><td>返信時に一定確率で画像を添える。</td><td><code>internal/handler/reply_image.go</code></td><td><code>FEATURES=image_reply</code></td></tr><tr><td><code>welcome</code><br>歓迎</td><td>新加入者向けの基本案内や歓迎投稿。</td><td><code>internal/handler/welcome_entry.go</code></td><td><code>FEATURES=welcome</code></td></tr><tr><td><code>admin</code><br>管理者コマンド</td><td>管理者用の直接投稿、ヘルプ、呼称設定などの入口。</td><td><code>internal/handler/admin_entry.go</code></td><td><code>FEATURES=admin</code></td></tr></table>
+  <h2>Pluginでできること</h2>
+  <p>ここでは、ファイルの場所や内部名ではなく、利用者から見た「できること」だけに絞って整理した。実運用で動く機能に加えて、設定・確認・デプロイ補助まで含めている。</p>
+  <table class="table">
+    <tr><th>機能名</th><th>役割</th></tr>
+    <tr><td>自動返信</td><td>コミュニティ投稿を見て、虚無猫として自然に返信する中心機能。</td></tr>
+<tr><td>反応ワード返信</td><td>「虚無猫さん」「虚無猫」「虚無さん」「パイセン」などの呼びかけに反応する。</td></tr>
+<tr><td>メンションなし返信</td><td>明示メンションがなくても、条件に合う投稿へ返信できる。</td></tr>
+<tr><td>AIお題投稿</td><td>コミュニティの会話を動かすためのお題や話題をAIで生成する。</td></tr>
+<tr><td>定時投稿</td><td>朝・夕・夜など、決めた時間帯に投稿する運用ができる。</td></tr>
+<tr><td>定時画像投稿</td><td>指定スロットの投稿に画像を添えて投稿できる。</td></tr>
+<tr><td>放置時投稿</td><td>一定時間コミュニティに投稿がない場合、場を動かす投稿を行う。</td></tr>
+<tr><td>放置時お題投稿</td><td>放置投稿時に、通常発言ではなくお題形式の投稿を出せる。</td></tr>
+<tr><td>画像返信</td><td>返信時に一定確率で画像を添える。</td></tr>
+<tr><td>画像参照ランダム</td><td>参照画像フォルダから画像素材をランダム利用できる。</td></tr>
+<tr><td>新規加入者歓迎</td><td>新しく参加したメンバーに向けて歓迎・案内の投稿を行う。</td></tr>
+<tr><td>管理者ヘルプ</td><td>管理者向けの使い方やコマンド案内を返す。</td></tr>
+<tr><td>管理者直接投稿</td><td>管理者コマンドから、Pluginに任意の文章を投稿させる。</td></tr>
+<tr><td>呼称設定</td><td>ユーザーごとの呼び名・表示名の扱いを調整できる。</td></tr>
+<tr><td>ユーザー設定保存</td><td>呼称などのユーザー別設定を状態ファイルとして保持できる。</td></tr>
+<tr><td>投稿履歴記録</td><td>投稿ログをJSONLとして保存し、後から状態確認に使える。</td></tr>
+<tr><td>返信済み管理</td><td>同じ投稿へ重複返信しないように、返信済みIDを記録する。</td></tr>
+<tr><td>お題履歴管理</td><td>過去に出したAIお題を記録し、同じ話題の連発を避ける。</td></tr>
+<tr><td>放置投稿履歴管理</td><td>放置時投稿の履歴を記録し、投稿頻度を管理する。</td></tr>
+<tr><td>定時投稿重複防止</td><td>同じ日・同じ枠の定時投稿を二重作成しないように判定する。</td></tr>
+<tr><td>人格切替</td><td>persona.jsonを差し替えることで、同じ本体を別キャラクターとして運用できる。</td></tr>
+<tr><td>機能ON/OFF</td><td>FEATURES設定により、返信・お題・画像・歓迎・管理機能などを切り替えられる。</td></tr>
+<tr><td>OpenAI接続確認</td><td>OpenAI APIへ接続できるか確認する。</td></tr>
+<tr><td>mixi2接続確認</td><td>mixi2 API、Plugin認証、コミュニティインストール状態を確認する。</td></tr>
+<tr><td>timeline取得確認</td><td>コミュニティ投稿を読み取れるか確認する。</td></tr>
+<tr><td>投稿プレビュー</td><td>実際に投稿する前に、生成される投稿内容を確認する。</td></tr>
+<tr><td>投稿確認</td><td>mixi2へ投稿できるかテストする。</td></tr>
+<tr><td>常時ストリーム待機</td><td>Railway上でイベントを待ち受け、投稿や参加イベントに反応する。</td></tr>
+<tr><td>設定確認</td><td>現在のPERSONA、PERSONA_PATH、IMAGE_REF_DIR、FEATURESの状態を確認する。</td></tr>
+<tr><td>ブラウザ設定UI</td><td>configuiで人格設定をブラウザ編集できる。</td></tr>
+<tr><td>保存してRailway反映</td><td>configuiから人格設定を保存し、GitHub push経由でRailway再デプロイへ流せる。</td></tr>
+<tr><td>新規人格作成</td><td>テンプレートから新しいpersonaフォルダを作れる。</td></tr>
+<tr><td>人格・機能プロファイル切替</td><td>PowerShellスクリプトで人格と機能セットをまとめて切り替えられる。</td></tr>
+<tr><td>素材チェック</td><td>参照画像など、人格ごとの素材フォルダが揃っているか確認できる。</td></tr>
+<tr><td>複数人格テスト</td><td>登録済み人格をまとめて切り替え、設定破損がないか確認できる。</td></tr>
+<tr><td>Railway Volume保存</td><td>ログや状態ファイルを/data配下に置き、再起動後も保持できる。</td></tr>
+<tr><td>GitHub Pages作業ログ</td><td>Plugin本体とは別に、制作記録を公開サイトとして整理できる。</td></tr>
+  </table>
 </section>
 <section class="card">
-  <h2>機能入口の整理</h2>
-  <p>機能ごとの入口を作ったことで、どこを止めれば何が止まるかが見えるようになった。</p>
-  <figure class="snapshot"><img src="assets/snapshots/tree-handler.svg" alt="handlerとschedulerの入口ファイル。"><figcaption class="caption">handlerとschedulerの入口ファイル。</figcaption></figure>
+  <h2>大きく分けると4系統</h2>
+  <div class="grid">
+    <div class="tile"><strong>会話する</strong><small>自動返信、反応ワード返信、画像返信。</small></div>
+    <div class="tile"><strong>場を動かす</strong><small>AIお題、定時投稿、放置時投稿、歓迎。</small></div>
+    <div class="tile"><strong>人格を変える</strong><small>persona.json、人格切替、反応ワード、口調設定。</small></div>
+    <div class="tile"><strong>運用を支える</strong><small>ログ、重複防止、確認コマンド、Railway Volume。</small></div>
+  </div>
 </section>
 <section class="card">
-  <h2>FEATURESの例</h2>
-  <pre><code>FEATURES=reply,theme,scheduled_image,idle_post,image_reply,welcome,admin</code></pre>
-  <p>本番ではRailway Variables側で管理する。ローカルの.envをGitに入れないのが重要。</p>
+  <h2>FEATURESで切れる主な実行機能</h2>
+  <p>本番で主にON/OFFするのは次の機能。補助コマンドやログ保存は、運用を支えるための機能として別に存在する。</p>
+  <div class="badges">
+    <span>reply</span>
+    <span>theme</span>
+    <span>scheduled_image</span>
+    <span>idle_post</span>
+    <span>image_reply</span>
+    <span>welcome</span>
+    <span>admin</span>
+  </div>
 </section>
 </main>
 </div>

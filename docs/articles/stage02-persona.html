@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第02回：人格を外部ファイル化して切り替える | 虚無猫Plugin制作記</title>
+  <meta name="description" content="PERSONA、persona.json、画像素材の分離。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>第02回：人格を外部ファイル化して切り替える</h1>
+    <p class="lead">PERSONA、persona.json、画像素材の分離。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>詳細記事リンク修正版</span>
+      <span>秘密値なし</span>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="../index.html">トップ</a></li>
+<li><a href="../architecture.html">構成解説</a></li>
+<li><a href="../features.html">機能一覧</a></li>
+<li><a href="../config.html">configui詳説</a></li>
+<li><a href="../timeline.html">全体タイムライン</a></li>
+<li><a href="../articles/index.html">詳細記事</a></li>
+<li><a href="../share.html">共有方針</a></li></ul>
+  </aside>
+  <main class="content">
+<section class="card article-card">
+  <div class="article-meta">第09〜14段階 / 人格切替</div>
+  <h2>人格をコードではなくファイルにする</h2>
+  <p>次に切り出したのは人格だった。キャラクター性がGoコードに埋まっていると、別キャラを作るたびにコードを触る必要がある。そこで、人格を <code>personas/{name}/persona.json</code> に分離した。</p>
+  <figure class="snapshot"><img src="../assets/snapshots/tree-personas.svg" alt="personas配下の構成。人格ごとにpersona.jsonを持つ。"><figcaption class="caption">personas配下の構成。人格ごとにpersona.jsonを持つ。</figcaption></figure>
+  <p>虚無猫はこの段階で追加した。名前、説明、反応ワード、口調、禁止事項、システムプロンプトをJSONで持たせることで、本体コードを変えずに人格を変えられるようになった。</p>
+  <div class="chat"><div class="bubble user"><span class="label">作業者</span>人格だけ変えれば別Pluginに見えるようにしたい</div><div class="bubble gpt"><span class="label">GPT</span>PERSONAとPERSONA_PATHを分けましょう。PERSONAは名前、PERSONA_PATHは実際に読むJSONです。</div></div>
+  <pre><code>PERSONA=kyomu_neko
+PERSONA_PATH=personas/kyomu_neko/persona.json
+IMAGE_REF_DIR=assets/kyomu_neko/refs</code></pre>
+  <p>ここで重要だったのは、人格と機能を混ぜないこと。人格は「誰として話すか」、機能は「何をするか」。この2つを分けたことで、後からconfiguiで人格だけ編集する道ができた。</p>
+  <h3>FEATURESの導入</h3>
+  <p>同時に <code>FEATURES</code> も入れた。返信、お題、定時画像、放置投稿、画像返信、歓迎、管理者コマンドをカンマ区切りでON/OFFできる。</p>
+  <pre><code>FEATURES=reply,theme,scheduled_image,idle_post,image_reply,welcome,admin</code></pre>
+</section>
+<div class="nextprev"><a href="stage01-base.html">← 前の記事</a><a href="index.html">記事一覧へ</a><a href="stage03-modules.html">次の記事 →</a></div></main>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第08回：作業ログを公開サイトとして作り直す | 虚無猫Plugin制作記</title>
+  <meta name="description" content="GitHub Pages、記事化、スナップショット化。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>第08回：作業ログを公開サイトとして作り直す</h1>
+    <p class="lead">GitHub Pages、記事化、スナップショット化。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>詳細記事リンク修正版</span>
+      <span>秘密値なし</span>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="../index.html">トップ</a></li>
+<li><a href="../architecture.html">構成解説</a></li>
+<li><a href="../features.html">機能一覧</a></li>
+<li><a href="../config.html">configui詳説</a></li>
+<li><a href="../timeline.html">全体タイムライン</a></li>
+<li><a href="../articles/index.html">詳細記事</a></li>
+<li><a href="../share.html">共有方針</a></li></ul>
+  </aside>
+  <main class="content">
+<section class="card article-card">
+  <div class="article-meta">第46段階 / docs作り直し</div>
+  <h2>作業ログを、読み物として公開する</h2>
+  <p>当初は1枚の記事ページだったが、作業量が増えたため、docs全体を作り直すことにした。トップ、構成解説、機能一覧、configui詳説、タイムライン、詳細記事、共有方針に分ける。</p>
+  <figure class="snapshot"><img src="../assets/snapshots/tree-pages.svg" alt="公開用repoの構成。Plugin本体とは別に、公開してよい制作記録だけを置く。"><figcaption class="caption">公開用repoの構成。Plugin本体とは別に、公開してよい制作記録だけを置く。</figcaption></figure>
+  <p>また、テキストのフォルダツリーはスマホで崩れやすかったため、SVGスナップショット化した。これならブラウザ幅が変わっても、ツリー構造は画像として保たれる。</p>
+  <div class="chat"><div class="bubble user"><span class="label">作業者</span>テキストツリーが崩れるから、スナップショット化したい</div><div class="bubble gpt"><span class="label">GPT</span>SVG画像として出しましょう。見た目はフォルダツリーのまま、スマホでも改行崩れを避けられます。</div></div>
+  <p>公開用repoには、APIキーやログは入れない。読み物として必要な範囲だけを載せ、実装本体や秘密値はPrivate repoに残す。</p>
+</section>
+<div class="nextprev"><a href="stage07-config.html">← 前の記事</a><a href="index.html">記事一覧へ</a></div></main>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+</body>
+</html>

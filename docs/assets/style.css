@@ -54,3 +54,35 @@ code{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospac
 .status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}.status{padding:13px;border:1px solid var(--line);border-radius:14px;background:#fff}.status b{display:block}.status span{color:var(--muted);font-size:13px}
 .footer{max-width:1240px;margin:-35px auto 45px;padding:0 20px;color:var(--muted);font-size:13px}
 @media(max-width:900px){.page{grid-template-columns:1fr}.sidebar{position:static}.bubble{max-width:100%}}
+
+
+/* v3 mobile overflow fix */
+.browser-shot,
+.snapshot {
+  max-width: 100%;
+  overflow: hidden;
+}
+.browser-shot picture,
+.snapshot picture {
+  display: block;
+  width: 100%;
+}
+.browser-shot img,
+.snapshot img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+@media (max-width: 640px) {
+  .browser-shot,
+  .snapshot {
+    margin-left: -4px;
+    margin-right: -4px;
+    border-radius: 14px;
+  }
+  .card {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}

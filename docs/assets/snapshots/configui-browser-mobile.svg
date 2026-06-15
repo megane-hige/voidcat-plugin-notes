@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="1180" viewBox="0 0 760 1180" role="img" aria-label="configui mobile browser mock">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#442d18" flood-opacity=".14"/>
+    </filter>
+  </defs>
+  <rect width="760" height="1180" fill="#f6f2ea"/>
+  <rect x="34" y="34" width="692" height="1112" rx="30" fill="#fffdf8" stroke="#e1d7c8" filter="url(#shadow)"/>
+  <rect x="34" y="34" width="692" height="66" rx="30" fill="#f2eadf"/>
+  <circle cx="78" cy="68" r="8" fill="#d36b5c"/>
+  <circle cx="106" cy="68" r="8" fill="#e0b95a"/>
+  <circle cx="134" cy="68" r="8" fill="#65a56f"/>
+  <rect x="166" y="52" width="496" height="32" rx="16" fill="#fffdf8" stroke="#e1d7c8"/>
+  <text x="186" y="74" font-family="Consolas, Menlo, monospace" font-size="16" fill="#6f675c">127.0.0.1:8787</text>
+
+  <text x="66" y="154" font-family="system-ui, sans-serif" font-size="34" font-weight="850" fill="#25211d">虚無猫Plugin 設定UI</text>
+  <text x="66" y="190" font-family="system-ui, sans-serif" font-size="18" fill="#746c61">スマホ幅でも見切れない縦長レイアウト例</text>
+
+  <rect x="66" y="232" width="628" height="96" rx="18" fill="#e9f7f3" stroke="#cfe9e2"/>
+  <text x="94" y="266" font-family="system-ui, sans-serif" font-size="17" font-weight="850" fill="#1f6f63">現在の人格</text>
+  <text x="94" y="300" font-family="Consolas, Menlo, monospace" font-size="21" fill="#25211d">PERSONA=kyomu_neko</text>
+
+  <rect x="66" y="352" width="628" height="106" rx="18" fill="#fff" stroke="#e1d7c8"/>
+  <text x="94" y="388" font-family="system-ui, sans-serif" font-size="17" font-weight="850" fill="#5a381c">読み込み先</text>
+  <text x="94" y="424" font-family="Consolas, Menlo, monospace" font-size="18" fill="#25211d">personas/kyomu_neko/persona.json</text>
+
+  <rect x="66" y="482" width="628" height="106" rx="18" fill="#fff2df" stroke="#edd5b4"/>
+  <text x="94" y="518" font-family="system-ui, sans-serif" font-size="17" font-weight="850" fill="#8b5e34">反映先</text>
+  <text x="94" y="554" font-family="Consolas, Menlo, monospace" font-size="18" fill="#25211d">GitHub → Railway Deploy</text>
+
+  <rect x="66" y="626" width="628" height="72" rx="16" fill="#fff" stroke="#e1d7c8"/>
+  <text x="94" y="656" font-family="system-ui, sans-serif" font-size="17" fill="#746c61">名前</text>
+  <text x="94" y="684" font-family="system-ui, sans-serif" font-size="22" font-weight="800" fill="#25211d">虚無猫</text>
+
+  <rect x="66" y="722" width="628" height="92" rx="16" fill="#fff" stroke="#e1d7c8"/>
+  <text x="94" y="754" font-family="system-ui, sans-serif" font-size="17" fill="#746c61">反応ワード</text>
+  <text x="94" y="786" font-family="system-ui, sans-serif" font-size="20" font-weight="800" fill="#25211d">虚無猫さん / 虚無猫 / 虚無さん</text>
+
+  <rect x="66" y="838" width="628" height="146" rx="18" fill="#fff" stroke="#e1d7c8"/>
+  <text x="94" y="874" font-family="system-ui, sans-serif" font-size="18" font-weight="850" fill="#25211d">システムプロンプト</text>
+  <text x="94" y="912" font-family="system-ui, sans-serif" font-size="18" fill="#746c61">脱力、静か、虚無感。</text>
+  <text x="94" y="946" font-family="system-ui, sans-serif" font-size="18" fill="#746c61">盛り上げすぎず、見捨ててもいない</text>
+  <text x="94" y="980" font-family="system-ui, sans-serif" font-size="18" fill="#746c61">距離感で返信する。</text>
+
+  <rect x="66" y="1024" width="180" height="54" rx="27" fill="#1f6f63"/>
+  <text x="116" y="1059" font-family="system-ui, sans-serif" font-size="18" font-weight="850" fill="#fff">保存</text>
+  <rect x="266" y="1024" width="300" height="54" rx="27" fill="#8b5e34"/>
+  <text x="324" y="1059" font-family="system-ui, sans-serif" font-size="18" font-weight="850" fill="#fff">Railway反映</text>
+</svg>
