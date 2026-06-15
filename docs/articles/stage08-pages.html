@@ -23,49 +23,47 @@
   <div class="page">
     <aside class="sidebar">
       <h2>ページツリー</h2>
-      <ul class="nav">
-        <li><a href="../index.html">概要</a></li>
+      <ul class="nav"><li><a href="../index.html">概要</a></li>
 <li><a href="../timeline.html">全体タイムライン</a></li>
 <li><a href="../articles/index.html">詳細記事一覧</a></li>
 <li><a href="../railway.html">Railway / GitHub</a></li>
 <li><a href="../persona.html">虚無猫人格設定</a></li>
 <li><a href="../configui.html">configui</a></li>
 <li><a href="../share.html">共有・配布方針</a></li>
-<li><a href="../next.html">次回作業</a></li>
-      </ul>
+<li><a href="../next.html">次回作業</a></li></ul>
     </aside>
     <main class="content">
-      
 <section class="card article-card">
-  <div class="article-meta">第46段階 / 共有サイト</div>
-  <h2>作業メモを、読める記事にする</h2>
-  <p>最後に、作業メモをGitHub Pagesで公開できる形にした。Plugin本体repoはPrivateなので、公開用に <code>voidcat-plugin-notes</code> を分ける方針にした。</p>
+  <div class="article-meta">第46段階 / 公開用サイト</div>
+  <h2>作業ログを公開できる読み物にする</h2>
+  <p>最後に、作業メモをGitHub Pagesで公開できる形にした。Plugin本体repoはPrivateのまま、公開用repoだけを分ける。</p>
+<div class="folder-tree">voidcat-plugin-notes/
+├─ README.md
+└─ docs/
+   ├─ index.html
+   ├─ timeline.html
+   ├─ articles/
+   │  ├─ index.html
+   │  └─ stage*.html
+   └─ assets/
+      └─ style.css</div>
+  <h3>公開しないもの</h3>
+  <ul>
+    <li>.env</li>
+    <li>APIキー</li>
+    <li>Client Secret</li>
+    <li>Railway Variables</li>
+    <li>ログ</li>
+    <li>ユーザー個別データ</li>
+  </ul>
+  
+<div class="chat">
+  <div class="bubble user"><span class="label">作業者</span>全作業工程を記事にできない？</div>
+  <div class="bubble gpt"><span class="label">GPT</span>段階ごとに詳細記事へ分割しましょう。フォルダ構成、機能紹介、GPTとの対話式の流れを入れると、読んだ人がBOT制作の概要を追えます。</div>
+</div>
 
-  <h3>公開用repoの構成</h3>
-<pre><code>voidcat-plugin-notes/
-  README.md
-  docs/
-    index.html
-    timeline.html
-    articles/
-    assets/
-      style.css</code></pre>
-  <p>ここには作業概要だけを置く。.env、ログ、APIキー、Railway Variables、個人データは置かない。</p>
-
-  <h3>GitHub Pages設定</h3>
-<pre><code>Settings
-→ Pages
-→ Source: Deploy from a branch
-→ Branch: main
-→ Folder: /docs
-→ Save</code></pre>
-  <p>公開URLは <code>https://megane-hige.github.io/voidcat-plugin-notes/</code> の形になる。</p>
-  <div class="callout">
-    <p>今後は、BOT制作の記録を人間が読める記事として増やしていく。コマンド集ではなく、設計意図とフォルダ構成が分かる読み物にする。</p>
-  </div>
 </section>
-<div class="nextprev"><a href="stage07-configui.html">← 第07回：虚無猫の人格を直し、ブラウザ編集UIを作る</a><a href="index.html">詳細記事一覧へ</a></div>
-    </main>
+<div class="nextprev"><a href="stage07-configui.html">← 第07回：虚無猫の人格を直し、ブラウザ編集UIを作る</a><a href="index.html">詳細記事一覧へ</a></div></main>
   </div>
   <footer class="footer">
     <p>このサイトは作業共有用。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p>

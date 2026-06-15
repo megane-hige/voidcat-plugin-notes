@@ -23,46 +23,33 @@
   <div class="page">
     <aside class="sidebar">
       <h2>ページツリー</h2>
-      <ul class="nav">
-        <li><a href="../index.html">概要</a></li>
+      <ul class="nav"><li><a href="../index.html">概要</a></li>
 <li><a href="../timeline.html">全体タイムライン</a></li>
 <li><a href="../articles/index.html">詳細記事一覧</a></li>
 <li><a href="../railway.html">Railway / GitHub</a></li>
 <li><a href="../persona.html">虚無猫人格設定</a></li>
 <li><a href="../configui.html">configui</a></li>
 <li><a href="../share.html">共有・配布方針</a></li>
-<li><a href="../next.html">次回作業</a></li>
-      </ul>
+<li><a href="../next.html">次回作業</a></li></ul>
     </aside>
     <main class="content">
-      
 <section class="card article-card">
   <div class="article-meta">第38〜40段階 / 本番デプロイ</div>
-  <h2>Railwayに置く前に、秘密値を守る</h2>
-  <p>本番デプロイでは、まずGitHub Private repoを作った。ただし.envやログ、exe、bakファイルはGitに入れない。ここはかなり慎重に進めた。</p>
-
-  <h3>.gitignoreの方針</h3>
-<pre><code>.env
-.env.*
-!.env.example
-logs/
-data/
-*.exe
-*.bak
-*.log</code></pre>
-  <p>秘密値はRailway Variablesに入れる。Gitには入れない。この分離ができていないと、共有や公開が危なくなる。</p>
-
-  <h3>Railway Volume</h3>
-  <p>状態ファイルやログは、コンテナの中ではなくRailway Volumeの <code>/data</code> に保存する。</p>
-<pre><code>EVENT_LOG_PATH=/data/logs/events.jsonl
-POST_LOG_PATH=/data/logs/posts.jsonl
-REPLIED_LOG_PATH=/data/logs/replied_post_ids.txt
-USER_PREFS_PATH=/data/state/user_prefs.json</code></pre>
-  <h3>本番確認</h3>
-  <p>Railway上でコンテナ起動、Volumeマウント、gRPCストリーム待機を確認。mixi2で虚無猫への投稿に返信が返り、第40段階まで完了した。</p>
+  <h2>GitHubとRailwayで本番へ置く</h2>
+  <p>本番化では、まず秘密値をGitに入れないことを徹底した。Plugin本体repoはPrivateにし、.env、logs、exe、bakは除外した。</p>
+<pre><code>.env\n.env.*\n!.env.example\nlogs/\ndata/\n*.exe\n*.bak\n*.log</code></pre>
+  <h3>Railway Variables</h3>
+  <p>APIキーやClient SecretはRailway Variablesに入れる。ローカルの.envはGitに入れない。</p>
+  <h3>Volume化</h3>
+  <p>投稿履歴や返信済みIDなど、消えると困る状態ファイルはRailway Volumeの <code>/data</code> に置いた。</p>
+<pre><code>EVENT_LOG_PATH=/data/logs/events.jsonl\nPOST_LOG_PATH=/data/logs/posts.jsonl\nUSER_PREFS_PATH=/data/state/user_prefs.json</code></pre>
+  <div class="diagram"><div class="flow"><div class="box">git push<small>GitHubへ反映</small></div>
+<div class="box">Railway<small>自動ビルド</small></div>
+<div class="box">Volume<small>状態保存</small></div>
+<div class="box">mixi2<small>本番返信</small></div></div></div>
+  <p>最後にmixi2で実投稿し、虚無猫から返信が返るところまで確認した。</p>
 </section>
-<div class="nextprev"><a href="stage05-mixi2.html">← 第05回：OpenAI APIとmixi2 Pluginにつなぐ</a><a href="index.html">詳細記事一覧へ</a><a href="stage07-configui.html">第07回：虚無猫の人格を直し、ブラウザ編集UIを作る →</a></div>
-    </main>
+<div class="nextprev"><a href="stage05-mixi2.html">← 第05回：OpenAI APIとmixi2 Pluginにつなぐ</a><a href="index.html">詳細記事一覧へ</a><a href="stage07-configui.html">第07回：虚無猫の人格を直し、ブラウザ編集UIを作る →</a></div></main>
   </div>
   <footer class="footer">
     <p>このサイトは作業共有用。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p>

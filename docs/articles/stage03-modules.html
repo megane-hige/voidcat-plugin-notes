@@ -23,47 +23,44 @@
   <div class="page">
     <aside class="sidebar">
       <h2>ページツリー</h2>
-      <ul class="nav">
-        <li><a href="../index.html">概要</a></li>
+      <ul class="nav"><li><a href="../index.html">概要</a></li>
 <li><a href="../timeline.html">全体タイムライン</a></li>
 <li><a href="../articles/index.html">詳細記事一覧</a></li>
 <li><a href="../railway.html">Railway / GitHub</a></li>
 <li><a href="../persona.html">虚無猫人格設定</a></li>
 <li><a href="../configui.html">configui</a></li>
 <li><a href="../share.html">共有・配布方針</a></li>
-<li><a href="../next.html">次回作業</a></li>
-      </ul>
+<li><a href="../next.html">次回作業</a></li></ul>
     </aside>
     <main class="content">
-      
 <section class="card article-card">
   <div class="article-meta">第15〜21段階 / 機能入口の分離</div>
-  <h2>機能を入口ごとに分ける</h2>
-  <p>ここからはBOTの中身を整理した。もともとはhandlerやschedulerの中に、返信、歓迎、お題、定時投稿、画像返信などがまとまっていた。動くけれど、何をON/OFFしているのか分かりにくい。</p>
-  <p>そこで、各機能の入口を分離した。</p>
+  <h2>handlerとschedulerを分解する</h2>
+  <p>機能が増えるほど、どこで何が動いているか分からなくなる。そこでhandlerとschedulerの入口を分けた。</p>
+<div class="folder-tree">internal/
+├─ handler/
+│  ├─ admin_entry.go       管理者コマンド入口
+│  ├─ welcome_entry.go     新規加入者向け入口
+│  ├─ theme_entry.go       お題投稿入口
+│  ├─ reply_entry.go       自動返信入口
+│  └─ reply_image.go       画像返信判定
+└─ scheduler/
+   └─ scheduler_entry.go   定時投稿・放置投稿入口</div>
+  <p>ここで重要なのは、機能そのものを全部書き直したわけではないこと。まず「入口」を作り、そこに <code>config.HasFeature()</code> を置いた。</p>
+  <div class="diagram"><div class="flow"><div class="box">投稿イベント<small>Handleへ入る</small></div>
+<div class="box">入口関数<small>FEATURESを見る</small></div>
+<div class="box">有効なら処理<small>返信・歓迎・お題</small></div>
+<div class="box">無効なら通過<small>余計な動作をしない</small></div></div></div>
+  
+<div class="chat">
+  <div class="bubble user"><span class="label">作業者</span>機能を全部バラバラにした方がいい？</div>
+  <div class="bubble gpt"><span class="label">GPT</span>最初から大改造せず、入口を薄く分けるのが安全です。既存処理は残して、ON/OFF判定だけ前段に置きましょう。</div>
+</div>
 
-  <h3>handler側</h3>
-<pre><code>internal/handler/
-  admin_entry.go
-  welcome_entry.go
-  theme_entry.go
-  reply_entry.go
-  reply_image.go</code></pre>
-  <p><code>admin_entry.go</code> は管理者コマンド、<code>welcome_entry.go</code> は新規加入者への反応、<code>theme_entry.go</code> はお題、<code>reply_entry.go</code> は通常返信の入口。</p>
-
-  <h3>scheduler側</h3>
-<pre><code>internal/scheduler/
-  scheduler_entry.go</code></pre>
-  <p>scheduler側では、放置投稿と定時画像投稿の入口を分けた。ここで <code>FEATURES</code> を見て、該当機能がOFFなら動かないようにしている。</p>
-
-  <h3>なぜ分けたのか</h3>
-  <p>コミュニティBOTは、機能が増えるとすぐに「どこで何が動いているか」が分からなくなる。GPTとの対話では、まず機能名を決め、次に入口ファイルを作り、最後に既存処理をそこへつなぐという順番で進めた。</p>
-  <div class="callout">
-    <p>この段階で、base-botは「全部入りのPlugin」から「必要な機能を選べるPlugin」に近づいた。</p>
-  </div>
+  <h3>この段階で得たこと</h3>
+  <p>base-botは「全部入りPlugin」から「必要な機能を選べるPlugin」になった。配布する時にも、コミュニティごとに使う機能を選びやすくなる。</p>
 </section>
-<div class="nextprev"><a href="stage02-persona.html">← 第02回：人格と機能を切り替えられるBOTにする</a><a href="index.html">詳細記事一覧へ</a><a href="stage04-tools.html">第04回：人格追加スクリプトと検証コマンドを整える →</a></div>
-    </main>
+<div class="nextprev"><a href="stage02-persona.html">← 第02回：人格と機能を切り替えられるBOTにする</a><a href="index.html">詳細記事一覧へ</a><a href="stage04-tools.html">第04回：人格追加スクリプトと検証コマンドを整える →</a></div></main>
   </div>
   <footer class="footer">
     <p>このサイトは作業共有用。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p>

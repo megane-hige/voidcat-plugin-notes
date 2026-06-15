@@ -23,50 +23,51 @@
   <div class="page">
     <aside class="sidebar">
       <h2>ページツリー</h2>
-      <ul class="nav">
-        <li><a href="../index.html">概要</a></li>
+      <ul class="nav"><li><a href="../index.html">概要</a></li>
 <li><a href="../timeline.html">全体タイムライン</a></li>
 <li><a href="../articles/index.html">詳細記事一覧</a></li>
 <li><a href="../railway.html">Railway / GitHub</a></li>
 <li><a href="../persona.html">虚無猫人格設定</a></li>
 <li><a href="../configui.html">configui</a></li>
 <li><a href="../share.html">共有・配布方針</a></li>
-<li><a href="../next.html">次回作業</a></li>
-      </ul>
+<li><a href="../next.html">次回作業</a></li></ul>
     </aside>
     <main class="content">
-      
 <section class="card article-card">
   <div class="article-meta">第28〜37段階 / 外部接続</div>
-  <h2>ローカルのBOTから、mixi2 Pluginへ</h2>
-  <p>ここからは外部サービスとの接続。OpenAI API、mixi2 Pluginアプリ、Requirement、timeline取得、投稿確認へ進んだ。</p>
-
-  <h3>必要な外部ID</h3>
+  <h2>mixi2 Pluginとして外の世界につなぐ</h2>
+  <p>ローカルで動く構造ができたら、次は外部接続。OpenAI APIとmixi2 Pluginアプリをつなぐ段階に入った。</p>
+  <h3>必要なもの</h3>
   <ul>
     <li>OpenAI APIキー</li>
-    <li>mixi2 Client ID</li>
-    <li>mixi2 Client Secret</li>
-    <li>mixi2 Community ID</li>
-    <li>mixi2 Pluginアプリ情報</li>
+    <li>mixi2 Pluginアプリ</li>
+    <li>Client ID / Client Secret</li>
+    <li>Community ID</li>
+    <li>Requirement設定</li>
   </ul>
+  
+<div class="chat">
+  <div class="bubble user"><span class="label">作業者</span>botじゃなくてプラグインね</div>
+  <div class="bubble gpt"><span class="label">GPT</span>以後はmixi2 Pluginとして扱います。認証情報もPluginごとに取得する前提で進めます。</div>
+</div>
 
-  <h3>Requirementでつまづいた点</h3>
-  <p>timeline取得時にPermissionDeniedが出た。原因はPlugin側のRequirement不足だった。mixi2 Pluginでは、投稿読み取り、投稿、返信、必要イベント受信などを明示的に許可する必要がある。</p>
-  <div class="callout warning">
-    <p>Requirementを変更したら、Application Version更新、再インストール、再許可が必要になる。</p>
+  <h3>Requirementで詰まったところ</h3>
+  <p>timeline取得時にPermissionDeniedが出た。原因はRequirement不足。mixi2 Pluginは、投稿読み取り、投稿、返信、イベント受信などを明示的に許可する必要がある。</p>
+  <div class="callout warning"><p>Requirement変更後は、Application Version更新、再インストール、再許可が必要。</p></div>
+  
+<div class="screenshot">
+  <div class="bar"></div>
+  <div class="rows">
+    <div class="row"></div>
+    <div class="row mid"></div>
+    <div class="row"></div>
+    <div class="row short"></div>
   </div>
+  <div class="caption">PermissionDeniedが出た時点で、コードではなくPlugin側のRequirementを疑う流れになった。</div>
+</div>
 
-  <h3>この段階の確認</h3>
-  <ul>
-    <li>OpenAI API接続OK</li>
-    <li>mixi2 Plugin認証OK</li>
-    <li>PluginのコミュニティインストールOK</li>
-    <li>timeline取得OK</li>
-    <li>投稿確認OK</li>
-  </ul>
 </section>
-<div class="nextprev"><a href="stage04-tools.html">← 第04回：人格追加スクリプトと検証コマンドを整える</a><a href="index.html">詳細記事一覧へ</a><a href="stage06-railway.html">第06回：GitHubとRailwayで本番に置く →</a></div>
-    </main>
+<div class="nextprev"><a href="stage04-tools.html">← 第04回：人格追加スクリプトと検証コマンドを整える</a><a href="index.html">詳細記事一覧へ</a><a href="stage06-railway.html">第06回：GitHubとRailwayで本番に置く →</a></div></main>
   </div>
   <footer class="footer">
     <p>このサイトは作業共有用。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p>

@@ -23,34 +23,29 @@
   <div class="page">
     <aside class="sidebar">
       <h2>ページツリー</h2>
-      <ul class="nav">
-        <li><a href="index.html">概要</a></li>
+      <ul class="nav"><li><a href="index.html">概要</a></li>
 <li><a href="timeline.html">全体タイムライン</a></li>
 <li><a href="articles/index.html">詳細記事一覧</a></li>
 <li><a class="current" href="railway.html">Railway / GitHub</a></li>
 <li><a href="persona.html">虚無猫人格設定</a></li>
 <li><a href="configui.html">configui</a></li>
 <li><a href="share.html">共有・配布方針</a></li>
-<li><a href="next.html">次回作業</a></li>
-      </ul>
+<li><a href="next.html">次回作業</a></li></ul>
     </aside>
     <main class="content">
-      
 <section class="card">
-  <h2>Railway本番稼働</h2>
-  <p>RailwayではPlugin本体として <code>cmd/streamcheck</code> を起動。configuiはローカル専用であり、Railway上では起動しない。</p>
-  <div class="callout"><p>確認済み：サービスオンライン、Volumeマウント、gRPCストリーム待機、missing envなし、PermissionDeniedなし、panicなし。</p></div>
+  <h2>Railway / GitHubの役割</h2>
+  <p>GitHubは変更履歴の保管場所、RailwayはPlugin本体の実行場所。GitHub Pagesは公開用の作業メモ置き場として分けた。</p>
+  <div class="diagram"><div class="flow"><div class="box">GitHub<small>コードと履歴</small></div>
+<div class="box">Railway<small>本番実行</small></div>
+<div class="box">Volume<small>状態保存</small></div>
+<div class="box">GitHub Pages<small>公開メモ</small></div></div></div>
 </section>
 <section class="card">
   <h2>Dockerfile Volume対応</h2>
 <pre><code>RUN mkdir -p /app/logs /app/data /data/logs /data/state\n\nCMD [&quot;sh&quot;, &quot;-c&quot;, &quot;mkdir -p /data/logs /data/state /app/logs /app/data &amp;&amp; /app/base-bot&quot;]</code></pre>
 </section>
-<section class="card">
-  <h2>GitHub Pages</h2>
-  <p>Plugin本体repoはPrivateのため、公開用に <code>voidcat-plugin-notes</code> repoを分ける方針。</p>
-</section>
-
-    </main>
+</main>
   </div>
   <footer class="footer">
     <p>このサイトは作業共有用。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p>

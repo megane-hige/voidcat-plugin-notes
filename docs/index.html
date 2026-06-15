@@ -23,32 +23,29 @@
   <div class="page">
     <aside class="sidebar">
       <h2>ページツリー</h2>
-      <ul class="nav">
-        <li><a class="current" href="index.html">概要</a></li>
+      <ul class="nav"><li><a class="current" href="index.html">概要</a></li>
 <li><a href="timeline.html">全体タイムライン</a></li>
 <li><a href="articles/index.html">詳細記事一覧</a></li>
 <li><a href="railway.html">Railway / GitHub</a></li>
 <li><a href="persona.html">虚無猫人格設定</a></li>
 <li><a href="configui.html">configui</a></li>
 <li><a href="share.html">共有・配布方針</a></li>
-<li><a href="next.html">次回作業</a></li>
-      </ul>
+<li><a href="next.html">次回作業</a></li></ul>
     </aside>
     <main class="content">
-      
 <section class="card">
-  <h2>現在の到達点</h2>
-  <p>mixi2コミュニティ「吹田珈琲」用の虚無猫Pluginは、Railway本番稼働・Volume化・mixi2返信確認・人格編集UIまで完了。</p>
-  <div class="grid">
-    <div class="tile"><strong>本番稼働</strong><small>Railway上でcmd/streamcheckが稼働</small></div>
-    <div class="tile"><strong>返信確認</strong><small>mixi2上で虚無猫の返信を確認</small></div>
-    <div class="tile"><strong>人格UI</strong><small>configuiでpersona.jsonをブラウザ編集</small></div>
-    <div class="tile"><strong>Pages公開</strong><small>作業メモを記事風サイトとして共有</small></div>
-  </div>
+  <h2>このサイトについて</h2>
+  <p>このサイトは、mixi2コミュニティ用Plugin「虚無猫」を作っていった作業記録を、あとから読める記事として整理したもの。</p>
+  <p>ただのコマンド集ではなく、フォルダ構成、機能の役割、GPTとの対話で決めたこと、実際につまずいた点を入れている。読んでいくと、mixi2 Plugin型BOTがどんな部品でできているのか、なんとなく見える構成にした。</p>
+  <div class="diagram"><div class="flow"><div class="box">既存Plugin<small>動くものをコピー</small></div>
+<div class="box">base-bot<small>人格と機能を分離</small></div>
+<div class="box">虚無猫<small>人格設定を追加</small></div>
+<div class="box">Railway<small>本番稼働</small></div>
+<div class="box">GitHub Pages<small>作業ログ公開</small></div></div></div>
 </section>
 <section class="card">
   <h2>詳細記事</h2>
-  <p>作業の区切りごとに、人間が読んで流れを追える記事として整理した。コマンド一覧ではなく、「何のためにその作業をしたか」が分かるようにしている。</p>
+  <p>全体タイムラインを区切りごとに記事化した。読み物として追えるよう、会話抜粋風のブロックやフォルダツリーを入れている。</p>
   <div class="article-list"><a class="article-link" href="stage01-base.html"><strong>第01回：シベリア・フジタPluginをbase-botにする</strong><small>第01〜08段階：コピーから始める。まずは壊さずに動く土台を作る。</small></a>
 <a class="article-link" href="stage02-persona.html"><strong>第02回：人格と機能を切り替えられるBOTにする</strong><small>第09〜14段階：PERSONA、PERSONA_PATH、FEATURESでPluginを着せ替える。</small></a>
 <a class="article-link" href="stage03-modules.html"><strong>第03回：handlerとschedulerを分解して、機能をON/OFFできるようにする</strong><small>第15〜21段階：返信、歓迎、お題、定時投稿を入口ごとに整理する。</small></a>
@@ -59,13 +56,15 @@
 <a class="article-link" href="stage08-pages.html"><strong>第08回：作業ログをGitHub Pagesで公開する</strong><small>第46段階：Plugin本体とは別の公開用repoで、読める開発記録にする。</small></a></div>
 </section>
 <section class="card">
-  <h2>注意</h2>
-  <div class="callout warning">
-    <p>このサイトは公開用の要約メモ。実際の.env、APIキー、Client Secret、Railway Variables、ログ、ユーザーIDなどは載せない。</p>
+  <h2>最終的な完成状態</h2>
+  <div class="grid">
+    <div class="tile"><strong>本番稼働</strong><small>Railway上でcmd/streamcheckが稼働</small></div>
+    <div class="tile"><strong>mixi2返信</strong><small>虚無猫への呼びかけで返信確認</small></div>
+    <div class="tile"><strong>人格UI</strong><small>configuiでブラウザ編集</small></div>
+    <div class="tile"><strong>作業ログ</strong><small>GitHub Pagesで公開可能</small></div>
   </div>
 </section>
-
-    </main>
+</main>
   </div>
   <footer class="footer">
     <p>このサイトは作業共有用。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p>
