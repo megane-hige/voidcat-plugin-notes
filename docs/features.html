@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plugin機能一覧 | 虚無猫Plugin制作記</title>
+  <meta name="description" content="reply、theme、scheduled_image、idle_post、image_reply、welcome、adminの役割。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>Plugin機能一覧</h1>
+    <p class="lead">reply、theme、scheduled_image、idle_post、image_reply、welcome、adminの役割。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>docs作り直し</span>
+      <span>秘密値なし</span>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="index.html">トップ</a></li>
+<li><a href="architecture.html">構成解説</a></li>
+<li><a class="current" href="features.html">機能一覧</a></li>
+<li><a href="config.html">configui詳説</a></li>
+<li><a href="timeline.html">全体タイムライン</a></li>
+<li><a href="articles/index.html">詳細記事</a></li>
+<li><a href="share.html">共有方針</a></li></ul>
+  </aside>
+  <main class="content">
+<section class="card">
+  <h2>Plugin機能一覧</h2>
+  <p>このPluginは「全部入り」ではあるが、<code>FEATURES</code> で必要な機能だけをONにできる。コミュニティの運用方針に合わせて、返信だけ、歓迎だけ、定時投稿だけ、という切り方ができる。</p>
+  <table class='table'><tr><th>機能</th><th>役割</th><th>主な場所</th><th>ON/OFF</th></tr><tr><td><code>reply</code><br>通常返信</td><td>投稿内容を見て虚無猫が返信する中心機能。</td><td><code>internal/handler/reply_entry.go</code></td><td><code>FEATURES=reply</code></td></tr><tr><td><code>theme</code><br>お題投稿</td><td>コミュニティ活性化用のお題や話題を出す。</td><td><code>internal/handler/theme_entry.go</code></td><td><code>FEATURES=theme</code></td></tr><tr><td><code>scheduled_image</code><br>定時画像投稿</td><td>朝・夜など決めた時間に画像付き投稿を行う。</td><td><code>internal/scheduler/scheduler_entry.go</code></td><td><code>FEATURES=scheduled_image</code></td></tr><tr><td><code>idle_post</code><br>放置投稿</td><td>一定時間投稿がない時に場を動かす投稿を行う。</td><td><code>internal/scheduler/scheduler_entry.go</code></td><td><code>FEATURES=idle_post</code></td></tr><tr><td><code>image_reply</code><br>画像返信</td><td>返信時に一定確率で画像を添える。</td><td><code>internal/handler/reply_image.go</code></td><td><code>FEATURES=image_reply</code></td></tr><tr><td><code>welcome</code><br>歓迎</td><td>新加入者向けの基本案内や歓迎投稿。</td><td><code>internal/handler/welcome_entry.go</code></td><td><code>FEATURES=welcome</code></td></tr><tr><td><code>admin</code><br>管理者コマンド</td><td>管理者用の直接投稿、ヘルプ、呼称設定などの入口。</td><td><code>internal/handler/admin_entry.go</code></td><td><code>FEATURES=admin</code></td></tr></table>
+</section>
+<section class="card">
+  <h2>機能入口の整理</h2>
+  <p>機能ごとの入口を作ったことで、どこを止めれば何が止まるかが見えるようになった。</p>
+  <figure class="snapshot"><img src="assets/snapshots/tree-handler.svg" alt="handlerとschedulerの入口ファイル。"><figcaption class="caption">handlerとschedulerの入口ファイル。</figcaption></figure>
+</section>
+<section class="card">
+  <h2>FEATURESの例</h2>
+  <pre><code>FEATURES=reply,theme,scheduled_image,idle_post,image_reply,welcome,admin</code></pre>
+  <p>本番ではRailway Variables側で管理する。ローカルの.envをGitに入れないのが重要。</p>
+</section>
+</main>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+</body>
+</html>

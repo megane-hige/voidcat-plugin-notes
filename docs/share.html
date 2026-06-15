@@ -3,47 +3,52 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>共有・配布方針 | 虚無猫Plugin作業記録</title>
-  <meta name="description" content="公開ページと配布時の注意">
+  <title>共有方針 | 虚無猫Plugin制作記</title>
+  <meta name="description" content="公開してよいもの、公開しないもの。">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner">
-      <span class="kicker">吹田珈琲BOT / 虚無猫Plugin</span>
-      <h1>共有・配布方針</h1>
-      <p class="lead">公開ページと配布時の注意</p>
-      <div class="meta">
-        <span>最終更新：2026-06-16</span>
-        <span>対象：base-bot / Voidcat Plugin</span>
-        <span>公開用メモ：秘密値なし</span>
-      </div>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>共有方針</h1>
+    <p class="lead">公開してよいもの、公開しないもの。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>docs作り直し</span>
+      <span>秘密値なし</span>
     </div>
-  </header>
-  <div class="page">
-    <aside class="sidebar">
-      <h2>ページツリー</h2>
-      <ul class="nav"><li><a href="index.html">概要</a></li>
-<li><a href="timeline.html">全体タイムライン</a></li>
-<li><a href="articles/index.html">詳細記事一覧</a></li>
-<li><a href="railway.html">Railway / GitHub</a></li>
-<li><a href="persona.html">虚無猫人格設定</a></li>
-<li><a href="configui.html">configui</a></li>
-<li><a class="current" href="share.html">共有・配布方針</a></li>
-<li><a href="next.html">次回作業</a></li></ul>
-    </aside>
-    <main class="content">
-<section class="card">
-  <h2>共有・配布方針</h2>
-  <p>Plugin本体repoはPrivateのまま維持。公開用の <code>voidcat-plugin-notes</code> repoに、作業メモサイトだけを置く。</p>
-  <div class="callout warning">
-    <p>.env、APIキー、Client Secret、Railway Variables、logs、user_prefsなどの個人データは公開しない。</p>
   </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="index.html">トップ</a></li>
+<li><a href="architecture.html">構成解説</a></li>
+<li><a href="features.html">機能一覧</a></li>
+<li><a href="config.html">configui詳説</a></li>
+<li><a href="timeline.html">全体タイムライン</a></li>
+<li><a href="articles/index.html">詳細記事</a></li>
+<li><a class="current" href="share.html">共有方針</a></li></ul>
+  </aside>
+  <main class="content">
+<section class="card">
+  <h2>公開用repoの考え方</h2>
+  <p>Plugin本体repoはPrivateのまま。公開するのは <code>voidcat-plugin-notes</code> のdocsだけ。</p>
+  <div class="callout warning"><p>.env、APIキー、Client Secret、Railway Variables、logs、user_prefsなどは公開しない。</p></div>
+</section>
+<section class="card">
+  <h2>共有してよいもの</h2>
+  <ul>
+    <li>制作の流れ</li>
+    <li>フォルダ構成の説明</li>
+    <li>機能一覧</li>
+    <li>秘密値を含まない設定例</li>
+    <li>公開用のスクリーンショットやモック画像</li>
+  </ul>
 </section>
 </main>
-  </div>
-  <footer class="footer">
-    <p>このサイトは作業共有用。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p>
-  </footer>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
 </body>
 </html>

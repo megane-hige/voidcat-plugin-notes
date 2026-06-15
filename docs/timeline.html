@@ -3,55 +3,50 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>全体タイムライン | 虚無猫Plugin作業記録</title>
-  <meta name="description" content="第01段階から第46段階まで">
+  <title>全体タイムライン | 虚無猫Plugin制作記</title>
+  <meta name="description" content="第01段階から第46段階までの作業区切り。">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner">
-      <span class="kicker">吹田珈琲BOT / 虚無猫Plugin</span>
-      <h1>全体タイムライン</h1>
-      <p class="lead">第01段階から第46段階まで</p>
-      <div class="meta">
-        <span>最終更新：2026-06-16</span>
-        <span>対象：base-bot / Voidcat Plugin</span>
-        <span>公開用メモ：秘密値なし</span>
-      </div>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>全体タイムライン</h1>
+    <p class="lead">第01段階から第46段階までの作業区切り。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>docs作り直し</span>
+      <span>秘密値なし</span>
     </div>
-  </header>
-  <div class="page">
-    <aside class="sidebar">
-      <h2>ページツリー</h2>
-      <ul class="nav"><li><a href="index.html">概要</a></li>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="index.html">トップ</a></li>
+<li><a href="architecture.html">構成解説</a></li>
+<li><a href="features.html">機能一覧</a></li>
+<li><a href="config.html">configui詳説</a></li>
 <li><a class="current" href="timeline.html">全体タイムライン</a></li>
-<li><a href="articles/index.html">詳細記事一覧</a></li>
-<li><a href="railway.html">Railway / GitHub</a></li>
-<li><a href="persona.html">虚無猫人格設定</a></li>
-<li><a href="configui.html">configui</a></li>
-<li><a href="share.html">共有・配布方針</a></li>
-<li><a href="next.html">次回作業</a></li></ul>
-    </aside>
-    <main class="content">
+<li><a href="articles/index.html">詳細記事</a></li>
+<li><a href="share.html">共有方針</a></li></ul>
+  </aside>
+  <main class="content">
 <section class="card">
   <h2>全体タイムライン</h2>
-  <ol class="timeline">
-    <li><strong>第01〜08段階：base-bot化と人格切替基盤</strong><br>シベリア・フジタPluginをベースにbase-botへコピー。PERSONA / PERSONA_PATH / FEATURESを導入し、base / fujitaの往復切替を確認。</li>
-    <li><strong>第09〜14段階：虚無猫人格と安定版バックアップ</strong><br>kyomu_neko personaを追加。switch系スクリプト、assetcheck、test-profilesを追加し、安定版バックアップを作成。</li>
-    <li><strong>第15〜21段階：handler / scheduler分離</strong><br>admin、welcome、theme、reply、image_reply、scheduled_image、idle_postの入口を機能別に分離。</li>
-    <li><strong>第22〜27段階：人格追加テンプレとローカル完成版</strong><br>new-persona、switch-bot、assetcheck、test-profiles、README、引き継ぎメモを整備。</li>
-    <li><strong>第28〜37段階：外部ID・API・mixi2接続</strong><br>OpenAI API、mixi2 Pluginアプリ、Requirement、timeline取得、投稿確認まで実施。</li>
-    <li><strong>第38段階：GitHub / Railway</strong><br>Private repo作成、秘密値除外、Railway Variables登録、Volume化、Dockerfile修正。</li>
-    <li><strong>第39〜40段階：本番稼働と虚無猫返信確認</strong><br>Railwayで本番稼働確認。mixi2で虚無猫への投稿に返信が返ることを確認。</li>
-    <li><strong>第39.6段階：configui</strong><br>ローカル専用設定UIを追加。日本語化と「保存してRailway反映」ボタンを追加。</li>
-    <li><strong>第41段階：完全バックアップ</strong><br>自分用完全バックアップを作成。配布用には使わない。</li>
-    <li><strong>第46段階：GitHub Pages共有</strong><br>公開用repoに作業メモを記事風サイトとして公開する方針へ。</li>
+  <ol>
+    <li><strong>第01〜08段階</strong>：コピー、ビルド、人格切替基盤。</li>
+    <li><strong>第09〜14段階</strong>：虚無猫人格追加、切替スクリプト、安定版バックアップ。</li>
+    <li><strong>第15〜21段階</strong>：handler / schedulerの機能入口分離。</li>
+    <li><strong>第22〜27段階</strong>：new-persona、switch-bot、assetcheck、test-profiles、docs整備。</li>
+    <li><strong>第28〜37段階</strong>：OpenAI API、mixi2 Plugin、Requirement、timeline取得、投稿確認。</li>
+    <li><strong>第38〜40段階</strong>：GitHub Private repo、Railway、Volume、本番返信確認。</li>
+    <li><strong>第39.5〜39.6段階</strong>：虚無猫人格修復、configui、日本語化、Railway反映ボタン。</li>
+    <li><strong>第46段階</strong>：GitHub Pages用の制作記録サイト化。</li>
   </ol>
 </section>
 </main>
-  </div>
-  <footer class="footer">
-    <p>このサイトは作業共有用。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p>
-  </footer>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
 </body>
 </html>

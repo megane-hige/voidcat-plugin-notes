@@ -3,52 +3,49 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>詳細記事一覧 | 虚無猫Plugin作業記録</title>
-  <meta name="description" content="区切りごとの制作記録">
+  <title>詳細記事一覧 | 虚無猫Plugin制作記</title>
+  <meta name="description" content="各段階を読み物として追う制作記事。">
   <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner">
-      <span class="kicker">吹田珈琲BOT / 虚無猫Plugin</span>
-      <h1>詳細記事一覧</h1>
-      <p class="lead">区切りごとの制作記録</p>
-      <div class="meta">
-        <span>最終更新：2026-06-16</span>
-        <span>対象：base-bot / Voidcat Plugin</span>
-        <span>公開用メモ：秘密値なし</span>
-      </div>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>詳細記事一覧</h1>
+    <p class="lead">各段階を読み物として追う制作記事。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>docs作り直し</span>
+      <span>秘密値なし</span>
     </div>
-  </header>
-  <div class="page">
-    <aside class="sidebar">
-      <h2>ページツリー</h2>
-      <ul class="nav"><li><a href="../index.html">概要</a></li>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="../index.html">トップ</a></li>
+<li><a href="../architecture.html">構成解説</a></li>
+<li><a href="../features.html">機能一覧</a></li>
+<li><a href="../config.html">configui詳説</a></li>
 <li><a href="../timeline.html">全体タイムライン</a></li>
-<li><a class="current" href="../articles/index.html">詳細記事一覧</a></li>
-<li><a href="../railway.html">Railway / GitHub</a></li>
-<li><a href="../persona.html">虚無猫人格設定</a></li>
-<li><a href="../configui.html">configui</a></li>
-<li><a href="../share.html">共有・配布方針</a></li>
-<li><a href="../next.html">次回作業</a></li></ul>
-    </aside>
-    <main class="content">
+<li><a class="current" href="../articles/index.html">詳細記事</a></li>
+<li><a href="../share.html">共有方針</a></li></ul>
+  </aside>
+  <main class="content">
 <section class="card">
   <h2>詳細記事一覧</h2>
-  <p>全体タイムラインを、読み物として追えるように分割した。フォルダ構成や機能の意味を多めに入れている。</p>
-  <div class="article-list"><a class="article-link" href="stage01-base.html"><strong>第01回：シベリア・フジタPluginをbase-botにする</strong><small>第01〜08段階：コピーから始める。まずは壊さずに動く土台を作る。</small></a>
-<a class="article-link" href="stage02-persona.html"><strong>第02回：人格と機能を切り替えられるBOTにする</strong><small>第09〜14段階：PERSONA、PERSONA_PATH、FEATURESでPluginを着せ替える。</small></a>
-<a class="article-link" href="stage03-modules.html"><strong>第03回：handlerとschedulerを分解して、機能をON/OFFできるようにする</strong><small>第15〜21段階：返信、歓迎、お題、定時投稿を入口ごとに整理する。</small></a>
-<a class="article-link" href="stage04-tools.html"><strong>第04回：人格追加スクリプトと検証コマンドを整える</strong><small>第22〜27段階：作るたびに手作業で壊さないための道具作り。</small></a>
-<a class="article-link" href="stage05-mixi2.html"><strong>第05回：OpenAI APIとmixi2 Pluginにつなぐ</strong><small>第28〜37段階：APIキー、Pluginアプリ、Requirement、投稿確認まで。</small></a>
-<a class="article-link" href="stage06-railway.html"><strong>第06回：GitHubとRailwayで本番に置く</strong><small>第38〜40段階：秘密値を守りながら、Private repoとVolumeで動かす。</small></a>
-<a class="article-link" href="stage07-configui.html"><strong>第07回：虚無猫の人格を直し、ブラウザ編集UIを作る</strong><small>第39.5〜39.6段階：文字化け事故からconfigui、そして保存してRailway反映へ。</small></a>
-<a class="article-link" href="stage08-pages.html"><strong>第08回：作業ログをGitHub Pagesで公開する</strong><small>第46段階：Plugin本体とは別の公開用repoで、読める開発記録にする。</small></a></div>
+  <p>1工程あたりの読みごたえを増やした版。単なるログではなく、GPTとの対話を挟みながら、なぜその判断をしたのかを追えるようにした。</p>
+  <div class="article-list"><a class="article-link" href="stage01-base.html"><strong>第01回：動いているPluginをbase-botへ分岐する</strong><small>第01〜08段階：既存Pluginのコピーから、汎用化の入口まで。</small></a>
+<a class="article-link" href="stage02-persona.html"><strong>第02回：人格を外部ファイル化して切り替える</strong><small>第09〜14段階：PERSONA、persona.json、画像素材の分離。</small></a>
+<a class="article-link" href="stage03-modules.html"><strong>第03回：handlerとschedulerを機能入口で整理する</strong><small>第15〜21段階：reply、theme、welcome、admin、schedulerの分解。</small></a>
+<a class="article-link" href="stage04-tools.html"><strong>第04回：検証コマンドとPowerShell作業導線を作る</strong><small>第22〜27段階：new-persona、switch-bot、configcheck、docs整備。</small></a>
+<a class="article-link" href="stage05-mixi2.html"><strong>第05回：OpenAI APIとmixi2 Pluginにつなぐ</strong><small>第28〜37段階：外部ID、Requirement、timeline取得、投稿確認。</small></a>
+<a class="article-link" href="stage06-railway.html"><strong>第06回：GitHubとRailwayで本番稼働させる</strong><small>第38〜40段階：秘密値除外、Dockerfile、Railway Volume、実返信確認。</small></a>
+<a class="article-link" href="stage07-config.html"><strong>第07回：虚無猫の人格調整とconfiguiの追加</strong><small>第39.5〜39.6段階：文字化け事故、ブラウザ編集、Railway反映。</small></a>
+<a class="article-link" href="stage08-pages.html"><strong>第08回：作業ログを公開サイトとして作り直す</strong><small>第46段階：GitHub Pages、記事化、スナップショット化。</small></a></div>
 </section>
 </main>
-  </div>
-  <footer class="footer">
-    <p>このサイトは作業共有用。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p>
-  </footer>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
 </body>
 </html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>構成解説 | 虚無猫Plugin制作記</title>
+  <meta name="description" content="フォルダ構成、処理の流れ、人格と素材の分離。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>構成解説</h1>
+    <p class="lead">フォルダ構成、処理の流れ、人格と素材の分離。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>docs作り直し</span>
+      <span>秘密値なし</span>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="index.html">トップ</a></li>
+<li><a class="current" href="architecture.html">構成解説</a></li>
+<li><a href="features.html">機能一覧</a></li>
+<li><a href="config.html">configui詳説</a></li>
+<li><a href="timeline.html">全体タイムライン</a></li>
+<li><a href="articles/index.html">詳細記事</a></li>
+<li><a href="share.html">共有方針</a></li></ul>
+  </aside>
+  <main class="content">
+<section class="card">
+  <h2>base-botの構成</h2>
+  <p>Plugin本体はGoで動く。<code>cmd</code> が入口、<code>internal</code> が処理本体、<code>personas</code> が人格、<code>assets</code> が素材、<code>scripts</code> が作業補助という分け方。</p>
+  <figure class="snapshot"><img src="assets/snapshots/tree-base-bot.svg" alt="base-botのフォルダ構成。テキストではなくSVGスナップショットなので、スマホでも崩れにくい。"><figcaption class="caption">base-botのフォルダ構成。テキストではなくSVGスナップショットなので、スマホでも崩れにくい。</figcaption></figure>
+</section>
+<section class="card">
+  <h2>処理の流れ</h2>
+  <p>mixi2からイベントを受け取り、handlerで判定し、必要に応じてOpenAIで返信文を作り、mixi2 APIへ返す。定時投稿や放置投稿はschedulerが担当する。</p>
+  <div class="diagram"><div class="flow"><div class="box">mixi2 Event<small>投稿・参加</small></div><div class="box">handler<small>判定</small></div><div class="box">OpenAI<small>生成</small></div><div class="box">mixi2 API<small>返信</small></div><div class="box">scheduler<small>定時処理</small></div></div></div>
+</section>
+<section class="card">
+  <h2>人格と素材</h2>
+  <p>人格は <code>personas</code> に置き、画像参照や素材は <code>assets</code> に置く。これにより、本体コードを変えずにキャラだけ差し替えられる。</p>
+  <figure class="snapshot"><img src="assets/snapshots/tree-personas.svg" alt="人格フォルダのスナップショット。"><figcaption class="caption">人格フォルダのスナップショット。</figcaption></figure>
+</section>
+</main>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+</body>
+</html>
