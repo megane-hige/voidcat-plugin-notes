@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>虚無猫Plugin 作業記録 | 吹田珈琲BOT</title>
+  <meta name="description" content="mixi2コミュニティ用 虚無猫Pluginの作業記録と次回作業メモ。">
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <p class="kicker">吹田珈琲BOT開発記録</p>
+      <h1>虚無猫Plugin、<br>本番稼働までの作業ログ</h1>
+      <p class="lead">
+        mixi2コミュニティ用Pluginを、Railway本番稼働・Volume化・人格UI編集・GitHub連携まで整えた日の作業メモ。
+        内部の秘密値は載せず、共有できる範囲だけを記事風に整理。
+      </p>
+      <div class="meta">
+        <span>作業日：2026-06-16</span>
+        <span>対象：base-bot / Voidcat Plugin</span>
+        <span>状態：本番返信確認済み</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main class="article">
+      <section id="summary" class="card">
+        <h2>今日の到達点</h2>
+        <p>
+          今日は、虚無猫PluginをRailway上で本番稼働させ、mixi2上で実際に返信が返るところまで確認した。
+          さらに、人格ファイルをブラウザから編集できるローカル設定UIを作り、保存・GitHub反映・Railway再デプロイまでの流れを整備した。
+        </p>
+        <div class="status-grid">
+          <div class="status"><strong>Railway本番稼働</strong><small>Volume化、gRPC待機、Runtime Logs確認済み</small></div>
+          <div class="status"><strong>mixi2返信確認</strong><small>虚無猫への呼びかけで返信成功</small></div>
+          <div class="status"><strong>人格UI追加</strong><small>configuiを日本語化し、ブラウザ編集に対応</small></div>
+          <div class="status"><strong>保存して反映</strong><small>persona.jsonをcommit / pushしてRailway再デプロイ</small></div>
+        </div>
+      </section>
+
+      <section id="done" class="card">
+        <h2>完了した作業</h2>
+
+        <h3>1. Railway本番稼働確認</h3>
+        <p>
+          Railway上でPluginのデプロイ成功を確認。サービスがオンラインで、Volumeがマウントされ、
+          <code>cmd/streamcheck</code> が起動してgRPCストリーム待機状態になっていることを確認した。
+        </p>
+        <div class="callout">
+          missing env、PermissionDenied、panic、restart loop は見当たらず、本番稼働状態として問題なし。
+        </div>
+
+        <h3>2. 虚無猫 persona の文字化け修復</h3>
+        <p>
+          <code>personas/kyomu_neko/persona.json</code> が文字化けしていたため、UTF-8として正常に読み込める状態へ修復した。
+          PowerShellに日本語を直接流すと文字化けしやすいことも確認済み。
+        </p>
+
+        <h3>3. 反応ワード調整</h3>
+        <p>
+          コミュニティ内の呼称と衝突しないように、汎用的すぎる「猫」「猫さん」「ねこさん」を除外。
+          現在の反応ワードは以下。
+        </p>
+        <div class="badge-list">
+          <span>虚無猫さん</span>
+          <span>虚無猫</span>
+          <span>虚無さん</span>
+          <span>パイセン</span>
+        </div>
+
+        <h3>4. configui 追加と日本語化</h3>
+        <p>
+          ローカル専用の設定UI <code>cmd/configui</code> を追加。ブラウザで人格設定を編集できるようにした。
+        </p>
+        <pre><code>cd C:\dev\mixi2-plugins\base-bot
+go run ./cmd/configui</code></pre>
+        <p>ブラウザで以下を開く。</p>
+        <pre><code>http://127.0.0.1:8787</code></pre>
+
+        <h3>5. 「保存してRailway反映」ボタン追加</h3>
+        <p>
+          configuiに「保存してRailway反映」ボタンを追加。人格設定だけなら、UIから保存してGitHubへpushし、
+          Railwayの再デプロイまで流せる形になった。
+        </p>
+        <div class="callout warning">
+          FEATURESやスケジュールの変更はRailway Variables側の手動変更が必要。自動反映対象は基本的に persona.json。
+        </div>
+      </section>
+
+      <section id="current" class="card">
+        <h2>現在の完成状態</h2>
+        <ul>
+          <li>base-bot 本体完成</li>
+          <li>虚無猫Plugin化完了</li>
+          <li>Railway本番稼働確認済み</li>
+          <li>mixi2返信確認済み</li>
+          <li>Railway Volume化完了</li>
+          <li>虚無猫 persona 文字化け修復済み</li>
+          <li>トリガーワード調整済み</li>
+          <li>configui 追加済み</li>
+          <li>configui 日本語化済み</li>
+          <li>configui にRailway反映ボタン追加済み</li>
+          <li>自分用完全バックアップ作成済み</li>
+        </ul>
+      </section>
+
+      <section id="next" class="card">
+        <h2>次回作業メモ</h2>
+        <ol class="timeline">
+          <li>
+            <strong>configui安定化</strong><br>
+            「保存してRailway反映」の実動確認をもう一度行う。ボタン名を「人格を保存してRailway反映」に変更する案も検討。
+          </li>
+          <li>
+            <strong>他人格との切り替えUI</strong><br>
+            personas配下の人格一覧を表示し、ドロップダウンで切り替えられるようにする。
+          </li>
+          <li>
+            <strong>各ユーザーの呼称管理</strong><br>
+            user_prefs.jsonの構造を確認し、呼称確認・追加・修正・削除の管理コマンドを検討。
+          </li>
+          <li>
+            <strong>デスクトップアプリ化検討</strong><br>
+            まずは configui + 起動bat、次にWails化の順で検討。
+          </li>
+        </ol>
+      </section>
+
+      <section id="share" class="card">
+        <h2>共有時の注意</h2>
+        <p>
+          このページは作業概要の共有用。APIキー、Client Secret、Railway Variables、.env、ログ、ユーザー個別データは載せない。
+        </p>
+        <ul>
+          <li>配布用と自分用完全バックアップは分ける。</li>
+          <li><code>.env</code>、<code>logs</code>、<code>.git</code> は共有しない。</li>
+          <li>各利用者は、自分のmixi2 Plugin、OpenAI APIキー、Railway環境を用意する。</li>
+        </ul>
+      </section>
+    </main>
+
+    <aside class="toc">
+      <h2>目次</h2>
+      <ol>
+        <li><a href="#summary">今日の到達点</a></li>
+        <li><a href="#done">完了した作業</a></li>
+        <li><a href="#current">現在の完成状態</a></li>
+        <li><a href="#next">次回作業メモ</a></li>
+        <li><a href="#share">共有時の注意</a></li>
+      </ol>
+    </aside>
+  </div>
+
+  <footer class="footer">
+    <p>Generated for 吹田珈琲BOT / 虚無猫Plugin. Do not publish secrets, tokens, logs, or private configuration values.</p>
+  </footer>
+</body>
+</html>
