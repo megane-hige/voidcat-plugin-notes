@@ -1,15 +1,5 @@
 {
   "generated": "2026-06-16",
-  "purpose": "expanded docs rebuild",
-  "pages": [
-    "latest.html",
-    "architecture.html",
-    "worklog.html",
-    "features.html",
-    "config.html",
-    "services.html",
-    "original-bot.html",
-    "index.html"
-  ],
-  "notes": "Expanded worklog and features. No secrets."
+  "version": "full-v2",
+  "notes": "No sticky/fixed top nav. Worklog includes detailed articles. Features list expanded."
 }

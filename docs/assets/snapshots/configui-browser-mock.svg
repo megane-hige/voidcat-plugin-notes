@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 420" role="img" aria-label="Config UI">
+<rect width="980" height="420" rx="28" fill="#fffdf8"/>
+<circle cx="870" cy="90" r="130" fill="#8b5e34" opacity=".10"/>
+<circle cx="110" cy="380" r="150" fill="#1f6f63" opacity=".10"/>
+<rect x="42" y="42" width="896" height="336" rx="24" fill="#fff" stroke="#e1d7c8"/>
+<text x="72" y="88" font-size="30" font-weight="900" fill="#24211d">Config UI</text>
+<text x="72" y="116" font-size="17" fill="#766d60">ローカル専用のブラウザ設定UI</text>
+<text x="72" y="130" font-size="20" fill="#24211d" font-family="Consolas, monospace">[ Persona selector ]  kyomu_neko</text>
+<text x="72" y="162" font-size="20" fill="#24211d" font-family="Consolas, monospace">[ Persona sheet ]     name / tone / trigger words</text>
+<text x="72" y="194" font-size="20" fill="#24211d" font-family="Consolas, monospace">[ Features ]          reply theme idle_post ...</text>
+<text x="72" y="226" font-size="20" fill="#24211d" font-family="Consolas, monospace">[ Save ]              local persona + env helper</text>
+<text x="72" y="258" font-size="20" fill="#24211d" font-family="Consolas, monospace">[ Railway check ]     required keys / secrets hidden</text>
+</svg>

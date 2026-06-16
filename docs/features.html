@@ -1,26 +1,120 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>機能一覧 | mixi2 Plugin BOT制作ノート</title><link rel="stylesheet" href="assets/style.css"></head>
-<body id="top"><header class="site-header"><div class="wrapper navbar"><a class="brand" href="index.html" aria-label="TOPへ戻る"><span class="brand-mark"></span><span><strong>mixi2 Plugin BOT制作ノート</strong><small>Voidcat / Fujita / Nan AI</small></span></a><nav class="navlinks" aria-label="ページナビゲーション"><a href="index.html">TOP</a><a href="latest.html">最新記事</a><a href="architecture.html">基本構造解説</a><a href="worklog.html">作業記録</a><a href="features.html">機能一覧</a><a href="config.html">コンフィグ項目一覧</a><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a></nav></div></header>
-<main class="wrapper"><section class="hero"><div class="hero-card"><span class="eyebrow">公開用メモ / 秘密値なし / 2026-06-16増補版</span><h1>機能一覧</h1><p class="lead">reply、theme、scheduled_image、idle_post、image_reply、welcome、adminを運用目線で詳しく整理</p><div class="meta-row"><span class="badge">最終更新: 2026-06-16</span><span class="badge">mixi2 Plugin</span><span class="badge">GitHub Pages</span><span class="badge">Mobile Safe</span></div><div class="mock"><img src="assets/snapshots/feature-flow.svg" alt="機能一覧のモック"></div></div></section><article class="article">
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>機能一覧 | mixi2 Plugin BOT制作記</title>
+  <meta name="description" content="実行機能、補助機能、確認コマンド、運用機能まで含めた一覧。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body id="top">
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>機能一覧</h1>
+    <p class="lead">実行機能、補助機能、確認コマンド、運用機能まで含めた一覧。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>3体標準化後</span>
+      <span>秘密値なし</span>
+      <span>固定ナビなし</span>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="index.html">トップ</a></li>
+<li><a href="latest.html">最新記事</a></li>
+<li><a href="architecture.html">基本構造解説</a></li>
+<li><a href="worklog.html">作業記録</a></li>
+<li><a class="current" href="features.html">機能一覧</a></li>
+<li><a href="config.html">コンフィグ項目一覧</a></li>
+<li><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a></li>
+<li><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a></li>
+<li><a href="articles/index.html">詳細記事</a></li>
+<li><a href="share.html">共有方針</a></li></ul>
+  </aside>
+  <main class="content">
+<section class="card">
+<h2>Pluginでできること</h2>
 
-<div class="toc"><strong>目次</strong><ul><li>機能ON/OFFの基本</li><li>全体の機能マップ</li><li>reply</li><li>theme</li><li>scheduled_image</li><li>idle_post</li><li>image_reply</li><li>welcome</li><li>admin</li><li>組み合わせ例</li></ul></div>
-<h2>機能ON/OFFの基本</h2><p>Pluginの機能は <code>FEATURES</code> で制御します。すべての機能を常に動かすのではなく、コミュニティの性格、BOTの役割、画像生成の有無、運用フェーズに応じてON/OFFできる設計です。</p><pre><code>FEATURES="reply,theme,scheduled_image,idle_post,image_reply,welcome,admin"</code></pre>
-<h2>全体の機能マップ</h2><div class="mock"><img src="assets/snapshots/feature-flow.svg" alt="機能フローモック"></div>
-<table><thead><tr><th>キー</th><th>日本語名</th><th>トリガー</th><th>主な出力</th><th>依存</th></tr></thead><tbody><tr><td><code>reply</code></td><td>返信機能</td><td>投稿・コメント</td><td>テキスト返信</td><td>OpenAI、返信済みログ</td></tr><tr><td><code>theme</code></td><td>お題生成</td><td>管理者操作または自動投稿</td><td>お題・話題提供</td><td>OpenAI、投稿権限</td></tr><tr><td><code>scheduled_image</code></td><td>定時画像投稿</td><td>指定時刻</td><td>画像付き投稿</td><td>OpenAI画像、media upload</td></tr><tr><td><code>idle_post</code></td><td>静寂投稿</td><td>一定時間投稿なし</td><td>話題提供投稿</td><td>timeline、履歴、OpenAI</td></tr><tr><td><code>image_reply</code></td><td>画像返信</td><td>返信発生時の確率判定</td><td>画像付き返信</td><td>OpenAI画像、media upload</td></tr><tr><td><code>welcome</code></td><td>新規参加者案内</td><td>参加イベント</td><td>案内文・歓迎文</td><td>イベント受信権限</td></tr><tr><td><code>admin</code></td><td>管理者機能</td><td>管理者投稿・コマンド</td><td>制御・確認・投稿補助</td><td>管理者ID</td></tr></tbody></table>
-<h2>reply：返信機能</h2><p><code>reply</code> は、投稿やコメントに対してPluginが返信する基本機能です。コミュニティ内の会話に参加するBOTらしさの中心になります。ただし、自動返信は誤爆しやすいため、返信対象、返信済みID、BOT自身の投稿、非公開アカウント、管理者コマンドとの衝突などを慎重に見る必要があります。</p><ul><li>対象投稿が既に返信済みではないか。</li><li>BOT自身の投稿に返信しようとしていないか。</li><li>FEATURESに <code>reply</code> が入っているか。</li><li>管理者コマンドやシステム投稿ではないか。</li><li>人格のトリガーワードや呼びかけに合っているか。</li></ul>
-<h2>theme：お題生成</h2><p><code>theme</code> は、コミュニティに話題を提供するための機能です。単発のお題、定期的な問いかけ、会話のきっかけ作りに使います。雑談コミュニティでは、BOTが会話の空白を埋める役割を持ちますが、出しすぎるとノイズになります。</p><ul><li>コミュニティのテーマに合っているか。</li><li>前回と似た言い回しになっていないか。</li><li>ユーザーに答えやすい短さか。</li><li>センシティブな内容になっていないか。</li></ul>
-<h2>scheduled_image：定時画像投稿</h2><p><code>scheduled_image</code> は、指定時刻に画像付き投稿を行う機能です。朝、昼、夜のあいさつや、キャラクターの存在感を出す投稿に向いています。ただし、画像生成はテキストより失敗要因が多く、コストもかかります。</p><table><thead><tr><th>キー</th><th>説明</th></tr></thead><tbody><tr><td><code>SCHEDULED_POST_TIMES</code></td><td>定時投稿の時刻。</td></tr><tr><td><code>SCHEDULED_IMAGE_POST_DELAY_MINUTES</code></td><td>画像投稿を何分遅らせるか。</td></tr><tr><td><code>SCHEDULED_POST_HISTORY_PATH</code></td><td>定時投稿履歴の保存先。</td></tr><tr><td><code>OPENAI_IMAGE_ENABLED</code></td><td>画像生成の有効/無効。</td></tr></tbody></table>
-<h2>idle_post：静寂投稿</h2><p><code>idle_post</code> は、一定時間コミュニティに投稿がない場合に、BOTが話題を提供する機能です。定時投稿と違い、場の静けさを見て投稿するため、コミュニティを自然に活性化しやすい一方で、判定条件を誤ると連投に見える可能性があります。</p><table><thead><tr><th>キー</th><th>説明</th></tr></thead><tbody><tr><td><code>IDLE_POST_ENABLED</code></td><td>静寂投稿の有効/無効。</td></tr><tr><td><code>IDLE_POST_TIMES</code></td><td>静寂投稿の候補時刻。</td></tr><tr><td><code>IDLE_POST_NO_ACTIVITY_MINUTES</code></td><td>何分投稿がなければ静寂とみなすか。</td></tr><tr><td><code>IDLE_POST_COOLDOWN_MINUTES</code></td><td>静寂投稿の再投稿間隔。</td></tr><tr><td><code>IDLE_POST_THEME_PROBABILITY_PERCENT</code></td><td>静寂投稿でお題化する確率。</td></tr></tbody></table>
-<h2>image_reply：画像返信</h2><p><code>image_reply</code> は、返信時に一定確率で画像を添付する機能です。キャラクター性を出しやすい一方で、毎回画像を出すと重く、コストも高く、会話テンポも崩れやすくなります。そのため、確率制御とスロット指定で軽く扱うのが基本です。</p>
-<h2>welcome：新規参加者案内</h2><p><code>welcome</code> は、新しくコミュニティへ参加したユーザーに案内や歓迎を出す機能です。コミュニティの基本ルール、参加後にしてほしいこと、よくある使い方をやさしく提示できます。</p>
-<h2>admin：管理者機能</h2><p><code>admin</code> は、管理者向けの操作や制御機能です。通常ユーザー向けの返信とは分けて扱います。管理者機能を入れることで、BOTに直接投稿させる、設定状態を確認する、返信制御を行う、といった操作ができます。</p>
-<h2>機能の組み合わせ例</h2><table><thead><tr><th>運用段階</th><th>FEATURES例</th><th>狙い</th></tr></thead><tbody><tr><td>初期接続確認</td><td><code>admin</code></td><td>管理者操作と起動確認だけを行う。</td></tr><tr><td>返信試験</td><td><code>reply,admin</code></td><td>誤返信しないか確認。</td></tr><tr><td>画像なし運用</td><td><code>reply,theme,idle_post,welcome,admin</code></td><td>画像コストを避けつつ活性化する。</td></tr><tr><td>標準運用</td><td><code>reply,theme,scheduled_image,idle_post,image_reply,welcome,admin</code></td><td>全機能を使う。</td></tr></tbody></table>
-<h2>ログ・履歴・Volumeとの関係</h2><p>返信済みIDが消えれば同じ投稿に再返信する可能性があり、静寂投稿履歴が消えれば再デプロイ後に同じような投稿を繰り返す可能性があります。Railwayでは <code>/data</code> Volumeへ保存する構成にします。</p>
-<pre><code>REPLIED_LOG_PATH="/data/logs/replied_post_ids.txt"
-POST_LOG_PATH="/data/logs/posts.jsonl"
-SCHEDULED_POST_HISTORY_PATH="/data/state/scheduled_posts.jsonl"
-IDLE_POST_HISTORY_PATH="/data/state/idle_post_history.jsonl"
-USER_PREFS_PATH="/data/state/user_prefs.json"</code></pre>
+<p>このページでは、利用者から見た機能と、内部的にどのFEATURESや補助コマンドに関わるかをまとめます。旧版の機能一覧より少なくならないよう、実行機能、補助機能、確認機能、運用機能まで含めています。</p>
+<figure class="snapshot"><img src="assets/snapshots/feature-map.svg" alt="機能構成"><figcaption class="caption">FEATURESで入口を切る機能と、補助コマンド群。</figcaption></figure>
 
-<nav class="bottom-nav" aria-label="ページ下部ナビ"><a href="index.html">TOPへ戻る</a><a href="#top">このページのTOPへ戻る ↑</a></nav></article></main>
-<footer class="site-footer"><div class="wrapper"><span>mixi2 Plugin BOT制作ノート</span><span>APIキー、Client Secret、Railway Variables、.env、logsは掲載しない。</span></div></footer></body></html>
+</section>
+<section class="card">
+<h2>機能一覧</h2>
+<div class="table-wrap"><table class="table"><tr><th>機能名</th><th>役割</th><th>関連</th></tr><tr><td>自動返信</td><td>コミュニティ投稿を見て、各人格として自然に返信する中心機能。</td><td>reply</td></tr>
+<tr><td>反応ワード返信</td><td>虚無猫さん、フジタさん、アイちゃんなどの呼びかけに反応する。</td><td>reply</td></tr>
+<tr><td>メンションなし返信</td><td>明示メンションがなくても条件に合う投稿へ返信できる。</td><td>reply</td></tr>
+<tr><td>文脈参照返信</td><td>直近投稿や返信ツリーをもとに、単発ではない返答を作る。</td><td>reply</td></tr>
+<tr><td>返信済み管理</td><td>同じ投稿へ重複返信しないよう返信済みIDを記録する。</td><td>reply</td></tr>
+<tr><td>自己投稿除外</td><td>BOT自身の投稿に反応し続けないようにする。</td><td>reply</td></tr>
+<tr><td>AIお題投稿</td><td>コミュニティの会話を動かすためのお題や話題をAIで生成する。</td><td>theme</td></tr>
+<tr><td>お題履歴管理</td><td>過去に出した話題を記録し、同じお題の連発を避ける。</td><td>theme</td></tr>
+<tr><td>定時投稿</td><td>朝・昼・夜など、決めた時間帯に投稿する。</td><td>scheduled_image</td></tr>
+<tr><td>定時画像投稿</td><td>定時投稿に画像を添える。画像生成ON/OFFとは別に制御する。</td><td>scheduled_image</td></tr>
+<tr><td>定時投稿重複防止</td><td>同じ日・同じ枠の定時投稿を二重作成しない。</td><td>scheduled_image</td></tr>
+<tr><td>放置時投稿</td><td>一定時間コミュニティに投稿がない場合、場を動かす投稿を行う。</td><td>idle_post</td></tr>
+<tr><td>放置時お題投稿</td><td>放置投稿時に、通常発言ではなくお題形式を出せる。</td><td>idle_post</td></tr>
+<tr><td>放置投稿履歴管理</td><td>放置投稿の履歴を記録し、投稿頻度を管理する。</td><td>idle_post</td></tr>
+<tr><td>画像返信</td><td>返信時に一定確率で画像を添える。</td><td>image_reply</td></tr>
+<tr><td>画像参照ランダム</td><td>参照画像フォルダから素材をランダム利用する。</td><td>image_reply</td></tr>
+<tr><td>画像スロット指定</td><td>replyなどの素材スロットを指定する。</td><td>image_reply</td></tr>
+<tr><td>新規加入者歓迎</td><td>新しく参加したメンバーへ歓迎・案内投稿を行う。</td><td>welcome</td></tr>
+<tr><td>基本ガイド投稿</td><td>コミュニティの基本ルールや使い方を案内する。</td><td>welcome/theme</td></tr>
+<tr><td>管理者ヘルプ</td><td>管理者向けの使い方やコマンド案内を返す。</td><td>admin</td></tr>
+<tr><td>管理者直接投稿</td><td>管理者コマンドからPluginに任意文を投稿させる。</td><td>admin</td></tr>
+<tr><td>返信制御</td><td>必要に応じて返信挙動を制御する。</td><td>admin</td></tr>
+<tr><td>呼称設定</td><td>ユーザーごとの呼び名・表示名の扱いを調整する。</td><td>admin/userprefs</td></tr>
+<tr><td>ユーザー設定保存</td><td>呼称などのユーザー別設定を状態ファイルとして保持する。</td><td>userprefs</td></tr>
+<tr><td>投稿履歴記録</td><td>投稿ログをJSONLとして保存し、後から確認に使う。</td><td>logs</td></tr>
+<tr><td>イベントログ記録</td><td>受信イベントをJSONLとして保存する。</td><td>logs</td></tr>
+<tr><td>人格切替</td><td>persona.jsonを差し替えて別キャラクターで運用する。</td><td>config</td></tr>
+<tr><td>機能ON/OFF</td><td>FEATURES設定により返信・お題・画像・歓迎・管理機能を切り替える。</td><td>config</td></tr>
+<tr><td>Config UI</td><td>人格設定をブラウザで編集する。</td><td>cmd/configui</td></tr>
+<tr><td>Config UI一発起動</td><td>batとショートカットで対象repoのConfig UIを起動する。</td><td>tooling</td></tr>
+<tr><td>新規人格作成</td><td>テンプレートから新しいpersonaフォルダを作る。</td><td>scripts</td></tr>
+<tr><td>人格・機能プロファイル切替</td><td>PowerShellスクリプトで人格と機能セットをまとめて切り替える。</td><td>scripts</td></tr>
+<tr><td>素材チェック</td><td>参照画像など、人格ごとの素材フォルダが揃っているか確認する。</td><td>scripts</td></tr>
+<tr><td>複数人格テスト</td><td>登録済み人格をまとめて切り替えて設定破損を確認する。</td><td>scripts</td></tr>
+<tr><td>OpenAI接続確認</td><td>OpenAI APIへ接続できるか確認する。</td><td>cmd/gptcheck</td></tr>
+<tr><td>mixi2接続確認</td><td>mixi2 API、Plugin認証、Requirementを確認する。</td><td>cmd/mixi2check</td></tr>
+<tr><td>timeline取得確認</td><td>コミュニティ投稿を読み取れるか確認する。</td><td>cmd/timelinecheck</td></tr>
+<tr><td>投稿プレビュー</td><td>実際に投稿する前に生成内容を確認する。</td><td>cmd/postpreview</td></tr>
+<tr><td>投稿確認</td><td>mixi2へ投稿できるかテストする。</td><td>cmd/postcheck</td></tr>
+<tr><td>常時ストリーム待機</td><td>Railway上でイベントを待ち受け、投稿や参加イベントに反応する。</td><td>cmd/plugin</td></tr>
+<tr><td>Railway Volume保存</td><td>ログや状態ファイルを/data配下に置き、再起動後も保持する。</td><td>Railway</td></tr>
+<tr><td>GitHub Pages作業ログ</td><td>Plugin本体とは別に制作記録を公開サイトとして整理する。</td><td>docs</td></tr></table></div>
+</section>
+<section class="card">
+<h2>大きく分けると4系統</h2>
+
+<div class="grid">
+<div class="tile"><strong>会話する</strong><small>自動返信、反応ワード返信、文脈参照、画像返信。</small></div>
+<div class="tile"><strong>場を動かす</strong><small>AIお題、定時投稿、放置時投稿、歓迎。</small></div>
+<div class="tile"><strong>人格を変える</strong><small>persona.json、人格切替、反応ワード、口調設定。</small></div>
+<div class="tile"><strong>運用を支える</strong><small>ログ、重複防止、確認コマンド、Railway Volume。</small></div>
+</div>
+
+</section>
+<section class="card">
+<h2>FEATURESで切る主な実行機能</h2>
+
+<div class="badges">
+<span>reply</span><span>theme</span><span>scheduled_image</span><span>idle_post</span><span>image_reply</span><span>welcome</span><span>admin</span>
+</div>
+<p>補助コマンドやログ保存はFEATURESだけで切るものではなく、運用を支える基盤として存在します。</p>
+
+</section>
+
+    <nav class="bottom-nav">
+      <a href="index.html">TOPへ戻る</a>
+      <a href="#top">このページのTOPへ戻る ↑</a>
+    </nav>
+  </main>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+</body>
+</html>

@@ -1,26 +1,84 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>mixi2 Plugin BOT制作ノート | mixi2 Plugin BOT制作ノート</title><link rel="stylesheet" href="assets/style.css"></head>
-<body id="top"><header class="site-header"><div class="wrapper navbar"><a class="brand" href="index.html" aria-label="TOPへ戻る"><span class="brand-mark"></span><span><strong>mixi2 Plugin BOT制作ノート</strong><small>Voidcat / Fujita / Nan AI</small></span></a><nav class="navlinks" aria-label="ページナビゲーション"><a href="index.html">TOP</a><a href="latest.html">最新記事</a><a href="architecture.html">基本構造解説</a><a href="worklog.html">作業記録</a><a href="features.html">機能一覧</a><a href="config.html">コンフィグ項目一覧</a><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a></nav></div></header>
-<main class="wrapper"><section class="hero"><div class="hero-card"><span class="eyebrow">公開用メモ / 秘密値なし / 2026-06-16増補版</span><h1>mixi2 Plugin BOT制作ノート</h1><p class="lead">三体標準化後の構成・機能・設定・作業記録をまとめた増補版記事サイト</p><div class="meta-row"><span class="badge">最終更新: 2026-06-16</span><span class="badge">mixi2 Plugin</span><span class="badge">GitHub Pages</span><span class="badge">Mobile Safe</span></div><div class="mock"><img src="assets/snapshots/repo-standardization.svg" alt="mixi2 Plugin BOT制作ノートのモック"></div></div></section><article class="article">
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>mixi2 Plugin BOT制作記 | mixi2 Plugin BOT制作記</title>
+  <meta name="description" content="既存Pluginからbase-bot化し、三体標準化とGitHub Pages公開メモまで整理した制作記録。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body id="top">
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>mixi2 Plugin BOT制作記</h1>
+    <p class="lead">既存Pluginからbase-bot化し、三体標準化とGitHub Pages公開メモまで整理した制作記録。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>3体標準化後</span>
+      <span>秘密値なし</span>
+      <span>固定ナビなし</span>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a class="current" href="index.html">トップ</a></li>
+<li><a href="latest.html">最新記事</a></li>
+<li><a href="architecture.html">基本構造解説</a></li>
+<li><a href="worklog.html">作業記録</a></li>
+<li><a href="features.html">機能一覧</a></li>
+<li><a href="config.html">コンフィグ項目一覧</a></li>
+<li><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a></li>
+<li><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a></li>
+<li><a href="articles/index.html">詳細記事</a></li>
+<li><a href="share.html">共有方針</a></li></ul>
+  </aside>
+  <main class="content">
+<section class="card">
+<h2>これは何の記録か</h2>
 
-<h2>記事一覧</h2>
-<p>このサイトは、mixi2コミュニティ用Plugin BOT制作の公開用ノートです。Plugin本体はPrivate repoで管理し、公開するのは構造、考え方、作業記録、設定項目、外部サービス準備、オリジナルBOT化の流れだけに限定しています。</p>
-<p>増補版では、前回不足していた作業記録と機能一覧を大きく拡張し、ほかのページも説明量を増やしました。スマホでの横はみ出しを避けるため、表とコードは横スクロール、カード型レイアウトはスマホでは1カラムに落としています。</p>
+<p>mixi2コミュニティ用Plugin BOTを、既存Pluginから分岐し、base-bot化し、虚無猫・シベリア・フジタ・空想アイの3体専用repoへ標準化し、Railwayで運用できる形まで整理した制作記録です。</p>
+<p>今回の再構成では、旧記事の雰囲気に近いページツリー型の構成へ戻しつつ、上部に固定されるコンテンツボタンは置かない形にしました。スマホではサイドバーが上に回り、表やコードは内部スクロールで収まるようにしています。</p>
+<div class="diagram"><div class="flow"><div class="box">既存Plugin<small>動く土台</small></div><div class="box">base-bot<small>汎用化</small></div><div class="box">三体専用repo<small>標準化</small></div><div class="box">Railway<small>本番稼働</small></div><div class="box">Pages<small>制作記録</small></div></div></div>
+
+</section>
+<section class="card">
+<h2>まず見るページ</h2>
+
 <div class="grid">
-<section class="card"><h3><a href="latest.html">最新記事</a></h3><p>三体標準化とConfig UI最終調整の記録</p></section>
-<section class="card"><h3><a href="architecture.html">基本構造解説</a></h3><p>フォルダ構成・機能構成・処理の流れ</p></section>
-<section class="card"><h3><a href="worklog.html">作業記録</a></h3><p>旧詳細記事を再構成した制作ログ</p></section>
-<section class="card"><h3><a href="features.html">機能一覧</a></h3><p>Pluginが持つ機能とON/OFFの考え方</p></section>
-<section class="card"><h3><a href="config.html">コンフィグ項目一覧</a></h3><p>Railway Variablesとローカル設定の整理</p></section>
-<section class="card"><h3><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a></h3><p>外部サービス・アプリ・アカウント準備</p></section>
-<section class="card"><h3><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a></h3><p>テンプレートから自分のBOTへ進める手順</p></section>
+  <div class="tile"><strong><a href="latest.html">最新記事</a></strong><small>今回の三体標準化、Config UI、Railway確認、docs再構成。</small></div>
+  <div class="tile"><strong><a href="architecture.html">基本構造解説</a></strong><small>フォルダ構成、処理の流れ、人格と素材の分離。</small></div>
+  <div class="tile"><strong><a href="worklog.html">作業記録</a></strong><small>旧詳細記事を統合した長い制作ログ。</small></div>
+  <div class="tile"><strong><a href="features.html">機能一覧</a></strong><small>実装機能、補助機能、確認コマンド、運用機能。</small></div>
+  <div class="tile"><strong><a href="config.html">コンフィグ項目一覧</a></strong><small>Railway Variables、Secret、Volume、投稿時刻、画像設定。</small></div>
+  <div class="tile"><strong><a href="articles/index.html">詳細記事</a></strong><small>旧記事相当の第01回〜第08回。</small></div>
 </div>
-<h2>現在の標準構成</h2>
-<div class="mock"><img src="assets/snapshots/repo-standardization.svg" alt="三体Plugin標準化モック"></div>
-<div class="kv"><div>虚無猫</div><div><code>C:\dev\mixi2-plugins\mixi2-community-voidcat-plugin</code></div><div>シベリア・フジタ</div><div><code>C:\dev\mixi2-plugins\mixi2-community-fujita-plugin</code></div><div>空想アイ</div><div><code>C:\dev\mixi2-plugins\mixi2-community-nan_ai-plugin</code></div><div>共通テンプレ</div><div><code>C:\dev\mixi2-plugins\base-bot</code>。Gitなし。Railway本番には使わない。</div><div>公開ノート</div><div><code>C:\dev\mixi2-plugins\voidcat-plugin-notes</code>。GitHub Pages用。</div></div>
-<h2>公開範囲</h2>
-<div class="cols"><section class="mini-card"><h4>掲載するもの</h4><ul><li>フォルダ構成</li><li>機能構成</li><li>設定項目名</li><li>作業判断</li><li>公開可能な手順</li><li>モック図</li></ul></section><section class="mini-card"><h4>掲載しないもの</h4><ul><li>APIキー</li><li>Client Secret</li><li>Railway Variablesの実値</li><li>.env本体</li><li>logs</li><li>実コミュニティ投稿データ</li></ul></section></div>
-<div class="note warn"><strong>注意：</strong>このサイトは公開用の制作記録です。<code>.env</code>、APIキー、Client Secret、Railway Variables、logs、投稿データ、ユーザー情報は掲載対象外です。</div>
 
-<nav class="bottom-nav" aria-label="ページ下部ナビ"><a href="index.html">TOPへ戻る</a><a href="#top">このページのTOPへ戻る ↑</a></nav></article></main>
-<footer class="site-footer"><div class="wrapper"><span>mixi2 Plugin BOT制作ノート</span><span>APIキー、Client Secret、Railway Variables、.env、logsは掲載しない。</span></div></footer></body></html>
+</section>
+<section class="card">
+<h2>詳細記事</h2>
+
+<div class="article-list">
+<a class="article-link" href="articles/stage01-base.html"><strong>第01回：動いているPluginをbase-botへ分岐する</strong><small>既存Pluginのコピーから、汎用化の入口まで。</small></a>
+<a class="article-link" href="articles/stage02-persona.html"><strong>第02回：人格を外部ファイル化して切り替える</strong><small>PERSONA、persona.json、画像素材の分離。</small></a>
+<a class="article-link" href="articles/stage03-modules.html"><strong>第03回：handlerとschedulerを機能入口で整理する</strong><small>reply、theme、welcome、admin、schedulerの分解。</small></a>
+<a class="article-link" href="articles/stage04-tools.html"><strong>第04回：検証コマンドとPowerShell作業導線を作る</strong><small>new-persona、switch-bot、configcheck、docs整備。</small></a>
+<a class="article-link" href="articles/stage05-mixi2.html"><strong>第05回：OpenAI APIとmixi2 Pluginにつなぐ</strong><small>外部ID、Requirement、timeline取得、投稿確認。</small></a>
+<a class="article-link" href="articles/stage06-railway.html"><strong>第06回：GitHubとRailwayで本番稼働させる</strong><small>秘密値除外、Dockerfile、Railway Volume、実返信確認。</small></a>
+<a class="article-link" href="articles/stage07-config.html"><strong>第07回：虚無猫の人格調整とconfiguiの追加</strong><small>文字化け事故、ブラウザ編集、Railway反映。</small></a>
+<a class="article-link" href="articles/stage08-pages.html"><strong>第08回：作業ログを公開サイトとして作り直す</strong><small>GitHub Pages、記事化、スナップショット化。</small></a>
+</div>
+
+</section>
+
+    <nav class="bottom-nav">
+      <a href="index.html">TOPへ戻る</a>
+      <a href="#top">このページのTOPへ戻る ↑</a>
+    </nav>
+  </main>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+</body>
+</html>

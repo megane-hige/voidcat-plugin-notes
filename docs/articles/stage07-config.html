@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第07回：虚無猫の人格調整とconfiguiの追加 | mixi2 Plugin BOT制作記</title>
+  <meta name="description" content="ブラウザ編集、Config UI、一発起動。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body id="top">
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>第07回：虚無猫の人格調整とconfiguiの追加</h1>
+    <p class="lead">ブラウザ編集、Config UI、一発起動。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>3体標準化後</span>
+      <span>秘密値なし</span>
+      <span>固定ナビなし</span>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="../index.html">トップ</a></li>
+<li><a href="../worklog.html">作業記録</a></li>
+<li><a href="index.html">詳細記事一覧</a></li>
+<li><a href="stage01-base.html">第01回</a></li>
+<li><a href="stage02-persona.html">第02回</a></li>
+<li><a href="stage03-modules.html">第03回</a></li>
+<li><a href="stage04-tools.html">第04回</a></li>
+<li><a href="stage05-mixi2.html">第05回</a></li>
+<li><a href="stage06-railway.html">第06回</a></li>
+<li><a class="current" href="stage07-config.html">第07回</a></li>
+<li><a href="stage08-pages.html">第08回</a></li></ul>
+  </aside>
+  <main class="content">
+<section class="card">
+<h2>第07回：虚無猫の人格調整とconfiguiの追加</h2>
+<p>persona.jsonを直接編集すると、JSON構造崩れや文字化けが起きやすい。そこでConfig UIを作り、ブラウザから人格設定を編集できるようにした。</p><p>Config UIには、人格選択、人格シート、機能ON/OFF、ローカル.env補助設定、Railway Variables確認欄を持たせた。ただしRailway本番を直接変更するUIではない。</p><p>起動の手間を減らすため、open-configui.batを作成し、デスクトップショートカットから起動できるようにした。最初は日本語batが文字化けしたため、ASCII版に修正した。</p><p>これにより、Voidcat、Fujita、Nan AI、base templateを番号選択で起動し、ブラウザも自動で開く運用になった。</p>
+<div class="callout"><p>このページは公開用の制作記録です。APIキー、Client Secret、Railway Variables、.env、logs、実コミュニティの投稿データは掲載しません。</p></div>
+
+</section>
+
+    <nav class="bottom-nav">
+      <a href="../index.html">TOPへ戻る</a>
+      <a href="#top">このページのTOPへ戻る ↑</a>
+    </nav>
+  </main>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+</body>
+</html>

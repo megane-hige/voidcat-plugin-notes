@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第01回：動いているPluginをbase-botへ分岐する | mixi2 Plugin BOT制作記</title>
+  <meta name="description" content="既存Pluginのコピーから汎用化の入口まで。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body id="top">
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>第01回：動いているPluginをbase-botへ分岐する</h1>
+    <p class="lead">既存Pluginのコピーから汎用化の入口まで。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>3体標準化後</span>
+      <span>秘密値なし</span>
+      <span>固定ナビなし</span>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="../index.html">トップ</a></li>
+<li><a href="../worklog.html">作業記録</a></li>
+<li><a href="index.html">詳細記事一覧</a></li>
+<li><a class="current" href="stage01-base.html">第01回</a></li>
+<li><a href="stage02-persona.html">第02回</a></li>
+<li><a href="stage03-modules.html">第03回</a></li>
+<li><a href="stage04-tools.html">第04回</a></li>
+<li><a href="stage05-mixi2.html">第05回</a></li>
+<li><a href="stage06-railway.html">第06回</a></li>
+<li><a href="stage07-config.html">第07回</a></li>
+<li><a href="stage08-pages.html">第08回</a></li></ul>
+  </aside>
+  <main class="content">
+<section class="card">
+<h2>第01回：動いているPluginをbase-botへ分岐する</h2>
+<p>既に動作していたシベリア・フジタPluginを直接壊さないため、まずは別フォルダへ丸コピーした。最初に目指したのは新機能ではなく、同じ状態でビルドできる安全な作業場を作ることだった。</p><p>この段階では、まだ人格や素材をきれいに分けない。先に全体の依存関係、Go module、cmd配下の入口、internal配下の処理がそのまま動くかを確認した。</p><p>確認は必ずコピー先で行い、go build ./...を通した。ここで通らない場合は、汎用化以前の問題としてコピーや依存関係を直す必要がある。</p><p>作業上の重要点は、フォルダ名とrepo名を混同しないことだった。後に虚無猫でこの混同が問題になったため、この段階の考え方は現在の三体標準化にもつながっている。</p>
+<div class="callout"><p>このページは公開用の制作記録です。APIキー、Client Secret、Railway Variables、.env、logs、実コミュニティの投稿データは掲載しません。</p></div>
+
+</section>
+
+    <nav class="bottom-nav">
+      <a href="../index.html">TOPへ戻る</a>
+      <a href="#top">このページのTOPへ戻る ↑</a>
+    </nav>
+  </main>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+</body>
+</html>

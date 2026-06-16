@@ -1,23 +1,83 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>コンフィグ項目一覧 | mixi2 Plugin BOT制作ノート</title><link rel="stylesheet" href="assets/style.css"></head>
-<body id="top"><header class="site-header"><div class="wrapper navbar"><a class="brand" href="index.html" aria-label="TOPへ戻る"><span class="brand-mark"></span><span><strong>mixi2 Plugin BOT制作ノート</strong><small>Voidcat / Fujita / Nan AI</small></span></a><nav class="navlinks" aria-label="ページナビゲーション"><a href="index.html">TOP</a><a href="latest.html">最新記事</a><a href="architecture.html">基本構造解説</a><a href="worklog.html">作業記録</a><a href="features.html">機能一覧</a><a href="config.html">コンフィグ項目一覧</a><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a></nav></div></header>
-<main class="wrapper"><section class="hero"><div class="hero-card"><span class="eyebrow">公開用メモ / 秘密値なし / 2026-06-16増補版</span><h1>コンフィグ項目一覧</h1><p class="lead">Railway Variables、ローカル.env補助設定、永続化パス、秘密値の注意</p><div class="meta-row"><span class="badge">最終更新: 2026-06-16</span><span class="badge">mixi2 Plugin</span><span class="badge">GitHub Pages</span><span class="badge">Mobile Safe</span></div><div class="mock"><img src="assets/snapshots/config-matrix.svg" alt="コンフィグ項目一覧のモック"></div></div></section><article class="article">
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>コンフィグ項目一覧 | mixi2 Plugin BOT制作記</title>
+  <meta name="description" content="Config UI、Railway Variables、Secret、Volume、投稿時刻、画像設定の整理。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body id="top">
+<header class="site-header">
+  <div class="header-inner">
+    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
+    <h1>コンフィグ項目一覧</h1>
+    <p class="lead">Config UI、Railway Variables、Secret、Volume、投稿時刻、画像設定の整理。</p>
+    <div class="meta">
+      <span>再構成版：2026-06-16</span>
+      <span>3体標準化後</span>
+      <span>秘密値なし</span>
+      <span>固定ナビなし</span>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <aside class="sidebar">
+    <h2>ページツリー</h2>
+    <ul class="nav"><li><a href="index.html">トップ</a></li>
+<li><a href="latest.html">最新記事</a></li>
+<li><a href="architecture.html">基本構造解説</a></li>
+<li><a href="worklog.html">作業記録</a></li>
+<li><a href="features.html">機能一覧</a></li>
+<li><a class="current" href="config.html">コンフィグ項目一覧</a></li>
+<li><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a></li>
+<li><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a></li>
+<li><a href="articles/index.html">詳細記事</a></li>
+<li><a href="share.html">共有方針</a></li></ul>
+  </aside>
+  <main class="content">
+<section class="card">
+<h2>Config UIとは</h2>
 
-<div class="toc"><strong>目次</strong><ul><li>コンフィグの分類</li><li>人格・素材</li><li>mixi2接続</li><li>OpenAI接続</li><li>投稿・返信</li><li>永続化パス</li><li>Secret空欄上書き事故</li></ul></div>
-<h2>コンフィグの分類</h2><p>コンフィグは、人格・素材、mixi2接続、OpenAI接続、投稿スケジュール、画像設定、永続化パス、管理者設定、実行環境に分けて考えます。Railway本番ではVariablesとして設定します。</p><div class="mock"><img src="assets/snapshots/config-matrix.svg" alt="コンフィグ分類モック"></div>
-<h2>人格・素材</h2><table><thead><tr><th>キー</th><th>例</th><th>説明</th><th>確認ポイント</th></tr></thead><tbody><tr><td><code>PERSONA</code></td><td><code>kyomu_neko</code></td><td>使用する人格キー。</td><td>専用repoの人格名と一致しているか。</td></tr><tr><td><code>PERSONA_PATH</code></td><td><code>personas/kyomu_neko/persona.json</code></td><td>人格シートのパス。</td><td><code>Test-Path</code> がTrueか。</td></tr><tr><td><code>IMAGE_REF_DIR</code></td><td><code>assets/kyomu_neko/refs</code></td><td>画像参照素材のパス。</td><td>画像機能を使う場合に存在するか。</td></tr></tbody></table>
-<h2>mixi2接続</h2><table><thead><tr><th>キー</th><th>説明</th><th>扱い</th><th>失敗時の症状</th></tr></thead><tbody><tr><td><code>MIXI2_CLIENT_ID</code></td><td>mixi2 PluginのClient ID。</td><td>Railway Variables。</td><td>認証失敗。</td></tr><tr><td><code>MIXI2_CLIENT_SECRET</code></td><td>mixi2 PluginのClient Secret。</td><td>Secret。公開禁止。</td><td>token取得失敗。</td></tr><tr><td><code>MIXI2_COMMUNITY_ID</code></td><td>対象コミュニティID。</td><td>Pluginごとに違う。</td><td>投稿先違い。</td></tr></tbody></table>
-<h2>OpenAI接続</h2><table><thead><tr><th>キー</th><th>説明</th><th>扱い</th><th>注意</th></tr></thead><tbody><tr><td><code>OPENAI_API_KEY</code></td><td>OpenAI APIキー。</td><td>Secret。公開禁止。</td><td>空欄上書き事故に注意。</td></tr><tr><td><code>OPENAI_MODEL</code></td><td>テキスト生成モデル。</td><td>Railway Variables。</td><td>コストと品質のバランス。</td></tr><tr><td><code>OPENAI_IMAGE_ENABLED</code></td><td>画像生成の有効/無効。</td><td>Railway Variables。</td><td><code>false</code> なら画像機能は実質停止。</td></tr></tbody></table>
-<h2>投稿・返信</h2><table><thead><tr><th>キー</th><th>説明</th><th>例</th></tr></thead><tbody><tr><td><code>FEATURES</code></td><td>有効化する機能一覧。</td><td><code>reply,theme,...</code></td></tr><tr><td><code>SCHEDULED_POST_TIMES</code></td><td>定時投稿の時刻。</td><td><code>07:15,12:15,19:15</code></td></tr><tr><td><code>IDLE_POST_TIMES</code></td><td>静寂投稿候補時刻。</td><td><code>10:30,15:30,21:30</code></td></tr><tr><td><code>REPLY_IMAGE_PROBABILITY_PERCENT</code></td><td>画像返信確率。</td><td><code>5</code></td></tr></tbody></table>
-<h2>永続化パス</h2><pre><code>EVENT_LOG_PATH="/data/logs/events.jsonl"
-POST_LOG_PATH="/data/logs/posts.jsonl"
-REPLIED_LOG_PATH="/data/logs/replied_post_ids.txt"
-SCHEDULED_POST_HISTORY_PATH="/data/state/scheduled_posts.jsonl"
-IDLE_POST_HISTORY_PATH="/data/state/idle_post_history.jsonl"
-AI_THEME_HISTORY_PATH="/data/state/ai_theme_history.jsonl"
-USER_PREFS_PATH="/data/state/user_prefs.json"
-REPLY_CONTROL_STATE_PATH="/data/state/reply_control_state.json"</code></pre>
-<h2>Secret空欄上書き事故</h2><div class="note warn"><p><strong>最重要：</strong><code>MIXI2_CLIENT_SECRET=""</code> や <code>OPENAI_API_KEY=""</code> をRailwayに貼ると、実値が空で上書きされます。テンプレや記事では実値を書かず、Railway画面で直接入れる前提にします。</p></div>
+<p><code>cmd/configui</code> は、人格設定をブラウザで編集するためのローカル専用UIです。PowerShellで日本語JSONを直接触ると文字化けしやすいため、フォームから編集できるようにしました。</p>
+<figure class="browser-shot"><img src="assets/snapshots/configui-browser-mock.svg" alt="Config UIモック"><figcaption class="caption">Config UIはRailway本番を直接操作しない。ローカルpersonaと補助設定を扱う。</figcaption></figure>
 
-<nav class="bottom-nav" aria-label="ページ下部ナビ"><a href="index.html">TOPへ戻る</a><a href="#top">このページのTOPへ戻る ↑</a></nav></article></main>
-<footer class="site-footer"><div class="wrapper"><span>mixi2 Plugin BOT制作ノート</span><span>APIキー、Client Secret、Railway Variables、.env、logsは掲載しない。</span></div></footer></body></html>
+</section>
+<section class="card">
+<h2>主要コンフィグ項目</h2>
+<div class="table-wrap"><table class="table"><tr><th>キー</th><th>意味</th><th>例・注意</th></tr><tr><td>PERSONA</td><td>使用する人格キー。</td><td>kyomu_neko / fujita / nanchatte_ai</td></tr>
+<tr><td>PERSONA_PATH</td><td>人格シートのパス。</td><td>personas/kyomu_neko/persona.json</td></tr>
+<tr><td>IMAGE_REF_DIR</td><td>画像参照素材の場所。</td><td>assets/kyomu_neko/refs</td></tr>
+<tr><td>MIXI2_CLIENT_ID</td><td>mixi2 PluginのClient ID。</td><td>公開資料では実値を出さない。</td></tr>
+<tr><td>MIXI2_CLIENT_SECRET</td><td>mixi2 PluginのClient Secret。</td><td>Railwayで実値。空欄上書き禁止。</td></tr>
+<tr><td>MIXI2_COMMUNITY_ID</td><td>対象コミュニティID。</td><td>Pluginごとに違う。</td></tr>
+<tr><td>OPENAI_API_KEY</td><td>OpenAI APIキー。</td><td>Railwayで実値。公開禁止。</td></tr>
+<tr><td>OPENAI_MODEL</td><td>テキスト生成モデル。</td><td>コストと品質で調整。</td></tr>
+<tr><td>OPENAI_IMAGE_ENABLED</td><td>画像生成の有効/無効。</td><td>falseなら画像生成しない。</td></tr>
+<tr><td>FEATURES</td><td>有効機能一覧。</td><td>reply,theme,...</td></tr>
+<tr><td>SCHEDULED_POST_TIMES</td><td>定時投稿時刻。</td><td>07:15,12:15,19:15</td></tr>
+<tr><td>IDLE_POST_TIMES</td><td>静寂投稿候補時刻。</td><td>10:30,15:30,21:30</td></tr>
+<tr><td>EVENT_LOG_PATH</td><td>イベントログ保存先。</td><td>/data/logs/events.jsonl</td></tr>
+<tr><td>REPLIED_LOG_PATH</td><td>返信済みID保存先。</td><td>/data/logs/replied_post_ids.txt</td></tr>
+<tr><td>USER_PREFS_PATH</td><td>呼称などの保存先。</td><td>/data/state/user_prefs.json</td></tr>
+<tr><td>APP_ENV</td><td>実行環境。</td><td>production</td></tr>
+<tr><td>LOG_LEVEL</td><td>ログレベル。</td><td>info</td></tr></table></div>
+</section>
+<section class="card">
+<h2>Secret空欄上書き事故</h2>
+
+<div class="callout warning"><p><code>MIXI2_CLIENT_SECRET=""</code> や <code>OPENAI_API_KEY=""</code> をRailwayに貼ると、実値が空で上書きされます。テンプレには実値を書かず、Railway画面で直接入力します。</p></div>
+<pre><code>MIXI2_CLIENT_SECRET="&lt;Railwayで実値を設定&gt;"
+OPENAI_API_KEY="&lt;Railwayで実値を設定&gt;"</code></pre>
+
+</section>
+
+    <nav class="bottom-nav">
+      <a href="index.html">TOPへ戻る</a>
+      <a href="#top">このページのTOPへ戻る ↑</a>
+    </nav>
+  </main>
+</div>
+<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+</body>
+</html>
