@@ -1,82 +1,26 @@
 <!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>機能一覧 | mixi2 Plugin BOT制作ノート</title>
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<body id="top">
-<header class="site-header">
-  <div class="wrapper navbar">
-    <a class="brand" href="index.html" aria-label="TOPへ戻る">
-      <span class="brand-mark"></span>
-      <span><strong>mixi2 Plugin BOT制作ノート</strong><small>Voidcat / Fujita / Nan AI</small></span>
-    </a>
-    <nav class="navlinks" aria-label="ページナビゲーション">
-      <a href="index.html">TOP</a><a href="latest.html">最新記事</a><a href="architecture.html">基本構造解説</a><a href="worklog.html">作業記録</a><a href="features.html">機能一覧</a><a href="config.html">コンフィグ項目一覧</a><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a>
-    </nav>
-  </div>
-</header>
-<main class="wrapper">
-  <section class="hero">
-    <div class="hero-card">
-      <span class="eyebrow">公開用メモ / 秘密値なし</span>
-      <h1>機能一覧</h1>
-      <p class="lead">reply、theme、scheduled_image、idle_post、image_reply、welcome、adminの役割</p>
-      <div class="meta-row">
-        <span class="badge">最終更新: 2026-06-16</span>
-        <span class="badge">mixi2 Plugin</span>
-        <span class="badge">GitHub Pages</span>
-      </div>
-      <div class="mock"><img src="assets/snapshots/feature-flow.svg" alt="機能一覧のモック"></div>
-    </div>
-  </section>
-  <article class="article">
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>機能一覧 | mixi2 Plugin BOT制作ノート</title><link rel="stylesheet" href="assets/style.css"></head>
+<body id="top"><header class="site-header"><div class="wrapper navbar"><a class="brand" href="index.html" aria-label="TOPへ戻る"><span class="brand-mark"></span><span><strong>mixi2 Plugin BOT制作ノート</strong><small>Voidcat / Fujita / Nan AI</small></span></a><nav class="navlinks" aria-label="ページナビゲーション"><a href="index.html">TOP</a><a href="latest.html">最新記事</a><a href="architecture.html">基本構造解説</a><a href="worklog.html">作業記録</a><a href="features.html">機能一覧</a><a href="config.html">コンフィグ項目一覧</a><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a></nav></div></header>
+<main class="wrapper"><section class="hero"><div class="hero-card"><span class="eyebrow">公開用メモ / 秘密値なし / 2026-06-16増補版</span><h1>機能一覧</h1><p class="lead">reply、theme、scheduled_image、idle_post、image_reply、welcome、adminを運用目線で詳しく整理</p><div class="meta-row"><span class="badge">最終更新: 2026-06-16</span><span class="badge">mixi2 Plugin</span><span class="badge">GitHub Pages</span><span class="badge">Mobile Safe</span></div><div class="mock"><img src="assets/snapshots/feature-flow.svg" alt="機能一覧のモック"></div></div></section><article class="article">
 
-<h2>機能ON/OFFの基本</h2>
-<p>Pluginの機能は <code>FEATURES</code> にカンマ区切りで指定する。全部入りにもできるし、返信だけ、管理者機能だけ、画像なし運用にもできる。</p>
-<pre><code>FEATURES="reply,theme,scheduled_image,idle_post,image_reply,welcome,admin"</code></pre>
+<div class="toc"><strong>目次</strong><ul><li>機能ON/OFFの基本</li><li>全体の機能マップ</li><li>reply</li><li>theme</li><li>scheduled_image</li><li>idle_post</li><li>image_reply</li><li>welcome</li><li>admin</li><li>組み合わせ例</li></ul></div>
+<h2>機能ON/OFFの基本</h2><p>Pluginの機能は <code>FEATURES</code> で制御します。すべての機能を常に動かすのではなく、コミュニティの性格、BOTの役割、画像生成の有無、運用フェーズに応じてON/OFFできる設計です。</p><pre><code>FEATURES="reply,theme,scheduled_image,idle_post,image_reply,welcome,admin"</code></pre>
+<h2>全体の機能マップ</h2><div class="mock"><img src="assets/snapshots/feature-flow.svg" alt="機能フローモック"></div>
+<table><thead><tr><th>キー</th><th>日本語名</th><th>トリガー</th><th>主な出力</th><th>依存</th></tr></thead><tbody><tr><td><code>reply</code></td><td>返信機能</td><td>投稿・コメント</td><td>テキスト返信</td><td>OpenAI、返信済みログ</td></tr><tr><td><code>theme</code></td><td>お題生成</td><td>管理者操作または自動投稿</td><td>お題・話題提供</td><td>OpenAI、投稿権限</td></tr><tr><td><code>scheduled_image</code></td><td>定時画像投稿</td><td>指定時刻</td><td>画像付き投稿</td><td>OpenAI画像、media upload</td></tr><tr><td><code>idle_post</code></td><td>静寂投稿</td><td>一定時間投稿なし</td><td>話題提供投稿</td><td>timeline、履歴、OpenAI</td></tr><tr><td><code>image_reply</code></td><td>画像返信</td><td>返信発生時の確率判定</td><td>画像付き返信</td><td>OpenAI画像、media upload</td></tr><tr><td><code>welcome</code></td><td>新規参加者案内</td><td>参加イベント</td><td>案内文・歓迎文</td><td>イベント受信権限</td></tr><tr><td><code>admin</code></td><td>管理者機能</td><td>管理者投稿・コマンド</td><td>制御・確認・投稿補助</td><td>管理者ID</td></tr></tbody></table>
+<h2>reply：返信機能</h2><p><code>reply</code> は、投稿やコメントに対してPluginが返信する基本機能です。コミュニティ内の会話に参加するBOTらしさの中心になります。ただし、自動返信は誤爆しやすいため、返信対象、返信済みID、BOT自身の投稿、非公開アカウント、管理者コマンドとの衝突などを慎重に見る必要があります。</p><ul><li>対象投稿が既に返信済みではないか。</li><li>BOT自身の投稿に返信しようとしていないか。</li><li>FEATURESに <code>reply</code> が入っているか。</li><li>管理者コマンドやシステム投稿ではないか。</li><li>人格のトリガーワードや呼びかけに合っているか。</li></ul>
+<h2>theme：お題生成</h2><p><code>theme</code> は、コミュニティに話題を提供するための機能です。単発のお題、定期的な問いかけ、会話のきっかけ作りに使います。雑談コミュニティでは、BOTが会話の空白を埋める役割を持ちますが、出しすぎるとノイズになります。</p><ul><li>コミュニティのテーマに合っているか。</li><li>前回と似た言い回しになっていないか。</li><li>ユーザーに答えやすい短さか。</li><li>センシティブな内容になっていないか。</li></ul>
+<h2>scheduled_image：定時画像投稿</h2><p><code>scheduled_image</code> は、指定時刻に画像付き投稿を行う機能です。朝、昼、夜のあいさつや、キャラクターの存在感を出す投稿に向いています。ただし、画像生成はテキストより失敗要因が多く、コストもかかります。</p><table><thead><tr><th>キー</th><th>説明</th></tr></thead><tbody><tr><td><code>SCHEDULED_POST_TIMES</code></td><td>定時投稿の時刻。</td></tr><tr><td><code>SCHEDULED_IMAGE_POST_DELAY_MINUTES</code></td><td>画像投稿を何分遅らせるか。</td></tr><tr><td><code>SCHEDULED_POST_HISTORY_PATH</code></td><td>定時投稿履歴の保存先。</td></tr><tr><td><code>OPENAI_IMAGE_ENABLED</code></td><td>画像生成の有効/無効。</td></tr></tbody></table>
+<h2>idle_post：静寂投稿</h2><p><code>idle_post</code> は、一定時間コミュニティに投稿がない場合に、BOTが話題を提供する機能です。定時投稿と違い、場の静けさを見て投稿するため、コミュニティを自然に活性化しやすい一方で、判定条件を誤ると連投に見える可能性があります。</p><table><thead><tr><th>キー</th><th>説明</th></tr></thead><tbody><tr><td><code>IDLE_POST_ENABLED</code></td><td>静寂投稿の有効/無効。</td></tr><tr><td><code>IDLE_POST_TIMES</code></td><td>静寂投稿の候補時刻。</td></tr><tr><td><code>IDLE_POST_NO_ACTIVITY_MINUTES</code></td><td>何分投稿がなければ静寂とみなすか。</td></tr><tr><td><code>IDLE_POST_COOLDOWN_MINUTES</code></td><td>静寂投稿の再投稿間隔。</td></tr><tr><td><code>IDLE_POST_THEME_PROBABILITY_PERCENT</code></td><td>静寂投稿でお題化する確率。</td></tr></tbody></table>
+<h2>image_reply：画像返信</h2><p><code>image_reply</code> は、返信時に一定確率で画像を添付する機能です。キャラクター性を出しやすい一方で、毎回画像を出すと重く、コストも高く、会話テンポも崩れやすくなります。そのため、確率制御とスロット指定で軽く扱うのが基本です。</p>
+<h2>welcome：新規参加者案内</h2><p><code>welcome</code> は、新しくコミュニティへ参加したユーザーに案内や歓迎を出す機能です。コミュニティの基本ルール、参加後にしてほしいこと、よくある使い方をやさしく提示できます。</p>
+<h2>admin：管理者機能</h2><p><code>admin</code> は、管理者向けの操作や制御機能です。通常ユーザー向けの返信とは分けて扱います。管理者機能を入れることで、BOTに直接投稿させる、設定状態を確認する、返信制御を行う、といった操作ができます。</p>
+<h2>機能の組み合わせ例</h2><table><thead><tr><th>運用段階</th><th>FEATURES例</th><th>狙い</th></tr></thead><tbody><tr><td>初期接続確認</td><td><code>admin</code></td><td>管理者操作と起動確認だけを行う。</td></tr><tr><td>返信試験</td><td><code>reply,admin</code></td><td>誤返信しないか確認。</td></tr><tr><td>画像なし運用</td><td><code>reply,theme,idle_post,welcome,admin</code></td><td>画像コストを避けつつ活性化する。</td></tr><tr><td>標準運用</td><td><code>reply,theme,scheduled_image,idle_post,image_reply,welcome,admin</code></td><td>全機能を使う。</td></tr></tbody></table>
+<h2>ログ・履歴・Volumeとの関係</h2><p>返信済みIDが消えれば同じ投稿に再返信する可能性があり、静寂投稿履歴が消えれば再デプロイ後に同じような投稿を繰り返す可能性があります。Railwayでは <code>/data</code> Volumeへ保存する構成にします。</p>
+<pre><code>REPLIED_LOG_PATH="/data/logs/replied_post_ids.txt"
+POST_LOG_PATH="/data/logs/posts.jsonl"
+SCHEDULED_POST_HISTORY_PATH="/data/state/scheduled_posts.jsonl"
+IDLE_POST_HISTORY_PATH="/data/state/idle_post_history.jsonl"
+USER_PREFS_PATH="/data/state/user_prefs.json"</code></pre>
 
-<h2>機能一覧</h2>
-<table>
-  <thead><tr><th>キー</th><th>日本語名</th><th>役割</th><th>主な場所</th></tr></thead>
-  <tbody>
-    <tr><td><code>reply</code></td><td>返信機能</td><td>投稿やコメントに対してPluginが自動返信する。</td><td><code>internal/handler</code></td></tr>
-    <tr><td><code>theme</code></td><td>お題生成</td><td>コミュニティ向けのお題や話題をAIで生成する。</td><td><code>internal/handler/theme_entry.go</code></td></tr>
-    <tr><td><code>scheduled_image</code></td><td>定時画像投稿</td><td>定時投稿に合わせて画像付き投稿を行う。</td><td><code>internal/scheduler</code></td></tr>
-    <tr><td><code>idle_post</code></td><td>静寂投稿</td><td>一定時間投稿がない場合に、話題提供投稿を行う。</td><td><code>internal/scheduler</code></td></tr>
-    <tr><td><code>image_reply</code></td><td>画像返信</td><td>返信時に画像を添付する。</td><td><code>internal/handler</code></td></tr>
-    <tr><td><code>welcome</code></td><td>新規参加者案内</td><td>新しく参加したユーザー向けの案内投稿を行う。</td><td><code>internal/handler/welcome_entry.go</code></td></tr>
-    <tr><td><code>admin</code></td><td>管理者機能</td><td>管理者向けコマンドや制御機能を有効にする。</td><td><code>internal/handler/admin_entry.go</code></td></tr>
-  </tbody>
-</table>
-
-<h2>代表的な運用パターン</h2>
-<table>
-  <thead><tr><th>用途</th><th>FEATURES例</th><th>説明</th></tr></thead>
-  <tbody>
-    <tr><td>全部入り</td><td><code>reply,theme,scheduled_image,idle_post,image_reply,welcome,admin</code></td><td>現在の標準形。</td></tr>
-    <tr><td>画像なし</td><td><code>reply,theme,idle_post,welcome,admin</code></td><td>画像生成コストや失敗を避けたい時。</td></tr>
-    <tr><td>返信だけ</td><td><code>reply,admin</code></td><td>最小構成で自動返信を試す時。</td></tr>
-    <tr><td>管理だけ</td><td><code>admin</code></td><td>投稿制御や管理者コマンドだけを試す時。</td></tr>
-  </tbody>
-</table>
-
-<h2>画像機能の注意</h2>
-<p><code>FEATURES</code> に画像系機能が入っていても、<code>OPENAI_IMAGE_ENABLED</code> が <code>false</code> なら画像生成本体は止まる。画像を使わない運用ならこのままでよい。画像を使う場合はRailway Variables側で明示的に <code>true</code> にする。</p>
-
-    <nav class="bottom-nav" aria-label="ページ下部ナビ">
-      <a href="index.html">TOPへ戻る</a>
-      <a href="#top">このページのTOPへ戻る ↑</a>
-    </nav>
-  </article>
-</main>
-<footer class="site-footer">
-  <div class="wrapper">
-    <span>mixi2 Plugin BOT制作ノート</span>
-    <span>APIキー、Client Secret、Railway Variables、.env、logsは掲載しない。</span>
-  </div>
-</footer>
-</body>
-</html>
+<nav class="bottom-nav" aria-label="ページ下部ナビ"><a href="index.html">TOPへ戻る</a><a href="#top">このページのTOPへ戻る ↑</a></nav></article></main>
+<footer class="site-footer"><div class="wrapper"><span>mixi2 Plugin BOT制作ノート</span><span>APIキー、Client Secret、Railway Variables、.env、logsは掲載しない。</span></div></footer></body></html>

@@ -1,99 +1,12 @@
 <!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>mixi2公式配布からオリジナルbot化まで | mixi2 Plugin BOT制作ノート</title>
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<body id="top">
-<header class="site-header">
-  <div class="wrapper navbar">
-    <a class="brand" href="index.html" aria-label="TOPへ戻る">
-      <span class="brand-mark"></span>
-      <span><strong>mixi2 Plugin BOT制作ノート</strong><small>Voidcat / Fujita / Nan AI</small></span>
-    </a>
-    <nav class="navlinks" aria-label="ページナビゲーション">
-      <a href="index.html">TOP</a><a href="latest.html">最新記事</a><a href="architecture.html">基本構造解説</a><a href="worklog.html">作業記録</a><a href="features.html">機能一覧</a><a href="config.html">コンフィグ項目一覧</a><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a>
-    </nav>
-  </div>
-</header>
-<main class="wrapper">
-  <section class="hero">
-    <div class="hero-card">
-      <span class="eyebrow">公開用メモ / 秘密値なし</span>
-      <h1>mixi2公式配布からオリジナルbot化まで</h1>
-      <p class="lead">テンプレートを自分のPlugin、自分の人格、自分のRailway環境へ置き換える手順</p>
-      <div class="meta-row">
-        <span class="badge">最終更新: 2026-06-16</span>
-        <span class="badge">mixi2 Plugin</span>
-        <span class="badge">GitHub Pages</span>
-      </div>
-      <div class="mock"><img src="assets/snapshots/official-to-original.svg" alt="mixi2公式配布からオリジナルbot化までのモック"></div>
-    </div>
-  </section>
-  <article class="article">
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>mixi2公式配布からオリジナルbot化まで | mixi2 Plugin BOT制作ノート</title><link rel="stylesheet" href="assets/style.css"></head>
+<body id="top"><header class="site-header"><div class="wrapper navbar"><a class="brand" href="index.html" aria-label="TOPへ戻る"><span class="brand-mark"></span><span><strong>mixi2 Plugin BOT制作ノート</strong><small>Voidcat / Fujita / Nan AI</small></span></a><nav class="navlinks" aria-label="ページナビゲーション"><a href="index.html">TOP</a><a href="latest.html">最新記事</a><a href="architecture.html">基本構造解説</a><a href="worklog.html">作業記録</a><a href="features.html">機能一覧</a><a href="config.html">コンフィグ項目一覧</a><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a></nav></div></header>
+<main class="wrapper"><section class="hero"><div class="hero-card"><span class="eyebrow">公開用メモ / 秘密値なし / 2026-06-16増補版</span><h1>mixi2公式配布からオリジナルbot化まで</h1><p class="lead">テンプレートを自分のPlugin、自分の人格、自分のRailway環境へ置き換える手順</p><div class="meta-row"><span class="badge">最終更新: 2026-06-16</span><span class="badge">mixi2 Plugin</span><span class="badge">GitHub Pages</span><span class="badge">Mobile Safe</span></div><div class="mock"><img src="assets/snapshots/official-to-original.svg" alt="mixi2公式配布からオリジナルbot化までのモック"></div></div></section><article class="article">
 
-<h2>全体の流れ</h2>
-<p>公式配布や空のBaseテンプレートを受け取っただけでは、そのまま自分のBOTとして本番運用できるわけではない。自分のmixi2 Pluginアプリ、自分のOpenAI APIキー、自分のRailway環境、自分の人格データ、自分の画像素材を用意して差し替える。</p>
-<div class="mock"><img src="assets/snapshots/official-to-original.svg" alt="公式配布からオリジナルbot化までのモック"></div>
+<div class="toc"><strong>目次</strong><ul><li>全体の流れ</li><li>テンプレートを受け取る</li><li>自分のGitHub repoを作る</li><li>mixi2 Pluginアプリを作る</li><li>人格と素材を作る</li><li>ローカルで確認する</li><li>Railwayへデプロイする</li><li>運用前チェック</li></ul></div>
+<h2>全体の流れ</h2><p>公式配布や空のBaseテンプレートを受け取っただけでは、そのまま自分のBOTとして本番運用できるわけではありません。自分のmixi2 Pluginアプリ、自分のOpenAI APIキー、自分のRailway環境、自分の人格データ、自分の画像素材を用意して差し替える必要があります。</p><div class="mock"><img src="assets/snapshots/official-to-original.svg" alt="公式配布からオリジナルbot化までのモック"></div>
+<div class="steps"><section class="step"><h3>テンプレートを受け取る</h3><p>受け取るのは完成済みBOTではなく、空のBaseテンプレートです。提供者のAPIキー、Client Secret、Railway Variables、実コミュニティのログ、個別キャラクター素材は含まれません。</p></section><section class="step"><h3>自分のGitHub repoを作る</h3><p>テンプレートから自分のPlugin用repoを作ります。Private repoを推奨します。.env、logs、Secret類は入れません。</p></section><section class="step"><h3>mixi2 Pluginアプリを作る</h3><p>Developer PlatformでPluginアプリを作り、必要なRequirementを設定します。Application Version更新とコミュニティ再許可も行います。</p></section><section class="step"><h3>人格と素材を作る</h3><p><code>personas/{persona}/persona.json</code> を作り、画像機能を使う場合は <code>assets/{persona}/refs</code> に素材を置きます。</p></section><section class="step"><h3>ローカルで確認する</h3><p><code>configcheck</code>、<code>gptcheck</code>、<code>mixi2check</code>、<code>timelinecheck</code>、<code>postcheck</code> を使います。</p></section><section class="step"><h3>Railwayへデプロイする</h3><p>Variablesへ必要な値を設定し、SecretはRailway画面に直接入力します。Volumeは <code>/data</code> にマウントします。</p></section></div>
+<h2>完成判定</h2><table><thead><tr><th>項目</th><th>判定</th></tr></thead><tbody><tr><td>コード</td><td><code>go test ./...</code> と <code>go build ./cmd/plugin</code> が通る。</td></tr><tr><td>人格</td><td>PERSONA_PATHが存在し、狙った口調で出力される。</td></tr><tr><td>mixi2</td><td><code>mixi2check</code> と <code>timelinecheck</code> が通る。</td></tr><tr><td>OpenAI</td><td><code>gptcheck</code> が通る。</td></tr><tr><td>Railway</td><td>Deploy successful、Variables設定済み、Volumeあり。</td></tr></tbody></table>
 
-<div class="steps">
-  <section class="step"><h3>テンプレートをローカルに置く</h3><p>まず配布されたBaseテンプレートをローカルに置き、<code>go test ./...</code> や <code>go build ./cmd/plugin</code> が通ることを確認する。</p></section>
-  <section class="step"><h3>自分のGitHub repoを作る</h3><p>Plugin本体用のPrivate repoを作る。<code>.env</code>、logs、APIキー、Client Secret、実コミュニティのデータは入れない。</p></section>
-  <section class="step"><h3>自分のmixi2 Pluginアプリを作る</h3><p>Developer PlatformでPluginアプリを作り、必要なRequirementを設定する。設定後はApplication Version更新とコミュニティへのインストールまたは再許可を行う。</p></section>
-  <section class="step"><h3>人格を作る</h3><p><code>personas/{persona}/persona.json</code> を作り、自分のBOTの口調、禁止事項、反応ワード、投稿方針を設定する。</p></section>
-  <section class="step"><h3>画像素材を差し替える</h3><p>画像機能を使う場合は、<code>assets/{persona}/refs</code> に自分の素材を入れる。第三者の権利物や実人物画像の扱いには注意する。</p></section>
-  <section class="step"><h3>ローカルで確認する</h3><p><code>configcheck</code>、<code>gptcheck</code>、<code>mixi2check</code>、<code>timelinecheck</code>、<code>postcheck</code> を使って、段階ごとに確認する。</p></section>
-  <section class="step"><h3>Railwayへデプロイする</h3><p>RailwayにGitHub repoを接続し、Variablesへ必要な値を設定する。Secretは空欄で上書きしない。Volumeは <code>/data</code> にマウントする。</p></section>
-  <section class="step"><h3>本番ログを確認する</h3><p>Deploy successfulだけで終わらず、missing env、認証エラー、PermissionDenied、panic、投稿失敗が出ていないか確認する。</p></section>
-</div>
-
-<h2>オリジナルbot化で差し替える場所</h2>
-<table>
-  <thead><tr><th>差し替えるもの</th><th>場所</th><th>説明</th></tr></thead>
-  <tbody>
-    <tr><td>人格名</td><td><code>PERSONA</code></td><td>自分の人格キーへ変更。</td></tr>
-    <tr><td>人格シート</td><td><code>personas/{persona}/persona.json</code></td><td>口調、ルール、反応ワードを設定。</td></tr>
-    <tr><td>画像素材</td><td><code>assets/{persona}/refs</code></td><td>画像機能で使う素材。</td></tr>
-    <tr><td>mixi2情報</td><td>Railway Variables</td><td>Client ID、Secret、Community IDなど。</td></tr>
-    <tr><td>OpenAI情報</td><td>Railway Variables</td><td>APIキー、モデル、画像設定など。</td></tr>
-    <tr><td>投稿時刻</td><td><code>SCHEDULED_POST_TIMES</code></td><td>コミュニティに合わせて調整。</td></tr>
-    <tr><td>機能</td><td><code>FEATURES</code></td><td>必要な機能だけONにする。</td></tr>
-  </tbody>
-</table>
-
-<h2>やってはいけないこと</h2>
-<ul>
-  <li>提供者のAPIキーやClient Secretを使う。</li>
-  <li>提供者のRailway Variablesを流用する。</li>
-  <li><code>.env</code> をGitHubに上げる。</li>
-  <li>実コミュニティのログや投稿本文を公開記事に載せる。</li>
-  <li>Requirement変更後にApplication Version更新と再許可を忘れる。</li>
-  <li>空欄のSecretテンプレでRailwayの実値を上書きする。</li>
-</ul>
-
-<h2>完成判定</h2>
-<p>以下が通れば、オリジナルBOTとして最低限の運用準備ができている。</p>
-<pre><code>go test ./...
-go build ./cmd/plugin
-go run ./cmd/configcheck
-go run ./cmd/gptcheck
-go run ./cmd/mixi2check
-go run ./cmd/timelinecheck
-go run ./cmd/postcheck</code></pre>
-
-    <nav class="bottom-nav" aria-label="ページ下部ナビ">
-      <a href="index.html">TOPへ戻る</a>
-      <a href="#top">このページのTOPへ戻る ↑</a>
-    </nav>
-  </article>
-</main>
-<footer class="site-footer">
-  <div class="wrapper">
-    <span>mixi2 Plugin BOT制作ノート</span>
-    <span>APIキー、Client Secret、Railway Variables、.env、logsは掲載しない。</span>
-  </div>
-</footer>
-</body>
-</html>
+<nav class="bottom-nav" aria-label="ページ下部ナビ"><a href="index.html">TOPへ戻る</a><a href="#top">このページのTOPへ戻る ↑</a></nav></article></main>
+<footer class="site-footer"><div class="wrapper"><span>mixi2 Plugin BOT制作ノート</span><span>APIキー、Client Secret、Railway Variables、.env、logsは掲載しない。</span></div></footer></body></html>
