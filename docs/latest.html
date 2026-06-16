@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>最新記事 | mixi2 Plugin BOT制作ノート</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body id="top">
+<header class="site-header">
+  <div class="wrapper navbar">
+    <a class="brand" href="index.html" aria-label="TOPへ戻る">
+      <span class="brand-mark"></span>
+      <span><strong>mixi2 Plugin BOT制作ノート</strong><small>Voidcat / Fujita / Nan AI</small></span>
+    </a>
+    <nav class="navlinks" aria-label="ページナビゲーション">
+      <a href="index.html">TOP</a><a href="latest.html">最新記事</a><a href="architecture.html">基本構造解説</a><a href="worklog.html">作業記録</a><a href="features.html">機能一覧</a><a href="config.html">コンフィグ項目一覧</a><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a>
+    </nav>
+  </div>
+</header>
+<main class="wrapper">
+  <section class="hero">
+    <div class="hero-card">
+      <span class="eyebrow">公開用メモ / 秘密値なし</span>
+      <h1>最新記事</h1>
+      <p class="lead">三体標準化、Config UI最終調整、Railway確認、記事サイト再構成の作業記録</p>
+      <div class="meta-row">
+        <span class="badge">最終更新: 2026-06-16</span>
+        <span class="badge">mixi2 Plugin</span>
+        <span class="badge">GitHub Pages</span>
+      </div>
+      <div class="mock"><img src="assets/snapshots/repo-standardization.svg" alt="最新記事のモック"></div>
+    </div>
+  </section>
+  <article class="article">
+
+<h2>今回の更新概要</h2>
+<p>今回の作業では、虚無猫、シベリア・フジタ、空想アイの3体Pluginを同じ考え方で扱えるように標準化した。以前は虚無猫だけ <code>base-bot</code> 名義のまま扱っていたため、フォルダ名と役割が混線しやすかった。これを整理し、虚無猫も他2体と同じ専用repo構成に揃えた。</p>
+<div class="mock"><img src="assets/snapshots/repo-standardization.svg" alt="三体標準化のモック"></div>
+
+<h2>三体標準化</h2>
+<table>
+  <thead><tr><th>Plugin</th><th>標準化後のrepo</th><th>persona</th><th>assets</th></tr></thead>
+  <tbody>
+    <tr><td>虚無猫</td><td><code>mixi2-community-voidcat-plugin</code></td><td><code>personas/kyomu_neko</code></td><td><code>assets/kyomu_neko</code></td></tr>
+    <tr><td>シベリア・フジタ</td><td><code>mixi2-community-fujita-plugin</code></td><td><code>personas/fujita</code></td><td><code>assets/fujita</code></td></tr>
+    <tr><td>空想アイ</td><td><code>mixi2-community-nan_ai-plugin</code></td><td><code>personas/nanchatte_ai</code></td><td><code>assets/nanchatte_ai</code></td></tr>
+  </tbody>
+</table>
+
+<h2>今日行った主な作業</h2>
+<div class="steps">
+  <section class="step"><h3>虚無猫を専用repo化</h3><p><code>base-bot</code> を <code>mixi2-community-voidcat-plugin</code> へ移し、虚無猫専用Pluginとして整理した。不要な <code>personas/base</code>、<code>personas/fujita</code>、<code>personas/nanchatte_ai</code>、不要なassetsを削除し、<code>kyomu_neko</code> だけを残した。</p></section>
+  <section class="step"><h3>base-botを共通テンプレに再定義</h3><p><code>base-bot</code> は本番用repoではなく、今後のコピー元・共通テンプレとして扱うことにした。Railway本番には直接使わない。</p></section>
+  <section class="step"><h3>Config UI最終調整</h3><p>人格選択、人格シート、機能ON/OFF、ローカル.env補助設定、Railway Variables確認欄を整理した。設定UIは本番Railwayを直接変更するものではなく、ローカル設定とpersona.jsonの編集補助として位置づけた。</p></section>
+  <section class="step"><h3>一発起動batとショートカット作成</h3><p><code>open-configui.bat</code> を作成し、虚無猫、フジタ、空想アイ、base-botを番号選択で起動できるようにした。文字化けを避けるため、batはASCIIで作成し、ブラウザ自動起動も安定化した。</p></section>
+  <section class="step"><h3>GitHub同期確認</h3><p>3体の専用repoが <code>main...origin/main</code> で揃っていることを確認した。虚無猫は構造整理commitをpush済み。</p></section>
+  <section class="step"><h3>Railway確認</h3><p>VoidcatのSecrets空欄問題、フジタのVolume表示なし問題を確認した。Railway側では、Secretsの実値復旧と、必要なVolumeのマウント確認が残作業になる。</p></section>
+  <section class="step"><h3>マニュアルと記事サイトの再構成</h3><p>旧マニュアルと旧詳細記事を、現在の構成に合わせて再構成した。ページ数を整理し、スマホでも横に広がりにくい構造へ調整した。</p></section>
+</div>
+
+<h2>現在の残確認</h2>
+<ul>
+  <li>Railwayの各サービスで最新Deployが成功していること。</li>
+  <li>フジタに <code>/data</code> Volume が付いていること。</li>
+  <li>Voidcatの <code>MIXI2_CLIENT_SECRET</code> と <code>OPENAI_API_KEY</code> が空ではないこと。</li>
+  <li>Variablesを貼り直す時に、空欄のSecretで上書きしないこと。</li>
+</ul>
+
+    <nav class="bottom-nav" aria-label="ページ下部ナビ">
+      <a href="index.html">TOPへ戻る</a>
+      <a href="#top">このページのTOPへ戻る ↑</a>
+    </nav>
+  </article>
+</main>
+<footer class="site-footer">
+  <div class="wrapper">
+    <span>mixi2 Plugin BOT制作ノート</span>
+    <span>APIキー、Client Secret、Railway Variables、.env、logsは掲載しない。</span>
+  </div>
+</footer>
+</body>
+</html>

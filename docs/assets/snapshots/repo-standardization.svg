@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 520" role="img" aria-label="Three Plugin Standard">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#efe2d1"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#2a1e12" flood-opacity=".14"/>
+    </filter>
+  </defs>
+  <rect width="980" height="520" rx="34" fill="url(#bg)"/>
+  <circle cx="870" cy="80" r="120" fill="#6f4e37" opacity=".10"/>
+  <circle cx="90" cy="450" r="145" fill="#2f5d50" opacity=".10"/>
+  <g filter="url(#shadow)">
+    <rect x="44" y="42" width="892" height="96" rx="24" fill="#ffffff" stroke="rgba(38,34,29,.16)"/>
+    <text x="78" y="89" font-size="32" font-weight="900" fill="#26221d">Three Plugin Standard</text>
+    <text x="78" y="119" font-size="18" fill="#6b6257">専用repo・専用persona・専用assetsに統一</text>
+  </g>
+  <g filter="url(#shadow)">
+    <path d="M315,275.0 C375,275.0 310,275.0 370,275.0" fill="none" stroke="#6f4e37" stroke-width="5" stroke-linecap="round" opacity=".55"/><path d="M615,275.0 C675,275.0 610,275.0 670,275.0" fill="none" stroke="#6f4e37" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+    
+        <rect x="70" y="210" width="245" height="130" rx="22" fill="#f7ead8" stroke="rgba(38,34,29,.20)" />
+        <text x="92" y="248" font-size="26" font-weight="800" fill="#26221d">Voidcat</text>
+        <text x="92" y="282" font-size="18" fill="#6b6257">kyomu_neko only</text>
+        <rect x="370" y="210" width="245" height="130" rx="22" fill="#e4efe9" stroke="rgba(38,34,29,.20)" />
+        <text x="392" y="248" font-size="26" font-weight="800" fill="#26221d">Fujita</text>
+        <text x="392" y="282" font-size="18" fill="#6b6257">fujita only</text>
+        <rect x="670" y="210" width="245" height="130" rx="22" fill="#eee8fa" stroke="rgba(38,34,29,.20)" />
+        <text x="692" y="248" font-size="26" font-weight="800" fill="#26221d">Nan AI</text>
+        <text x="692" y="282" font-size="18" fill="#6b6257">nanchatte_ai only</text>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 520" role="img" aria-label="Official Plugin to Original BOT">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#efe2d1"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#2a1e12" flood-opacity=".14"/>
+    </filter>
+  </defs>
+  <rect width="980" height="520" rx="34" fill="url(#bg)"/>
+  <circle cx="870" cy="80" r="120" fill="#6f4e37" opacity=".10"/>
+  <circle cx="90" cy="450" r="145" fill="#2f5d50" opacity=".10"/>
+  <g filter="url(#shadow)">
+    <rect x="44" y="42" width="892" height="96" rx="24" fill="#ffffff" stroke="rgba(38,34,29,.16)"/>
+    <text x="78" y="89" font-size="32" font-weight="900" fill="#26221d">Official Plugin to Original BOT</text>
+    <text x="78" y="119" font-size="18" fill="#6b6257">配布物から独自人格・独自コミュニティへ</text>
+  </g>
+  <g filter="url(#shadow)">
+    <path d="M265,263.0 C325,263.0 245,263.0 305,263.0" fill="none" stroke="#6f4e37" stroke-width="5" stroke-linecap="round" opacity=".55"/><path d="M510,263.0 C570,263.0 490,263.0 550,263.0" fill="none" stroke="#6f4e37" stroke-width="5" stroke-linecap="round" opacity=".55"/><path d="M755,263.0 C815,263.0 735,263.0 795,263.0" fill="none" stroke="#6f4e37" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+    
+        <rect x="60" y="205" width="205" height="116" rx="22" fill="#f6ead9" stroke="rgba(38,34,29,.20)" />
+        <text x="82" y="243" font-size="26" font-weight="800" fill="#26221d">Template</text>
+        <text x="82" y="277" font-size="18" fill="#6b6257">empty base</text>
+        <rect x="305" y="205" width="205" height="116" rx="22" fill="#e8f0ec" stroke="rgba(38,34,29,.20)" />
+        <text x="327" y="243" font-size="26" font-weight="800" fill="#26221d">Plugin App</text>
+        <text x="327" y="277" font-size="18" fill="#6b6257">own mixi2 app</text>
+        <rect x="550" y="205" width="205" height="116" rx="22" fill="#eee8fa" stroke="rgba(38,34,29,.20)" />
+        <text x="572" y="243" font-size="26" font-weight="800" fill="#26221d">Persona</text>
+        <text x="572" y="277" font-size="18" fill="#6b6257">own character</text>
+        <rect x="795" y="205" width="130" height="116" rx="22" fill="#f3e3d4" stroke="rgba(38,34,29,.20)" />
+        <text x="817" y="243" font-size="26" font-weight="800" fill="#26221d">Deploy</text>
+        <text x="817" y="277" font-size="18" fill="#6b6257">Railway</text>
+  </g>
+</svg>

@@ -2,53 +2,101 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>構成解説 | 虚無猫Plugin制作記</title>
-  <meta name="description" content="フォルダ構成、処理の流れ、人格と素材の分離。">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>基本構造解説 | mixi2 Plugin BOT制作ノート</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
+<body id="top">
 <header class="site-header">
-  <div class="header-inner">
-    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
-    <h1>構成解説</h1>
-    <p class="lead">フォルダ構成、処理の流れ、人格と素材の分離。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>docs作り直し</span>
-      <span>秘密値なし</span>
-    </div>
+  <div class="wrapper navbar">
+    <a class="brand" href="index.html" aria-label="TOPへ戻る">
+      <span class="brand-mark"></span>
+      <span><strong>mixi2 Plugin BOT制作ノート</strong><small>Voidcat / Fujita / Nan AI</small></span>
+    </a>
+    <nav class="navlinks" aria-label="ページナビゲーション">
+      <a href="index.html">TOP</a><a href="latest.html">最新記事</a><a href="architecture.html">基本構造解説</a><a href="worklog.html">作業記録</a><a href="features.html">機能一覧</a><a href="config.html">コンフィグ項目一覧</a><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a>
+    </nav>
   </div>
 </header>
-<div class="page">
-  <aside class="sidebar">
-    <h2>ページツリー</h2>
-    <ul class="nav"><li><a href="index.html">トップ</a></li>
-<li><a class="current" href="architecture.html">構成解説</a></li>
-<li><a href="features.html">機能一覧</a></li>
-<li><a href="config.html">configui詳説</a></li>
-<li><a href="timeline.html">全体タイムライン</a></li>
-<li><a href="articles/index.html">詳細記事</a></li>
-<li><a href="share.html">共有方針</a></li></ul>
-  </aside>
-  <main class="content">
-<section class="card">
-  <h2>base-botの構成</h2>
-  <p>Plugin本体はGoで動く。<code>cmd</code> が入口、<code>internal</code> が処理本体、<code>personas</code> が人格、<code>assets</code> が素材、<code>scripts</code> が作業補助という分け方。</p>
-  <figure class="snapshot"><img src="assets/snapshots/tree-base-bot.svg" alt="base-botのフォルダ構成。テキストではなくSVGスナップショットなので、スマホでも崩れにくい。"><figcaption class="caption">base-botのフォルダ構成。テキストではなくSVGスナップショットなので、スマホでも崩れにくい。</figcaption></figure>
-</section>
-<section class="card">
-  <h2>処理の流れ</h2>
-  <p>mixi2からイベントを受け取り、handlerで判定し、必要に応じてOpenAIで返信文を作り、mixi2 APIへ返す。定時投稿や放置投稿はschedulerが担当する。</p>
-  <div class="diagram"><div class="flow"><div class="box">mixi2 Event<small>投稿・参加</small></div><div class="box">handler<small>判定</small></div><div class="box">OpenAI<small>生成</small></div><div class="box">mixi2 API<small>返信</small></div><div class="box">scheduler<small>定時処理</small></div></div></div>
-</section>
-<section class="card">
-  <h2>人格と素材</h2>
-  <p>人格は <code>personas</code> に置き、画像参照や素材は <code>assets</code> に置く。これにより、本体コードを変えずにキャラだけ差し替えられる。</p>
-  <figure class="snapshot"><img src="assets/snapshots/tree-personas.svg" alt="人格フォルダのスナップショット。"><figcaption class="caption">人格フォルダのスナップショット。</figcaption></figure>
-</section>
+<main class="wrapper">
+  <section class="hero">
+    <div class="hero-card">
+      <span class="eyebrow">公開用メモ / 秘密値なし</span>
+      <h1>基本構造解説</h1>
+      <p class="lead">フォルダ構成、機能構成、処理フロー、人格と素材の分離</p>
+      <div class="meta-row">
+        <span class="badge">最終更新: 2026-06-16</span>
+        <span class="badge">mixi2 Plugin</span>
+        <span class="badge">GitHub Pages</span>
+      </div>
+      <div class="mock"><img src="assets/snapshots/folder-structure.svg" alt="基本構造解説のモック"></div>
+    </div>
+  </section>
+  <article class="article">
+
+<h2>全体の考え方</h2>
+<p>現在の構成は、共通テンプレと3体の専用Pluginを分ける方針になっている。共通テンプレはコピー元として使い、実際にRailwayで動かすのは各キャラクター専用repoにする。</p>
+<div class="mock"><img src="assets/snapshots/folder-structure.svg" alt="フォルダ構成モック"></div>
+
+<h2>標準フォルダ構成</h2>
+<pre><code>C:\dev\mixi2-plugins
+├─ base-bot
+│  └─ 共通テンプレ。gitなし。Railway本番には使わない。
+├─ mixi2-community-voidcat-plugin
+│  ├─ personas\kyomu_neko
+│  └─ assets\kyomu_neko
+├─ mixi2-community-fujita-plugin
+│  ├─ personas\fujita
+│  └─ assets\fujita
+└─ mixi2-community-nan_ai-plugin
+   ├─ personas\nanchatte_ai
+   └─ assets\nanchatte_ai</code></pre>
+
+<h2>Plugin repo内の構成</h2>
+<table>
+  <thead><tr><th>場所</th><th>役割</th></tr></thead>
+  <tbody>
+    <tr><td><code>cmd/plugin</code></td><td>Railway本番で動かすPlugin本体の入口。</td></tr>
+    <tr><td><code>cmd/configui</code></td><td>ローカル専用のブラウザ設定UI。Railway本番では起動しない。</td></tr>
+    <tr><td><code>cmd/*check</code></td><td>OpenAI、mixi2、投稿、タイムラインなどの確認コマンド。</td></tr>
+    <tr><td><code>internal/config</code></td><td>.envやRailway Variablesから設定を読み込む。</td></tr>
+    <tr><td><code>internal/handler</code></td><td>投稿、返信、歓迎、管理者コマンドなどのイベント処理。</td></tr>
+    <tr><td><code>internal/scheduler</code></td><td>定時投稿、画像投稿、放置時投稿などのスケジューラ処理。</td></tr>
+    <tr><td><code>internal/openai</code></td><td>OpenAI API連携。</td></tr>
+    <tr><td><code>internal/mixi2</code></td><td>mixi2 API連携。</td></tr>
+    <tr><td><code>personas</code></td><td>人格設定。専用repoでは原則1人格のみ。</td></tr>
+    <tr><td><code>assets</code></td><td>画像参照素材。専用repoでは原則1人格のみ。</td></tr>
+  </tbody>
+</table>
+
+<h2>処理の流れ</h2>
+<div class="mock"><img src="assets/snapshots/feature-flow.svg" alt="処理フローのモック"></div>
+<ol>
+  <li>mixi2からコミュニティ投稿やイベントを受け取る。</li>
+  <li>handlerが投稿内容、投稿者、返信済み状態、機能ON/OFFを判定する。</li>
+  <li>必要に応じてOpenAIで返信文やお題文を生成する。</li>
+  <li>mixi2 APIで投稿・返信する。</li>
+  <li>処理済みIDや履歴は <code>/data</code> Volumeへ保存する。</li>
+</ol>
+
+<h2>人格と素材の分離</h2>
+<p>人格は <code>personas/{persona}/persona.json</code>、画像素材は <code>assets/{persona}/refs</code> に分ける。これにより、コード本体を変更せずにキャラクターだけを差し替えられる。</p>
+
+<pre><code>PERSONA="kyomu_neko"
+PERSONA_PATH="personas/kyomu_neko/persona.json"
+IMAGE_REF_DIR="assets/kyomu_neko/refs"</code></pre>
+
+    <nav class="bottom-nav" aria-label="ページ下部ナビ">
+      <a href="index.html">TOPへ戻る</a>
+      <a href="#top">このページのTOPへ戻る ↑</a>
+    </nav>
+  </article>
 </main>
-</div>
-<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+<footer class="site-footer">
+  <div class="wrapper">
+    <span>mixi2 Plugin BOT制作ノート</span>
+    <span>APIキー、Client Secret、Railway Variables、.env、logsは掲載しない。</span>
+  </div>
+</footer>
 </body>
 </html>

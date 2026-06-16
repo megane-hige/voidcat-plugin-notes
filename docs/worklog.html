@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>作業記録 | mixi2 Plugin BOT制作ノート</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body id="top">
+<header class="site-header">
+  <div class="wrapper navbar">
+    <a class="brand" href="index.html" aria-label="TOPへ戻る">
+      <span class="brand-mark"></span>
+      <span><strong>mixi2 Plugin BOT制作ノート</strong><small>Voidcat / Fujita / Nan AI</small></span>
+    </a>
+    <nav class="navlinks" aria-label="ページナビゲーション">
+      <a href="index.html">TOP</a><a href="latest.html">最新記事</a><a href="architecture.html">基本構造解説</a><a href="worklog.html">作業記録</a><a href="features.html">機能一覧</a><a href="config.html">コンフィグ項目一覧</a><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a>
+    </nav>
+  </div>
+</header>
+<main class="wrapper">
+  <section class="hero">
+    <div class="hero-card">
+      <span class="eyebrow">公開用メモ / 秘密値なし</span>
+      <h1>作業記録</h1>
+      <p class="lead">旧詳細記事を現在の構成に合わせて再構成した制作ログ</p>
+      <div class="meta-row">
+        <span class="badge">最終更新: 2026-06-16</span>
+        <span class="badge">mixi2 Plugin</span>
+        <span class="badge">GitHub Pages</span>
+      </div>
+      <div class="mock"><img src="assets/snapshots/timeline-mock.svg" alt="作業記録のモック"></div>
+    </div>
+  </section>
+  <article class="article">
+
+<h2>作業記録の位置づけ</h2>
+<p>このページは、旧詳細記事の内容を現在の構成に合わせて再構成した作業記録。単なるコマンド列ではなく、何のためにその作業をしたのかを追えるようにまとめている。</p>
+<div class="mock"><img src="assets/snapshots/timeline-mock.svg" alt="作業記録モック"></div>
+
+<h2>第01回：動いているPluginをbase-botへ分岐する</h2>
+<p>作業は、ゼロからBOTを書くところではなく、既に動いていたシベリア・フジタPluginを安全にコピーするところから始まった。まずは壊さずに動く土台を作り、そのうえで人格や機能を分離していく方針にした。</p>
+<p>この段階で重要だったのは、mixi2連携部分、OpenAI連携部分、人格設定部分、投稿制御部分を混ぜて考えないことだった。動いているものをいきなり綺麗に作り直すのではなく、まず動作確認を残したまま分岐した。</p>
+
+<h2>第02回：人格を外部ファイル化して切り替える</h2>
+<p>次に、BOTのキャラクター性をGoコードから切り離し、<code>personas</code> フォルダへ移した。<code>PERSONA</code>、<code>PERSONA_PATH</code>、<code>IMAGE_REF_DIR</code> を使うことで、同じコードでも人格と素材を切り替えられるようにした。</p>
+<pre><code>personas/
+  kyomu_neko/
+    persona.json
+assets/
+  kyomu_neko/
+    refs/</code></pre>
+
+<h2>第03回：handlerとschedulerを機能入口で整理する</h2>
+<p>返信、歓迎、お題生成、画像返信、定時投稿、放置時投稿、管理者機能を、入口ごとに整理した。<code>FEATURES</code> で機能をON/OFFできるようにして、コミュニティごとに必要な機能だけを使える構造にした。</p>
+
+<h2>第04回：検証コマンドとPowerShell作業を整える</h2>
+<p>人格や機能を切り替えると設定ミスが増えるため、<code>configcheck</code>、<code>gptcheck</code>、<code>mixi2check</code>、<code>timelinecheck</code>、<code>postcheck</code> などの確認コマンドを使って段階ごとに確認した。</p>
+<p>PowerShellでは日本語ファイルやGoファイルの文字化け・BOM混入に注意し、UTF-8 BOMなしで書き込む方針にした。</p>
+
+<h2>第05回：OpenAI APIとmixi2 Pluginにつなぐ</h2>
+<p>OpenAI APIキー、mixi2 Client ID、Client Secret、Community IDを設定し、ローカルからAPI接続、timeline取得、投稿確認を行った。mixi2はBotアプリではなくコミュニティ用Pluginとして扱う点が重要だった。</p>
+
+<h2>第06回：GitHubとRailwayで本番に置く</h2>
+<p>Plugin本体はGitHub Private repoに置き、Railwayへデプロイした。<code>.env</code>、logs、APIキー、Client SecretはGitHubへ入れず、Railway Variablesで管理した。履歴や返信済みIDは <code>/data</code> Volumeへ保存する構成にした。</p>
+
+<h2>第07回：Config UIを作る</h2>
+<p>persona.jsonを直接編集すると文字化けや構造崩れが起きやすいため、ローカルブラウザで編集できる <code>cmd/configui</code> を作成した。人格選択、人格シート、機能ON/OFF、ローカル.env補助設定、Railway Variables確認欄を持つ。</p>
+
+<h2>第08回：作業ログをGitHub Pagesで公開する</h2>
+<p>Plugin本体repoはPrivateのまま維持し、公開用に <code>voidcat-plugin-notes</code> を分けた。公開するのは制作の流れ、構造、設定項目、注意点だけであり、秘密値や実ログは掲載しない。</p>
+
+<h2>今回の再標準化</h2>
+<p>最後に、虚無猫だけ <code>base-bot</code> と混在していた状態を解消し、虚無猫、フジタ、空想アイの3体を専用repo構成に揃えた。これにより、運用・更新・Railway確認の単位が明確になった。</p>
+
+    <nav class="bottom-nav" aria-label="ページ下部ナビ">
+      <a href="index.html">TOPへ戻る</a>
+      <a href="#top">このページのTOPへ戻る ↑</a>
+    </nav>
+  </article>
+</main>
+<footer class="site-footer">
+  <div class="wrapper">
+    <span>mixi2 Plugin BOT制作ノート</span>
+    <span>APIキー、Client Secret、Railway Variables、.env、logsは掲載しない。</span>
+  </div>
+</footer>
+</body>
+</html>

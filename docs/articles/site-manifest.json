@@ -1,0 +1,15 @@
+{
+  "generated": "2026-06-16",
+  "purpose": "voidcat-plugin-notes docs rebuild",
+  "pages": [
+    "latest.html",
+    "architecture.html",
+    "worklog.html",
+    "features.html",
+    "config.html",
+    "services.html",
+    "original-bot.html",
+    "index.html"
+  ],
+  "notes": "No secrets included. Mobile responsive. Bottom nav included on all pages."
+}

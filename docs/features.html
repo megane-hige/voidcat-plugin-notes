@@ -2,104 +2,81 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Plugin機能一覧 | 虚無猫Plugin制作記</title>
-  <meta name="description" content="reply、theme、scheduled_image、idle_post、image_reply、welcome、adminの役割。">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>機能一覧 | mixi2 Plugin BOT制作ノート</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
+<body id="top">
 <header class="site-header">
-  <div class="header-inner">
-    <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
-    <h1>Plugin機能一覧</h1>
-    <p class="lead">reply、theme、scheduled_image、idle_post、image_reply、welcome、adminの役割。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>docs作り直し</span>
-      <span>秘密値なし</span>
-    </div>
+  <div class="wrapper navbar">
+    <a class="brand" href="index.html" aria-label="TOPへ戻る">
+      <span class="brand-mark"></span>
+      <span><strong>mixi2 Plugin BOT制作ノート</strong><small>Voidcat / Fujita / Nan AI</small></span>
+    </a>
+    <nav class="navlinks" aria-label="ページナビゲーション">
+      <a href="index.html">TOP</a><a href="latest.html">最新記事</a><a href="architecture.html">基本構造解説</a><a href="worklog.html">作業記録</a><a href="features.html">機能一覧</a><a href="config.html">コンフィグ項目一覧</a><a href="services.html">BOTを作るのに必要なサービス、アプリ他</a><a href="original-bot.html">mixi2公式配布からオリジナルbot化まで</a>
+    </nav>
   </div>
 </header>
-<div class="page">
-  <aside class="sidebar">
-    <h2>ページツリー</h2>
-    <ul class="nav"><li><a href="index.html">トップ</a></li>
-<li><a href="architecture.html">構成解説</a></li>
-<li><a class="current" href="features.html">機能一覧</a></li>
-<li><a href="config.html">configui詳説</a></li>
-<li><a href="timeline.html">全体タイムライン</a></li>
-<li><a href="articles/index.html">詳細記事</a></li>
-<li><a href="share.html">共有方針</a></li></ul>
-  </aside>
-  <main class="content">
-<section class="card">
-  <h2>Pluginでできること</h2>
-  <p>ここでは、ファイルの場所や内部名ではなく、利用者から見た「できること」だけに絞って整理した。実運用で動く機能に加えて、設定・確認・デプロイ補助まで含めている。</p>
-  <table class="table">
-    <tr><th>機能名</th><th>役割</th></tr>
-    <tr><td>自動返信</td><td>コミュニティ投稿を見て、虚無猫として自然に返信する中心機能。</td></tr>
-<tr><td>反応ワード返信</td><td>「虚無猫さん」「虚無猫」「虚無さん」「パイセン」などの呼びかけに反応する。</td></tr>
-<tr><td>メンションなし返信</td><td>明示メンションがなくても、条件に合う投稿へ返信できる。</td></tr>
-<tr><td>AIお題投稿</td><td>コミュニティの会話を動かすためのお題や話題をAIで生成する。</td></tr>
-<tr><td>定時投稿</td><td>朝・夕・夜など、決めた時間帯に投稿する運用ができる。</td></tr>
-<tr><td>定時画像投稿</td><td>指定スロットの投稿に画像を添えて投稿できる。</td></tr>
-<tr><td>放置時投稿</td><td>一定時間コミュニティに投稿がない場合、場を動かす投稿を行う。</td></tr>
-<tr><td>放置時お題投稿</td><td>放置投稿時に、通常発言ではなくお題形式の投稿を出せる。</td></tr>
-<tr><td>画像返信</td><td>返信時に一定確率で画像を添える。</td></tr>
-<tr><td>画像参照ランダム</td><td>参照画像フォルダから画像素材をランダム利用できる。</td></tr>
-<tr><td>新規加入者歓迎</td><td>新しく参加したメンバーに向けて歓迎・案内の投稿を行う。</td></tr>
-<tr><td>管理者ヘルプ</td><td>管理者向けの使い方やコマンド案内を返す。</td></tr>
-<tr><td>管理者直接投稿</td><td>管理者コマンドから、Pluginに任意の文章を投稿させる。</td></tr>
-<tr><td>呼称設定</td><td>ユーザーごとの呼び名・表示名の扱いを調整できる。</td></tr>
-<tr><td>ユーザー設定保存</td><td>呼称などのユーザー別設定を状態ファイルとして保持できる。</td></tr>
-<tr><td>投稿履歴記録</td><td>投稿ログをJSONLとして保存し、後から状態確認に使える。</td></tr>
-<tr><td>返信済み管理</td><td>同じ投稿へ重複返信しないように、返信済みIDを記録する。</td></tr>
-<tr><td>お題履歴管理</td><td>過去に出したAIお題を記録し、同じ話題の連発を避ける。</td></tr>
-<tr><td>放置投稿履歴管理</td><td>放置時投稿の履歴を記録し、投稿頻度を管理する。</td></tr>
-<tr><td>定時投稿重複防止</td><td>同じ日・同じ枠の定時投稿を二重作成しないように判定する。</td></tr>
-<tr><td>人格切替</td><td>persona.jsonを差し替えることで、同じ本体を別キャラクターとして運用できる。</td></tr>
-<tr><td>機能ON/OFF</td><td>FEATURES設定により、返信・お題・画像・歓迎・管理機能などを切り替えられる。</td></tr>
-<tr><td>OpenAI接続確認</td><td>OpenAI APIへ接続できるか確認する。</td></tr>
-<tr><td>mixi2接続確認</td><td>mixi2 API、Plugin認証、コミュニティインストール状態を確認する。</td></tr>
-<tr><td>timeline取得確認</td><td>コミュニティ投稿を読み取れるか確認する。</td></tr>
-<tr><td>投稿プレビュー</td><td>実際に投稿する前に、生成される投稿内容を確認する。</td></tr>
-<tr><td>投稿確認</td><td>mixi2へ投稿できるかテストする。</td></tr>
-<tr><td>常時ストリーム待機</td><td>Railway上でイベントを待ち受け、投稿や参加イベントに反応する。</td></tr>
-<tr><td>設定確認</td><td>現在のPERSONA、PERSONA_PATH、IMAGE_REF_DIR、FEATURESの状態を確認する。</td></tr>
-<tr><td>ブラウザ設定UI</td><td>configuiで人格設定をブラウザ編集できる。</td></tr>
-<tr><td>保存してRailway反映</td><td>configuiから人格設定を保存し、GitHub push経由でRailway再デプロイへ流せる。</td></tr>
-<tr><td>新規人格作成</td><td>テンプレートから新しいpersonaフォルダを作れる。</td></tr>
-<tr><td>人格・機能プロファイル切替</td><td>PowerShellスクリプトで人格と機能セットをまとめて切り替えられる。</td></tr>
-<tr><td>素材チェック</td><td>参照画像など、人格ごとの素材フォルダが揃っているか確認できる。</td></tr>
-<tr><td>複数人格テスト</td><td>登録済み人格をまとめて切り替え、設定破損がないか確認できる。</td></tr>
-<tr><td>Railway Volume保存</td><td>ログや状態ファイルを/data配下に置き、再起動後も保持できる。</td></tr>
-<tr><td>GitHub Pages作業ログ</td><td>Plugin本体とは別に、制作記録を公開サイトとして整理できる。</td></tr>
-  </table>
-</section>
-<section class="card">
-  <h2>大きく分けると4系統</h2>
-  <div class="grid">
-    <div class="tile"><strong>会話する</strong><small>自動返信、反応ワード返信、画像返信。</small></div>
-    <div class="tile"><strong>場を動かす</strong><small>AIお題、定時投稿、放置時投稿、歓迎。</small></div>
-    <div class="tile"><strong>人格を変える</strong><small>persona.json、人格切替、反応ワード、口調設定。</small></div>
-    <div class="tile"><strong>運用を支える</strong><small>ログ、重複防止、確認コマンド、Railway Volume。</small></div>
-  </div>
-</section>
-<section class="card">
-  <h2>FEATURESで切れる主な実行機能</h2>
-  <p>本番で主にON/OFFするのは次の機能。補助コマンドやログ保存は、運用を支えるための機能として別に存在する。</p>
-  <div class="badges">
-    <span>reply</span>
-    <span>theme</span>
-    <span>scheduled_image</span>
-    <span>idle_post</span>
-    <span>image_reply</span>
-    <span>welcome</span>
-    <span>admin</span>
-  </div>
-</section>
+<main class="wrapper">
+  <section class="hero">
+    <div class="hero-card">
+      <span class="eyebrow">公開用メモ / 秘密値なし</span>
+      <h1>機能一覧</h1>
+      <p class="lead">reply、theme、scheduled_image、idle_post、image_reply、welcome、adminの役割</p>
+      <div class="meta-row">
+        <span class="badge">最終更新: 2026-06-16</span>
+        <span class="badge">mixi2 Plugin</span>
+        <span class="badge">GitHub Pages</span>
+      </div>
+      <div class="mock"><img src="assets/snapshots/feature-flow.svg" alt="機能一覧のモック"></div>
+    </div>
+  </section>
+  <article class="article">
+
+<h2>機能ON/OFFの基本</h2>
+<p>Pluginの機能は <code>FEATURES</code> にカンマ区切りで指定する。全部入りにもできるし、返信だけ、管理者機能だけ、画像なし運用にもできる。</p>
+<pre><code>FEATURES="reply,theme,scheduled_image,idle_post,image_reply,welcome,admin"</code></pre>
+
+<h2>機能一覧</h2>
+<table>
+  <thead><tr><th>キー</th><th>日本語名</th><th>役割</th><th>主な場所</th></tr></thead>
+  <tbody>
+    <tr><td><code>reply</code></td><td>返信機能</td><td>投稿やコメントに対してPluginが自動返信する。</td><td><code>internal/handler</code></td></tr>
+    <tr><td><code>theme</code></td><td>お題生成</td><td>コミュニティ向けのお題や話題をAIで生成する。</td><td><code>internal/handler/theme_entry.go</code></td></tr>
+    <tr><td><code>scheduled_image</code></td><td>定時画像投稿</td><td>定時投稿に合わせて画像付き投稿を行う。</td><td><code>internal/scheduler</code></td></tr>
+    <tr><td><code>idle_post</code></td><td>静寂投稿</td><td>一定時間投稿がない場合に、話題提供投稿を行う。</td><td><code>internal/scheduler</code></td></tr>
+    <tr><td><code>image_reply</code></td><td>画像返信</td><td>返信時に画像を添付する。</td><td><code>internal/handler</code></td></tr>
+    <tr><td><code>welcome</code></td><td>新規参加者案内</td><td>新しく参加したユーザー向けの案内投稿を行う。</td><td><code>internal/handler/welcome_entry.go</code></td></tr>
+    <tr><td><code>admin</code></td><td>管理者機能</td><td>管理者向けコマンドや制御機能を有効にする。</td><td><code>internal/handler/admin_entry.go</code></td></tr>
+  </tbody>
+</table>
+
+<h2>代表的な運用パターン</h2>
+<table>
+  <thead><tr><th>用途</th><th>FEATURES例</th><th>説明</th></tr></thead>
+  <tbody>
+    <tr><td>全部入り</td><td><code>reply,theme,scheduled_image,idle_post,image_reply,welcome,admin</code></td><td>現在の標準形。</td></tr>
+    <tr><td>画像なし</td><td><code>reply,theme,idle_post,welcome,admin</code></td><td>画像生成コストや失敗を避けたい時。</td></tr>
+    <tr><td>返信だけ</td><td><code>reply,admin</code></td><td>最小構成で自動返信を試す時。</td></tr>
+    <tr><td>管理だけ</td><td><code>admin</code></td><td>投稿制御や管理者コマンドだけを試す時。</td></tr>
+  </tbody>
+</table>
+
+<h2>画像機能の注意</h2>
+<p><code>FEATURES</code> に画像系機能が入っていても、<code>OPENAI_IMAGE_ENABLED</code> が <code>false</code> なら画像生成本体は止まる。画像を使わない運用ならこのままでよい。画像を使う場合はRailway Variables側で明示的に <code>true</code> にする。</p>
+
+    <nav class="bottom-nav" aria-label="ページ下部ナビ">
+      <a href="index.html">TOPへ戻る</a>
+      <a href="#top">このページのTOPへ戻る ↑</a>
+    </nav>
+  </article>
 </main>
-</div>
-<footer class="footer"><p>公開用の制作記録。APIキー、Client Secret、Railway Variables、.env、ログ、個人データは掲載しない。</p></footer>
+<footer class="site-footer">
+  <div class="wrapper">
+    <span>mixi2 Plugin BOT制作ノート</span>
+    <span>APIキー、Client Secret、Railway Variables、.env、logsは掲載しない。</span>
+  </div>
+</footer>
 </body>
 </html>
