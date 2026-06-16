@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 440" role="img" aria-label="スマホ安全設計">
+<rect width="980" height="440" rx="28" fill="#fffdf8"/>
+<circle cx="870" cy="86" r="140" fill="#8b5e34" opacity=".10"/>
+<circle cx="105" cy="400" r="150" fill="#1f6f63" opacity=".10"/>
+<rect x="42" y="42" width="896" height="356" rx="24" fill="#fff" stroke="#e1d7c8"/>
+<text x="72" y="88" font-size="30" font-weight="900" fill="#24211d">スマホ安全設計</text>
+<text x="72" y="116" font-size="17" fill="#766d60">固定ボタンなし・表とコードは内部スクロール</text>
+<text x="72" y="138" font-size="20" fill="#24211d" font-family="Consolas, monospace">top fixed: title only</text><text x="72" y="170" font-size="20" fill="#24211d" font-family="Consolas, monospace">sidebar: normal page tree</text><text x="72" y="202" font-size="20" fill="#24211d" font-family="Consolas, monospace">table/pre: overflow-x auto</text><text x="72" y="234" font-size="20" fill="#24211d" font-family="Consolas, monospace">svg mock: max-width 100%</text><text x="72" y="266" font-size="20" fill="#24211d" font-family="Consolas, monospace">bottom: TOPへ戻る / このページのTOPへ戻る</text>
+</svg>

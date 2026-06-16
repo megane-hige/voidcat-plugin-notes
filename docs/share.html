@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>共有方針 | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="公開ノートに載せる情報と載せない情報の整理。">
-  <link rel="stylesheet" href="assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>共有方針 | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="公開ノートに載せる情報と載せない情報の整理。">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / 共有方針</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>共有方針</h1>
     <p class="lead">公開ノートに載せる情報と載せない情報の整理。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -39,19 +35,41 @@
 <section class="card">
 <h2>共有方針</h2>
 
-<p>この公開ノートは、構造と作業判断を共有するためのものです。Plugin本体のPrivate repo、.env、logs、Railway Variables、APIキー、Client Secret、実コミュニティの投稿データは共有対象ではありません。</p>
+<p>公開ノートに載せるのは、構造、判断、公開可能な手順、モックです。APIキー、Client Secret、Railway Variablesの実値、.env、logs、実コミュニティの投稿データは載せません。</p>
 
 </section>
 <section class="card">
-<h2>共有してよいもの</h2>
-
-<ul><li>フォルダ構成の考え方</li><li>FEATURESの説明</li><li>Config UIの使い方</li><li>公開可能な作業記録</li><li>秘密値を含まないモック画像</li></ul>
-
-</section>
-<section class="card">
-<h2>共有してはいけないもの</h2>
+<h2>公開しないもの</h2>
 
 <ul><li>OPENAI_API_KEY</li><li>mixi2 Client Secret</li><li>Railway Variablesの実値</li><li>.env本体</li><li>logs</li><li>ユーザー情報や投稿本文</li></ul>
+
+</section>
+
+
+<section class="card">
+<h2>共有時の実務ルール</h2>
+
+<p>共有用の記事やスクリーンショットを作る時は、まず「これは公開してよい情報か」を確認します。フォルダ構成、機能名、設定項目名、確認コマンド、失敗例、Requirementの注意は共有できます。一方で、APIキー、Client Secret、Railway Variablesの実値、.env、logs、実コミュニティの投稿本文、ユーザー情報は共有しません。</p>
+<p>特に注意すべきなのは、設定例を貼る時です。キー名だけを示すつもりでも、実値が残ったまま貼ってしまう可能性があります。公開資料では <code>&lt;Railwayで実値を設定&gt;</code> のような表記にし、実値はRailway画面で直接入力する運用にします。</p>
+<p>GitHub Pagesに載せる記事は、制作過程を説明するためのものであり、配布用の完成済みBOTではありません。受け取った人が自分のmixi2 Pluginアプリ、自分のOpenAI APIキー、自分のRailway環境、自分のGitHub repo、自分の人格データを用意する前提です。</p>
+<p>この共有方針を守ることで、制作ノウハウは残しつつ、秘密情報や実運用データを外へ出さない状態を維持できます。</p>
+
+</section>
+
+<section class="card">
+<h2>公開ノートとしての完成条件</h2>
+
+<p>公開ノートとして完成している状態とは、単にHTMLが表示されることではありません。読んだ人が、どのフォルダを触り、どの設定を確認し、どのサービスで何を用意し、どの情報を公開してはいけないか理解できる状態です。そのため、制作ノートでは、見た目の装飾よりも、作業の再現性と安全性を優先します。</p>
+<p>ページを更新する時は、TOPから各ページへ移動できること、詳細記事に前後ボタンがあること、各ページ下部にTOPへ戻るリンクがあること、スマホで横にはみ出さないこと、Secretや実ログが含まれていないことを確認します。これらは公開前の最低限のレビュー項目です。</p>
+<p>共有範囲の判断に迷った場合は、「その情報を見た第三者が外部サービスへアクセスできるか」「実コミュニティの内部情報が分かるか」「特定ユーザーの行動や投稿が分かるか」を基準にします。該当する場合は公開しません。</p>
+
+</section>
+
+<section class="card">
+<h2>共有前の最終レビュー</h2>
+
+<p>公開前には、ページ本文だけでなく、画像、HTMLソース、CSS、JSON、ZIP内のファイル名も確認します。本文にSecretを書いていなくても、スクリーンショットにRailway Variablesが写っていたり、ZIPの中に古い.envやlogsが混ざっていたりすると公開事故になります。</p>
+<p>このため、公開ノートを作る時は、docs配下だけを対象にし、Plugin本体repoや作業中の一時フォルダを混ぜないようにします。Gitへ追加する時も <code>git add .</code> ではなく、<code>git add .\docs</code> のように範囲を限定します。バックアップフォルダや展開用一時フォルダはcommit対象に入れません。</p>
 
 </section>
 

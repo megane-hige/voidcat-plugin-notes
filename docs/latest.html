@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>最新記事 | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="三体標準化、Config UI最終調整、Railway確認、docs再構成の作業記録。">
-  <link rel="stylesheet" href="assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>最新記事 | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="三体標準化、Config UI最終調整、Railway確認、docs再構成の作業記録。">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / 最新記事</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>最新記事</h1>
     <p class="lead">三体標準化、Config UI最終調整、Railway確認、docs再構成の作業記録。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -39,47 +35,35 @@
 <section class="card">
 <h2>今回の更新概要</h2>
 
-<p>今回の更新では、虚無猫、シベリア・フジタ、空想アイの3体Pluginを同じ構成に揃えました。虚無猫だけが <code>base-bot</code> フォルダ名のまま残っていたため、GitHub remoteとしてはVoidcat用なのに、ローカル上では共通テンプレなのか本番repoなのか分かりにくい状態でした。</p>
-<p>作業後は、虚無猫も <code>mixi2-community-voidcat-plugin</code> へ整理し、3体とも「専用repo・専用persona・専用assets」の形に統一しました。<code>base-bot</code> は本番用ではなく、共通テンプレとして再定義しています。</p>
-<figure class="snapshot"><img src="assets/snapshots/tree-standard.svg" alt="標準フォルダ構成"><figcaption class="caption">3体標準化後のフォルダ構成。</figcaption></figure>
+<p>今回の作業では、虚無猫、シベリア・フジタ、空想アイの3体Pluginを同じ考え方で管理できるようにしました。以前は虚無猫だけが <code>base-bot</code> 名義のフォルダに残っており、実体としてはVoidcat用GitHub repoを向いているのに、ローカル上では共通テンプレなのか本番repoなのか分かりにくい状態でした。</p>
+<p>この混線を解消するため、虚無猫を <code>mixi2-community-voidcat-plugin</code> として専用repo化し、フジタ、空想アイと同じ構成へ揃えました。<code>base-bot</code> はRailway本番には使わず、今後のコピー元・共通テンプレとして扱います。</p>
+<figure class="snapshot"><img src="assets/snapshots/tree-standard.svg" alt="三体標準化後のフォルダ構成。"><figcaption class="caption">三体標準化後のフォルダ構成。</figcaption></figure>
+</section>
+<section class="card">
+<h2>今回実施した作業</h2>
+<div class="table-wrap"><table class="table"><tr><th>分類</th><th>内容</th><th>確認</th></tr><tr><td>三体標準化</td><td>Voidcat、Fujita、Nan AIを専用repo・専用persona・専用assetsへ統一。</td><td>各repoで不要人格と不要素材を整理。</td></tr>
+<tr><td>base-bot再定義</td><td>base-botを共通テンプレとして復元。</td><td>Railway本番には使わない。</td></tr>
+<tr><td>Config UI</td><td>人格選択、人格シート、機能ON/OFF、ローカル.env補助設定、Railway確認欄を整理。</td><td>本番Railwayを直接変更するUIではない。</td></tr>
+<tr><td>起動導線</td><td>open-configui.batとショートカットを作成。</td><td>ASCII版にして文字化け回避。</td></tr>
+<tr><td>Railway確認</td><td>VoidcatのSecrets空欄、FujitaのVolume未表示を確認。</td><td>Railway画面で実値とVolumeを確認する。</td></tr>
+<tr><td>docs再構成</td><td>ページ構成を制作マニュアル寄りに再編。</td><td>固定表示はタイトルだけ、詳細記事と前後ボタンを復活。</td></tr></table></div>
+</section>
+
+
+<section class="card">
+<h2>作業後の判断基準</h2>
+
+<p>今回の更新で重要なのは、見た目の整理ではなく、運用単位を明確にしたことです。フォルダ名、GitHub repo名、Railway service名、persona名、assets名が揃っていると、障害時に「どこを見ればよいか」が大きく変わります。逆に、ここがズレていると、正しいrepoへcommitしてもRailwayが別repoを見ていたり、別人格の素材を参照したりします。</p>
+<p>そのため、今回の完了判定は「ページができた」ではなく、「3体それぞれの運用単位が明確になり、Config UIの入口も揃い、Railwayで確認すべき残項目が分離された」ことです。SecretsやVolumeのようにRailway画面でしか直せないものは、コード修正とは別タスクとして残します。</p>
 
 </section>
 <section class="card">
-<h2>今日行った主な作業</h2>
-
-<ul>
-<li>虚無猫を <code>mixi2-community-voidcat-plugin</code> として専用repo化。</li>
-<li>Voidcat repoから不要な <code>personas/base</code>、<code>personas/fujita</code>、<code>personas/nanchatte_ai</code>、不要assetsを削除。</li>
-<li><code>base-bot</code> を共通テンプレとして復元し、Railway本番では使わない扱いに変更。</li>
-<li>フジタ、空想アイ、虚無猫の3repoが <code>main...origin/main</code> で揃っていることを確認。</li>
-<li>Config UI一発起動batとデスクトップショートカットを作成。</li>
-<li>batの文字化けを回避するためASCII版に修正。</li>
-<li>ブラウザ自動起動を <code>Start-Process</code> で安定化。</li>
-<li>RailwayでVoidcatのSecret空欄問題を確認。</li>
-<li>RailwayでフジタだけVolume表示がない問題を確認。</li>
-<li>docsを、最新記事、基本構造解説、作業記録、機能一覧、コンフィグ項目一覧、必要サービス、オリジナルbot化手順へ再構成。</li>
-</ul>
-
-</section>
-<section class="card">
-<h2>標準化後の現在地</h2>
-<div class="table-wrap"><table class="table"><tr><th>対象</th><th>現在の扱い</th><th>状態</th></tr><tr><td><code>base-bot</code></td><td>共通テンプレ。Gitなしでもよい。本番Railwayには使わない。</td><td>復元済み。</td></tr>
-<tr><td><code>mixi2-community-voidcat-plugin</code></td><td>虚無猫本番repo。</td><td>専用化、commit、push済み。</td></tr>
-<tr><td><code>mixi2-community-fujita-plugin</code></td><td>シベリア・フジタ本番repo。</td><td>同期済み。</td></tr>
-<tr><td><code>mixi2-community-nan_ai-plugin</code></td><td>空想アイ本番repo。</td><td>同期済み。</td></tr>
-<tr><td><code>voidcat-plugin-notes</code></td><td>公開記事repo。</td><td>docs再構成中。</td></tr></table></div>
-</section>
-<section class="card">
-<h2>残確認</h2>
-
-<div class="callout warning"><p>コードとGitHubは整理済みでも、Railwayは別確認が必要です。SecretsとVolumeはRailway側の設定なので、repoをpushしても自動で直りません。</p></div>
-<ul>
-<li>Voidcatの <code>MIXI2_CLIENT_SECRET</code> と <code>OPENAI_API_KEY</code> が空欄ではないこと。</li>
-<li>フジタに <code>/data</code> Volumeが付いていること。</li>
-<li>3体のRailway Deployがsuccessfulであること。</li>
-<li>ログにmissing env、OpenAI key missing、PermissionDenied、panicが出ていないこと。</li>
-</ul>
-
+<h2>更新後チェックリスト</h2>
+<div class="table-wrap"><table class="table"><tr><th>確認</th><th>理由</th><th>OK判定</th></tr><tr><td>3repoのGit status</td><td>ローカル変更が残っていると反映漏れになる。</td><td><code>## main...origin/main</code> で揃う。</td></tr>
+<tr><td>Config UI起動</td><td>編集導線が壊れていないか確認する。</td><td>番号選択後にブラウザが開く。</td></tr>
+<tr><td>Voidcat Secrets</td><td>空欄だと認証とOpenAI生成が止まる。</td><td>Railwayで実値が設定済み。</td></tr>
+<tr><td>Fujita Volume</td><td>/data履歴が消える可能性を避ける。</td><td>ServiceにVolume表示がある。</td></tr>
+<tr><td>GitHub Pages</td><td>公開ノートのリンク切れを避ける。</td><td>TOP、詳細記事、前後ボタンが動く。</td></tr></table></div>
 </section>
 
     <nav class="bottom-nav">

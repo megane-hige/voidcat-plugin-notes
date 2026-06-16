@@ -1,5 +1,11 @@
 {
   "generated": "2026-06-16",
-  "version": "full-v2",
-  "notes": "No sticky/fixed top nav. Worklog includes detailed articles. Features list expanded."
+  "version": "manual-grade-v3",
+  "validation": {
+    "top_fixed": "title only",
+    "detail_articles": 8,
+    "prev_next": true,
+    "mocks_in_detail_articles": true,
+    "secrets": false
+  }
 }

@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>基本構造解説 | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="フォルダ構成、処理の流れ、人格と素材の分離。">
-  <link rel="stylesheet" href="assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>基本構造解説 | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="フォルダ構成、処理の流れ、人格と素材の分離。">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / 基本構造解説</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>基本構造解説</h1>
     <p class="lead">フォルダ構成、処理の流れ、人格と素材の分離。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -39,38 +35,42 @@
 <section class="card">
 <h2>基本構造</h2>
 
-<p>現在の標準構造は、共通テンプレと3体専用Plugin repoを分ける形です。共通テンプレはコピー元、本番運用は専用repoという役割分担にしています。</p>
-<figure class="snapshot"><img src="assets/snapshots/tree-standard.svg" alt="標準フォルダ構成"><figcaption class="caption">共通テンプレと3体専用repo。</figcaption></figure>
-
+<p>標準構造は、共通テンプレと本番repoを分離する設計です。共通テンプレはコピー元として残し、実際にRailwayで動くのはキャラクターごとの専用repoです。これにより、どのBOTを直しているのか、どのRailway serviceへ反映されるのかが明確になります。</p>
+<figure class="snapshot"><img src="assets/snapshots/tree-standard.svg" alt="共通テンプレと三体専用repoの関係。"><figcaption class="caption">共通テンプレと三体専用repoの関係。</figcaption></figure>
 </section>
 <section class="card">
 <h2>処理の流れ</h2>
 
-<p>mixi2からイベントや投稿を受け取り、handlerで判定し、必要に応じてOpenAIで返信文やお題を生成し、mixi2 APIで投稿・返信します。定時投稿や静寂投稿はschedulerが担当します。</p>
-<figure class="snapshot"><img src="assets/snapshots/feature-map.svg" alt="機能構成"><figcaption class="caption">FEATURESで入口をON/OFFする。</figcaption></figure>
-<div class="diagram"><div class="flow"><div class="box">mixi2 Event<small>投稿・参加</small></div><div class="box">handler<small>判定</small></div><div class="box">OpenAI<small>生成</small></div><div class="box">mixi2 API<small>返信</small></div><div class="box">scheduler<small>定時処理</small></div></div></div>
+<p>Plugin本体は、mixi2から投稿や参加イベントを受け取り、handlerで種別と条件を判定します。返信やお題生成が必要な場合はOpenAIへ生成を依頼し、結果をmixi2 APIで投稿または返信します。定時投稿や静寂投稿はscheduler側が担当します。</p>
+<figure class="snapshot"><img src="assets/snapshots/feature-map.svg" alt="FEATURESで入口を切る機能構成。"><figcaption class="caption">FEATURESで入口を切る機能構成。</figcaption></figure>
+</section>
+<section class="card">
+<h2>標準フォルダ</h2>
+<div class="table-wrap"><table class="table"><tr><th>場所</th><th>役割</th><th>注意</th></tr><tr><td><code>base-bot</code></td><td>共通テンプレ。新しいPluginを作るコピー元。</td><td>本番Railwayには使わない。</td></tr>
+<tr><td><code>mixi2-community-voidcat-plugin</code></td><td>虚無猫本番repo。</td><td><code>personas/kyomu_neko</code> と <code>assets/kyomu_neko</code> を持つ。</td></tr>
+<tr><td><code>mixi2-community-fujita-plugin</code></td><td>シベリア・フジタ本番repo。</td><td><code>personas/fujita</code> と <code>assets/fujita</code> を持つ。</td></tr>
+<tr><td><code>mixi2-community-nan_ai-plugin</code></td><td>空想アイ本番repo。</td><td><code>personas/nanchatte_ai</code> と <code>assets/nanchatte_ai</code> を持つ。</td></tr>
+<tr><td><code>voidcat-plugin-notes</code></td><td>公開ノートrepo。</td><td>Plugin本体ではない。秘密値なし。</td></tr></table></div>
+</section>
+
+
+<section class="card">
+<h2>本番repoを1人格に絞る理由</h2>
+
+<p>base-botのような共通テンプレでは複数人格を持っていても問題ありません。むしろ、テンプレートとしては複数の例がある方が便利です。しかし、本番で動く専用repoに複数人格や複数キャラ素材が残っていると、更新時に判断が鈍ります。Voidcatを更新したいのにFujitaのpersonaが見えている、Nan AI用のassetsが残っている、という状態は不要な混乱を生みます。</p>
+<p>専用repoは「このrepoは誰のBOTか」が一目で分かることを優先します。コード本体は共通でも、personaとassetsは1つに絞る。これにより、Railway VariablesのPERSONA、PERSONA_PATH、IMAGE_REF_DIRも単純になります。</p>
 
 </section>
 <section class="card">
-<h2>人格と素材</h2>
+<h2>構造確認コマンド</h2>
 
-<p>人格は <code>personas</code>、素材は <code>assets</code> に置きます。専用repoでは、原則として1人格と1素材セットだけを残します。</p>
-<pre><code>PERSONA="kyomu_neko"
-PERSONA_PATH="personas/kyomu_neko/persona.json"
-IMAGE_REF_DIR="assets/kyomu_neko/refs"</code></pre>
-<p>この3つがずれると、人格は虚無猫なのに画像素材は別キャラ、または素材ディレクトリが見つからない、という事故につながります。専用repo化は、この取り違えを防ぐための整理です。</p>
+<pre><code>cd C:\dev\mixi2-plugins\mixi2-community-voidcat-plugin
+Test-Path .\personas\kyomu_neko\persona.json
+Test-Path .\assets\kyomu_neko\refs
+go test ./...
+go build ./cmd/plugin</code></pre>
+<p>構造確認では、存在してほしいものだけでなく、存在しない方がよいものも見ます。たとえばVoidcat専用repoに <code>personas/fujita</code> や <code>assets/nanchatte_ai</code> が残っているなら、運用上は削除候補です。</p>
 
-</section>
-<section class="card">
-<h2>Plugin repo内の主な場所</h2>
-<div class="table-wrap"><table class="table"><tr><th>場所</th><th>役割</th><th>注意</th></tr><tr><td><code>cmd/plugin</code></td><td>Railway本番で起動する入口。</td><td>変更後は <code>go build ./cmd/plugin</code>。</td></tr>
-<tr><td><code>cmd/configui</code></td><td>ローカルブラウザ設定UI。</td><td>本番Railwayを直接操作しない。</td></tr>
-<tr><td><code>cmd/*check</code></td><td>接続・投稿・設定確認。</td><td>段階ごとに使う。</td></tr>
-<tr><td><code>internal/handler</code></td><td>投稿、返信、歓迎、管理者コマンド。</td><td>誤返信の中心確認箇所。</td></tr>
-<tr><td><code>internal/scheduler</code></td><td>定時投稿、画像投稿、静寂投稿。</td><td>履歴とVolumeが重要。</td></tr>
-<tr><td><code>internal/config</code></td><td>Variables読み込み。</td><td>Secret空欄やデフォルト値に注意。</td></tr>
-<tr><td><code>personas</code></td><td>人格設定。</td><td>専用repoでは1人格。</td></tr>
-<tr><td><code>assets</code></td><td>画像素材。</td><td>専用repoでは1人格分。</td></tr></table></div>
 </section>
 
     <nav class="bottom-nav">

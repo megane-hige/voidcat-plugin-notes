@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>第04回：検証コマンドとPowerShell作業導線を作る | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="確認コマンド、スクリプト、文字化け対策。">
-  <link rel="stylesheet" href="../assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第04回：検証コマンドとPowerShell作業導線を作る | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="確認コマンド、スクリプト、文字化け対策。">
+<link rel="stylesheet" href="../assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / 第04回：検証コマンドとPowerShell作業導線を作る</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>第04回：検証コマンドとPowerShell作業導線を作る</h1>
     <p class="lead">確認コマンド、スクリプト、文字化け対策。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -39,8 +35,40 @@
   <main class="content">
 <section class="card">
 <h2>第04回：検証コマンドとPowerShell作業導線を作る</h2>
-<p>設定が増えたことで、手作業の確認だけではミスを見つけにくくなった。そこでconfigcheck、gptcheck、mixi2check、timelinecheck、postcheckなどの確認コマンドを使う方針にした。</p><p>PowerShellスクリプトも追加し、人格切替、機能切替、新規人格作成、素材確認、一括テストを補助できるようにした。</p><p>日本語を含むGoファイルやJSONをPowerShellで書く時は、BOMや文字化けに注意した。Set-Contentの使い方によってはGoファイルが壊れるため、UTF-8 BOMなしで書き込む方針を取った。</p><p>後のConfig UI一発起動batでも、文字化け問題が発生した。最終的にbatはASCIIに寄せることで安定させた。</p>
-<div class="callout"><p>このページは公開用の制作記録です。APIキー、Client Secret、Railway Variables、.env、logs、実コミュニティの投稿データは掲載しません。</p></div>
+<p>設定項目が増えると、目視だけではミスを拾えません。そこで、configcheck、gptcheck、mixi2check、timelinecheck、postcheckなどの確認コマンドを使い、設定、OpenAI、mixi2認証、投稿読み取り、投稿可否を段階的に確認できるようにしました。</p><p>PowerShellスクリプトも重要です。人格切替、機能切替、新規人格作成、素材チェック、一括プロファイルテストをスクリプト化することで、手作業のブレを減らしました。</p><p>日本語ファイルをPowerShellで扱う時は文字化けとBOMに注意しました。GoファイルやJSONを書き換えるとき、UTF-8 BOMありで保存されると予期しない問題が出ることがあります。</p><p>後にConfig UIの一発起動batでも文字化け問題が起きました。最終的にはbatをASCIIに寄せ、表示文言を英数字中心にすることで安定させました。</p><figure class="snapshot"><img src="../assets/snapshots/configui-browser-mock.svg" alt="第04回：検証コマンドとPowerShell作業導線を作るのモック"><figcaption class="caption">第04回：検証コマンドとPowerShell作業導線を作るのモック</figcaption></figure>
+</section>
+<section class="card">
+<h2>確認ポイント</h2>
+
+<ul>
+<li>この段階で何を確認すべきかを明確にする。</li>
+<li>秘密値や実ログを公開記事に含めない。</li>
+<li>問題が起きた場合は、前段階へ戻って切り分ける。</li>
+<li>作業後は必ずGit status、ビルド、対象ページ表示を確認する。</li>
+</ul>
+
+</section>
+
+<nav class="nextprev"><a href="stage03-modules.html">← 前の記事：第03回：handlerとschedulerを機能入口で整理する</a><a href="stage05-mixi2.html">次の記事：第05回：OpenAI APIとmixi2 Pluginにつなぐ →</a></nav>
+<section class="card">
+<h2>PowerShellで避けること</h2>
+
+<p>PowerShellで再帰検索する時は、<code>.git</code>、<code>logs</code>、<code>.exe</code> を対象にしないようにします。特に生成済みexeをSelect-Stringすると、大量出力で止まったように見えることがあります。</p>
+<pre><code>Get-ChildItem -Recurse -File |
+  Where-Object { $_.Extension -notin ".exe" -and $_.FullName -notmatch "\\.git\\" }</code></pre>
+<p>日本語ファイルを書き換える時はUTF-8 BOMなしを使います。これはGoファイル、JSON、HTML、CSSすべてで安全側に倒すための運用です。</p>
+
+</section>
+
+<section class="card">
+<h2>実作業の分解</h2>
+
+<p>検証コマンドは、障害調査の順番を固定するための道具です。configcheckで設定を見る、gptcheckでOpenAIを見る、mixi2checkで認証を見る、timelinecheckで読み取りを見る、postcheckで投稿を見る。この順番にすると、どこで失敗しているか分かりやすくなります。</p>
+<p>PowerShellスクリプトは便利ですが、文字コードと対象ファイルに注意します。日本語を含むファイルを壊さない、.exeや.gitを検索対象にしない、git add . を安易に使わない、というルールが重要です。</p>
+
+<p>この段階で大事なのは、作業結果を「動いた」「動かない」だけで判断しないことです。どの入力に対して、どの設定を読み、どの外部サービスへ接続し、どのログへ残るのかを確認します。BOTは一度動くと自動で投稿・返信するため、目に見える成功よりも、誤作動しないための確認が重要です。</p>
+<p>また、ローカルで成功した作業とRailwayで成功した作業は分けて扱います。ローカルでは.envを読みますが、本番ではRailway Variablesを読みます。ローカルではファイルが残っていても、本番ではVolumeがなければ再デプロイで状態が消える可能性があります。この差を毎回意識します。</p>
+<p>作業後は、Gitの差分、ビルド結果、確認コマンド、必要ならブラウザ表示を確認します。特に公開ノート側では、HTMLのリンク切れ、スマホでの横はみ出し、モック画像の表示、詳細記事の前後ナビを確認します。</p>
 
 </section>
 

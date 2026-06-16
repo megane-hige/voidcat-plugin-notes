@@ -1,14 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 420" role="img" aria-label="標準フォルダ構成">
-<rect width="980" height="420" rx="28" fill="#fffdf8"/>
-<circle cx="870" cy="90" r="130" fill="#8b5e34" opacity=".10"/>
-<circle cx="110" cy="380" r="150" fill="#1f6f63" opacity=".10"/>
-<rect x="42" y="42" width="896" height="336" rx="24" fill="#fff" stroke="#e1d7c8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 440" role="img" aria-label="標準フォルダ構成">
+<rect width="980" height="440" rx="28" fill="#fffdf8"/>
+<circle cx="870" cy="86" r="140" fill="#8b5e34" opacity=".10"/>
+<circle cx="105" cy="400" r="150" fill="#1f6f63" opacity=".10"/>
+<rect x="42" y="42" width="896" height="356" rx="24" fill="#fff" stroke="#e1d7c8"/>
 <text x="72" y="88" font-size="30" font-weight="900" fill="#24211d">標準フォルダ構成</text>
 <text x="72" y="116" font-size="17" fill="#766d60">3体専用repo + 共通テンプレ + 公開ノート</text>
-<text x="72" y="130" font-size="20" fill="#24211d" font-family="Consolas, monospace">C:\dev\mixi2-plugins</text>
-<text x="72" y="162" font-size="20" fill="#24211d" font-family="Consolas, monospace">├─ base-bot                       # common template</text>
-<text x="72" y="194" font-size="20" fill="#24211d" font-family="Consolas, monospace">├─ mixi2-community-voidcat-plugin # kyomu_neko only</text>
-<text x="72" y="226" font-size="20" fill="#24211d" font-family="Consolas, monospace">├─ mixi2-community-fujita-plugin  # fujita only</text>
-<text x="72" y="258" font-size="20" fill="#24211d" font-family="Consolas, monospace">├─ mixi2-community-nan_ai-plugin  # nanchatte_ai only</text>
-<text x="72" y="290" font-size="20" fill="#24211d" font-family="Consolas, monospace">└─ voidcat-plugin-notes           # GitHub Pages docs</text>
+<text x="72" y="138" font-size="20" fill="#24211d" font-family="Consolas, monospace">C:\dev\mixi2-plugins</text><text x="72" y="170" font-size="20" fill="#24211d" font-family="Consolas, monospace">├─ base-bot                         # 共通テンプレ</text><text x="72" y="202" font-size="20" fill="#24211d" font-family="Consolas, monospace">├─ mixi2-community-voidcat-plugin   # 虚無猫</text><text x="72" y="234" font-size="20" fill="#24211d" font-family="Consolas, monospace">├─ mixi2-community-fujita-plugin    # シベリア・フジタ</text><text x="72" y="266" font-size="20" fill="#24211d" font-family="Consolas, monospace">├─ mixi2-community-nan_ai-plugin    # 空想アイ</text><text x="72" y="298" font-size="20" fill="#24211d" font-family="Consolas, monospace">└─ voidcat-plugin-notes             # GitHub Pages</text>
 </svg>

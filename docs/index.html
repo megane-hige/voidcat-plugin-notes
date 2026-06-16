@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>mixi2 Plugin BOT制作記 | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="既存Pluginからbase-bot化し、三体標準化とGitHub Pages公開メモまで整理した制作記録。">
-  <link rel="stylesheet" href="assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mixi2 Plugin BOT制作記 | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="既存Pluginからbase-bot化し、三体標準化とGitHub Pages公開メモまで整理した制作マニュアル。">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / mixi2 Plugin BOT制作記</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>mixi2 Plugin BOT制作記</h1>
-    <p class="lead">既存Pluginからbase-bot化し、三体標準化とGitHub Pages公開メモまで整理した制作記録。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <p class="lead">既存Pluginからbase-bot化し、三体標準化とGitHub Pages公開メモまで整理した制作マニュアル。</p>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -39,21 +35,20 @@
 <section class="card">
 <h2>これは何の記録か</h2>
 
-<p>mixi2コミュニティ用Plugin BOTを、既存Pluginから分岐し、base-bot化し、虚無猫・シベリア・フジタ・空想アイの3体専用repoへ標準化し、Railwayで運用できる形まで整理した制作記録です。</p>
-<p>今回の再構成では、旧記事の雰囲気に近いページツリー型の構成へ戻しつつ、上部に固定されるコンテンツボタンは置かない形にしました。スマホではサイドバーが上に回り、表やコードは内部スクロールで収まるようにしています。</p>
-<div class="diagram"><div class="flow"><div class="box">既存Plugin<small>動く土台</small></div><div class="box">base-bot<small>汎用化</small></div><div class="box">三体専用repo<small>標準化</small></div><div class="box">Railway<small>本番稼働</small></div><div class="box">Pages<small>制作記録</small></div></div></div>
-
+<p>このサイトは、mixi2コミュニティ用Plugin BOTを作るための制作マニュアルです。既存Pluginをコピーしてbase-botへ分岐し、人格を外部ファイル化し、機能をFEATURESで切り替え、Railwayで常時稼働し、最終的に虚無猫・シベリア・フジタ・空想アイの3体専用repoへ標準化するまでをまとめています。</p>
+<p>読み物としての制作記録だけでなく、実際に同じようなBOTを作るときに参照できるよう、フォルダ構成、確認コマンド、Railway Variables、Requirement、Volume、Config UI、GitHub Pages公開方針まで含めています。</p>
+<figure class="snapshot"><img src="assets/snapshots/workflow.svg" alt="既存Pluginから三体標準化とGitHub Pages公開までの流れ。"><figcaption class="caption">既存Pluginから三体標準化とGitHub Pages公開までの流れ。</figcaption></figure>
 </section>
 <section class="card">
 <h2>まず見るページ</h2>
 
 <div class="grid">
-  <div class="tile"><strong><a href="latest.html">最新記事</a></strong><small>今回の三体標準化、Config UI、Railway確認、docs再構成。</small></div>
-  <div class="tile"><strong><a href="architecture.html">基本構造解説</a></strong><small>フォルダ構成、処理の流れ、人格と素材の分離。</small></div>
-  <div class="tile"><strong><a href="worklog.html">作業記録</a></strong><small>旧詳細記事を統合した長い制作ログ。</small></div>
-  <div class="tile"><strong><a href="features.html">機能一覧</a></strong><small>実装機能、補助機能、確認コマンド、運用機能。</small></div>
-  <div class="tile"><strong><a href="config.html">コンフィグ項目一覧</a></strong><small>Railway Variables、Secret、Volume、投稿時刻、画像設定。</small></div>
-  <div class="tile"><strong><a href="articles/index.html">詳細記事</a></strong><small>旧記事相当の第01回〜第08回。</small></div>
+<div class="tile"><strong><a href="latest.html">最新記事</a></strong><small>今回の三体標準化、Config UI、Railway確認、docs再構成。</small></div>
+<div class="tile"><strong><a href="architecture.html">基本構造解説</a></strong><small>フォルダ構成、処理の流れ、人格と素材の分離。</small></div>
+<div class="tile"><strong><a href="worklog.html">作業記録</a></strong><small>旧詳細記事を統合した長い制作ログ。</small></div>
+<div class="tile"><strong><a href="features.html">機能一覧</a></strong><small>実装機能、補助機能、確認コマンド、運用機能。</small></div>
+<div class="tile"><strong><a href="config.html">コンフィグ項目一覧</a></strong><small>Railway Variables、Secret、Volume、投稿時刻、画像設定。</small></div>
+<div class="tile"><strong><a href="articles/index.html">詳細記事</a></strong><small>旧記事相当の第01回〜第08回。</small></div>
 </div>
 
 </section>
@@ -61,7 +56,7 @@
 <h2>詳細記事</h2>
 
 <div class="article-list">
-<a class="article-link" href="articles/stage01-base.html"><strong>第01回：動いているPluginをbase-botへ分岐する</strong><small>既存Pluginのコピーから、汎用化の入口まで。</small></a>
+<a class="article-link" href="articles/stage01-base.html"><strong>第01回：動いているPluginをbase-botへ分岐する</strong><small>既存Pluginのコピー、ビルド確認、汎用化の入口。</small></a>
 <a class="article-link" href="articles/stage02-persona.html"><strong>第02回：人格を外部ファイル化して切り替える</strong><small>PERSONA、persona.json、画像素材の分離。</small></a>
 <a class="article-link" href="articles/stage03-modules.html"><strong>第03回：handlerとschedulerを機能入口で整理する</strong><small>reply、theme、welcome、admin、schedulerの分解。</small></a>
 <a class="article-link" href="articles/stage04-tools.html"><strong>第04回：検証コマンドとPowerShell作業導線を作る</strong><small>new-persona、switch-bot、configcheck、docs整備。</small></a>
@@ -71,6 +66,26 @@
 <a class="article-link" href="articles/stage08-pages.html"><strong>第08回：作業ログを公開サイトとして作り直す</strong><small>GitHub Pages、記事化、スナップショット化。</small></a>
 </div>
 
+</section>
+
+
+<section class="card">
+<h2>このサイトの使い方</h2>
+
+<p>このサイトは、最初から順番に読むと、Plugin制作の全体像が追えるように作っています。まずトップで構成を見て、次に最新記事で現在の変更点を確認し、基本構造解説でフォルダと処理の流れを理解します。その後、作業記録で制作の順番を追い、機能一覧とコンフィグ項目一覧を参照しながら、自分のBOTを作る準備に進む流れです。</p>
+<p>各ページは単独でも読めますが、実作業では複数ページを行き来します。たとえばRailwayでエラーが出た場合は、コンフィグ項目一覧でVariables名を確認し、必要サービスのページでRequirementとVolumeの考え方を確認し、作業記録で過去に同じような詰まりがなかったかを見ます。</p>
+<div class="callout"><p>公開用の制作マニュアルなので、実際のAPIキーやSecret、Railway Variablesの実値は入れていません。必要なのは「どの値が必要か」「どこで設定するか」「何を確認するか」です。</p></div>
+
+</section>
+<section class="card">
+<h2>推奨の読み順</h2>
+<div class="table-wrap"><table class="table"><tr><th>順番</th><th>ページ</th><th>目的</th></tr><tr><td>1</td><td>最新記事</td><td>今回の三体標準化とConfig UI調整の現在地を知る。</td></tr>
+<tr><td>2</td><td>基本構造解説</td><td>base-bot、専用repo、notes repoの役割を理解する。</td></tr>
+<tr><td>3</td><td>作業記録</td><td>なぜ今の構成になったかを時系列で追う。</td></tr>
+<tr><td>4</td><td>機能一覧</td><td>実行機能、補助機能、確認コマンドを把握する。</td></tr>
+<tr><td>5</td><td>コンフィグ項目一覧</td><td>Railway Variablesとローカル.env補助設定を確認する。</td></tr>
+<tr><td>6</td><td>必要サービス</td><td>mixi2、OpenAI、GitHub、Railwayの準備物を確認する。</td></tr>
+<tr><td>7</td><td>オリジナルbot化</td><td>テンプレートから自分のBOTへ置き換える手順を確認する。</td></tr></table></div>
 </section>
 
     <nav class="bottom-nav">

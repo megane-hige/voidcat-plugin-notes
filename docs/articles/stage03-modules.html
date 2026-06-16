@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>第03回：handlerとschedulerを機能入口で整理する | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="reply、theme、welcome、admin、schedulerの分解。">
-  <link rel="stylesheet" href="../assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第03回：handlerとschedulerを機能入口で整理する | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="reply、theme、welcome、admin、schedulerの分解。">
+<link rel="stylesheet" href="../assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / 第03回：handlerとschedulerを機能入口で整理する</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>第03回：handlerとschedulerを機能入口で整理する</h1>
     <p class="lead">reply、theme、welcome、admin、schedulerの分解。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -39,8 +35,41 @@
   <main class="content">
 <section class="card">
 <h2>第03回：handlerとschedulerを機能入口で整理する</h2>
-<p>機能が増えると、投稿を受けた時に何が起きるのか分かりにくくなる。そのため、handlerとschedulerの入口を分け、FEATURESでON/OFFできるようにした。</p><p>replyは自動返信、themeはお題生成、welcomeは新規参加者案内、adminは管理者コマンド、schedulerは定時投稿や静寂投稿を担当する。入口を分けることで、問題が起きたときの調査範囲が狭くなる。</p><p>この段階で、機能を削除するのではなく入口で止める設計を選んだ。これにより、本番中に画像だけ止める、返信だけ試す、管理者機能だけ残すといった運用が可能になった。</p><p>結果として、FEATURESは単なる文字列ではなく、運用フェーズを切り替えるための重要な安全装置になった。</p>
-<div class="callout"><p>このページは公開用の制作記録です。APIキー、Client Secret、Railway Variables、.env、logs、実コミュニティの投稿データは掲載しません。</p></div>
+<p>人格の次は、機能の入口を分けました。投稿を受けた時に、返信なのか、歓迎なのか、お題生成なのか、管理者コマンドなのかが混ざっていると、後から問題を追いにくくなります。</p><p>handler側ではreply、theme、welcome、adminの入口を分け、scheduler側では定時投稿、定時画像投稿、静寂投稿の入口を整理しました。これにより、機能ごとの責任範囲が見えるようになります。</p><p>さらにFEATURESを使い、機能をON/OFFできるようにしました。機能をコードから削除するのではなく、入口で止める設計です。これなら、本番中に画像返信だけ止める、返信だけ試す、管理者機能だけ残すといった運用ができます。</p><p>この設計は、BOTを安全に育てるための重要な土台になりました。最初から全部入りで動かすのではなく、段階的に機能を増やす運用が可能になります。</p><figure class="snapshot"><img src="../assets/snapshots/feature-map.svg" alt="第03回：handlerとschedulerを機能入口で整理するのモック"><figcaption class="caption">第03回：handlerとschedulerを機能入口で整理するのモック</figcaption></figure>
+</section>
+<section class="card">
+<h2>確認ポイント</h2>
+
+<ul>
+<li>この段階で何を確認すべきかを明確にする。</li>
+<li>秘密値や実ログを公開記事に含めない。</li>
+<li>問題が起きた場合は、前段階へ戻って切り分ける。</li>
+<li>作業後は必ずGit status、ビルド、対象ページ表示を確認する。</li>
+</ul>
+
+</section>
+
+<nav class="nextprev"><a href="stage02-persona.html">← 前の記事：第02回：人格を外部ファイル化して切り替える</a><a href="stage04-tools.html">次の記事：第04回：検証コマンドとPowerShell作業導線を作る →</a></nav>
+<section class="card">
+<h2>入口分離後の確認</h2>
+
+<p>入口を分けたら、FEATURESで機能を止めた時に本当に動かないか確認します。機能を止めたつもりでも、別入口から呼ばれていれば意味がありません。</p>
+<pre><code>FEATURES=reply,admin
+FEATURES=admin
+FEATURES=reply,theme,idle_post,welcome,admin</code></pre>
+<p>本番では、最初から全部入りにしない方が安全です。返信だけ、管理者だけ、画像なし、全部入りの順に広げると、問題が起きた時に切り分けやすくなります。</p>
+
+</section>
+
+<section class="card">
+<h2>実作業の分解</h2>
+
+<p>handlerとschedulerの入口分離では、まず既存処理を消さずに薄い入口を作ります。その入口でFEATURESを確認し、対象機能がOFFなら処理を抜けます。この形なら、既存実装を大きく壊さずに機能ON/OFFを追加できます。</p>
+<p>入口を分けた後は、各FEATURES構成で動作確認します。replyだけ、adminだけ、画像なし、全部入りを試し、OFFにした機能が動かないことも確認します。</p>
+
+<p>この段階で大事なのは、作業結果を「動いた」「動かない」だけで判断しないことです。どの入力に対して、どの設定を読み、どの外部サービスへ接続し、どのログへ残るのかを確認します。BOTは一度動くと自動で投稿・返信するため、目に見える成功よりも、誤作動しないための確認が重要です。</p>
+<p>また、ローカルで成功した作業とRailwayで成功した作業は分けて扱います。ローカルでは.envを読みますが、本番ではRailway Variablesを読みます。ローカルではファイルが残っていても、本番ではVolumeがなければ再デプロイで状態が消える可能性があります。この差を毎回意識します。</p>
+<p>作業後は、Gitの差分、ビルド結果、確認コマンド、必要ならブラウザ表示を確認します。特に公開ノート側では、HTMLのリンク切れ、スマホでの横はみ出し、モック画像の表示、詳細記事の前後ナビを確認します。</p>
 
 </section>
 

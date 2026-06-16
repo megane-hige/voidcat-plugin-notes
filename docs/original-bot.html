@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>mixi2公式配布からオリジナルbot化まで | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="テンプレートを自分のPlugin、自分の人格、自分のRailway環境へ置き換える手順。">
-  <link rel="stylesheet" href="assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mixi2公式配布からオリジナルbot化まで | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="テンプレートを自分のPlugin、自分の人格、自分のRailway環境へ置き換える手順。">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / mixi2公式配布からオリジナルbot化まで</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>mixi2公式配布からオリジナルbot化まで</h1>
     <p class="lead">テンプレートを自分のPlugin、自分の人格、自分のRailway環境へ置き換える手順。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -40,7 +36,7 @@
 <h2>全体の流れ</h2>
 
 <p>公式配布や空のBaseテンプレートを受け取っただけでは、そのまま自分のBOTとして運用できません。自分のmixi2 Pluginアプリ、自分のOpenAI APIキー、自分のGitHub repo、自分のRailway環境、自分の人格と素材を用意します。</p>
-
+<figure class="snapshot"><img src="assets/snapshots/original-bot.svg" alt="テンプレートからオリジナルBOT化する流れ。"><figcaption class="caption">テンプレートからオリジナルBOT化する流れ。</figcaption></figure>
 </section>
 <section class="card">
 <h2>手順</h2>
@@ -58,13 +54,32 @@
 </ol>
 
 </section>
+
+
 <section class="card">
-<h2>完成判定</h2>
-<div class="table-wrap"><table class="table"><tr><th>項目</th><th>判定</th></tr><tr><td>コード</td><td>go testとgo buildが通る。</td></tr>
-<tr><td>人格</td><td>PERSONA_PATHとIMAGE_REF_DIRが正しい。</td></tr>
-<tr><td>mixi2</td><td>mixi2checkとtimelinecheckが通る。</td></tr>
-<tr><td>OpenAI</td><td>gptcheckが通る。</td></tr>
-<tr><td>Railway</td><td>Deploy successful、Variables、/data Volumeが揃う。</td></tr></table></div>
+<h2>オリジナル化で一番重要な考え方</h2>
+
+<p>テンプレートを使ってBOTを作る時、もっとも重要なのは「提供者の環境を流用しない」ことです。コードや構成を参考にしても、mixi2 Pluginアプリ、OpenAI APIキー、Railwayアカウント、GitHub repo、persona、画像素材は自分で用意します。</p>
+<p>特にClient SecretやOpenAI APIキーは、見た目上ただの文字列ですが、外部サービスの認証情報そのものです。公開記事、スクリーンショット、チャット、GitHubに含めないようにします。</p>
+
+</section>
+<section class="card">
+<h2>最小完成条件</h2>
+<div class="table-wrap"><table class="table"><tr><th>項目</th><th>条件</th></tr><tr><td>ローカル</td><td><code>go test ./...</code> と <code>go build ./cmd/plugin</code> が通る。</td></tr>
+<tr><td>人格</td><td>persona.jsonが存在し、狙った口調で返す。</td></tr>
+<tr><td>mixi2</td><td><code>mixi2check</code> と <code>timelinecheck</code> が通る。</td></tr>
+<tr><td>OpenAI</td><td><code>gptcheck</code> が通る。</td></tr>
+<tr><td>Railway</td><td>Deploy successful、Variables設定済み、/data Volumeあり。</td></tr>
+<tr><td>運用</td><td>誤投稿、連投、返信誤爆を避ける設定になっている。</td></tr></table></div>
+</section>
+
+<section class="card">
+<h2>オリジナル化で起こりやすい失敗</h2>
+
+<p>よくある失敗は、テンプレートのPERSONA名だけ変えて、PERSONA_PATHやIMAGE_REF_DIRを変え忘れることです。これにより、テキストは新キャラのつもりでも、画像素材は旧キャラのまま、という状態になります。</p>
+<p>次に多いのは、mixi2 Pluginアプリを作っただけで、Requirementや再許可を忘れることです。Client IDとSecretが正しくても、Requirementが足りなければtimeline取得や投稿は失敗します。</p>
+<p>Railwayでは、Secretを空欄で上書きする事故があります。テンプレートの空文字を貼るのではなく、Railway画面で実値を設定します。公開記事には、値ではなく項目名と役割だけを書きます。</p>
+
 </section>
 
     <nav class="bottom-nav">

@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BOTを作るのに必要なサービス、アプリ他 | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="ローカル環境、mixi2 Plugin、OpenAI、GitHub、Railway、GitHub Pagesの準備。">
-  <link rel="stylesheet" href="assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOTを作るのに必要なサービス、アプリ他 | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="ローカル環境、mixi2 Plugin、OpenAI、GitHub、Railway、GitHub Pagesの準備。">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / BOTを作るのに必要なサービス、アプリ他</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>BOTを作るのに必要なサービス、アプリ他</h1>
     <p class="lead">ローカル環境、mixi2 Plugin、OpenAI、GitHub、Railway、GitHub Pagesの準備。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -51,10 +47,29 @@
 <p>mixi2 PluginではRequirement設定が重要です。投稿読み取りRequirementが足りないと、timeline取得でPermissionDeniedになります。Requirement変更後はApplication Version更新、コミュニティ側の再インストールまたは再許可、<code>mixi2check</code>、<code>timelinecheck</code> まで確認します。</p>
 
 </section>
-<section class="card">
-<h2>公開禁止情報</h2>
 
-<div class="callout warning"><p>APIキー、Client Secret、Railway Variablesの実値、.env、logs、実コミュニティの投稿本文、ユーザー情報は公開記事やGitHub Pagesに含めません。</p></div>
+
+<section class="card">
+<h2>サービス準備の順番</h2>
+
+<p>サービス準備は、OpenAI、mixi2、GitHub、Railwayを一度に触るため混乱しやすい部分です。先にGitHub repoを作り、ローカルでビルドできる状態を作ってから、mixi2 PluginアプリとOpenAI APIキーを設定し、最後にRailwayへ載せる順番が安全です。</p>
+<p>mixi2側のRequirementは、コードで後から補えません。読み取り権限がなければtimelinecheckは失敗し、投稿権限がなければpostcheckは失敗します。Railwayで何度再デプロイしても、Requirement不足は直らないため、Developer Platform側とコミュニティ再許可を確認します。</p>
+
+</section>
+<section class="card">
+<h2>準備チェックリスト</h2>
+<div class="table-wrap"><table class="table"><tr><th>サービス</th><th>確認するもの</th><th>失敗すると起きること</th></tr><tr><td>mixi2</td><td>Requirement、Application Version、再許可</td><td>PermissionDenied、timeline取得失敗、投稿失敗。</td></tr>
+<tr><td>OpenAI</td><td>APIキー、モデル名、画像生成ON/OFF</td><td>生成失敗、画像機能停止。</td></tr>
+<tr><td>GitHub</td><td>Private repo、.gitignore、main branch</td><td>Railwayに反映されない、秘密値漏洩。</td></tr>
+<tr><td>Railway</td><td>Variables、Volume、Deploy logs</td><td>missing env、状態消失、panic。</td></tr>
+<tr><td>GitHub Pages</td><td>docs配下、リンク、スマホ表示</td><td>公開ページの崩れ、リンク切れ。</td></tr></table></div>
+</section>
+
+<section class="card">
+<h2>サービスごとの責任分界</h2>
+
+<p>障害が起きた時、どのサービスの問題かを切り分けることが重要です。OpenAIのAPIキーが無効なら生成が失敗しますが、mixi2の投稿権限とは関係ありません。mixi2のRequirementが不足していればtimeline取得に失敗しますが、Goのビルドとは関係ありません。RailwayのVolumeがなければ状態保存に問題が出ますが、ローカルでは再現しない可能性があります。</p>
+<p>そのため、確認は必ず層ごとに行います。ローカルビルド、OpenAI接続、mixi2認証、timeline取得、投稿、Railwayデプロイ、Volume保存、GitHub Pages表示を分けて確認します。全部を一度に疑うと、原因が分からなくなります。</p>
 
 </section>
 

@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>第02回：人格を外部ファイル化して切り替える | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="PERSONA、persona.json、画像素材の分離。">
-  <link rel="stylesheet" href="../assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第02回：人格を外部ファイル化して切り替える | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="PERSONA、persona.json、画像素材の分離。">
+<link rel="stylesheet" href="../assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / 第02回：人格を外部ファイル化して切り替える</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>第02回：人格を外部ファイル化して切り替える</h1>
     <p class="lead">PERSONA、persona.json、画像素材の分離。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -39,8 +35,41 @@
   <main class="content">
 <section class="card">
 <h2>第02回：人格を外部ファイル化して切り替える</h2>
-<p>人格をGoコードに埋め込んだままだと、別キャラを作るたびにコード改修が必要になる。そこで人格設定をpersonas配下のpersona.jsonへ移し、環境変数で読み込むようにした。</p><p>PERSONA、PERSONA_PATH、IMAGE_REF_DIRの3つを揃えることで、コード本体を変えずにキャラクターを切り替えられる。これはbase-botをテンプレ化するうえで中心になる設計だった。</p><p>画像素材もassets配下へ分けた。キャラクターシート、スタイル参照、返信画像参照を人格ごとに持つことで、画像生成機能を人格ごとに差し替えられる。</p><p>この分離により、後から虚無猫、フジタ、空想アイを専用repoへ分ける時にも、どのファイルを残せばよいか明確になった。</p>
-<div class="callout"><p>このページは公開用の制作記録です。APIキー、Client Secret、Railway Variables、.env、logs、実コミュニティの投稿データは掲載しません。</p></div>
+<p>次に、BOTの人格をGoコードから切り離しました。人格がコードに埋まっていると、別キャラクターを作るたびにGoファイルを編集する必要があります。これは壊れやすく、複数BOT運用にも向きません。</p><p>そこで、人格設定をpersonas配下のpersona.jsonに移し、環境変数で読み込む仕組みにしました。PERSONA、PERSONA_PATH、IMAGE_REF_DIRの3つを揃えることで、同じPlugin本体でも別人格として動かせるようになります。</p><p>画像素材もassets配下へ分けました。キャラクターの参照画像、返信用素材、スタイル参照を人格ごとに持つことで、画像生成を使う場合にも混線しにくくなります。</p><p>最終的な三体標準化では、この分離が大きく効きました。Voidcat repoにはkyomu_nekoだけ、Fujita repoにはfujitaだけ、Nan AI repoにはnanchatte_aiだけを残す判断がしやすくなったためです。</p><figure class="snapshot"><img src="../assets/snapshots/tree-standard.svg" alt="第02回：人格を外部ファイル化して切り替えるのモック"><figcaption class="caption">第02回：人格を外部ファイル化して切り替えるのモック</figcaption></figure>
+</section>
+<section class="card">
+<h2>確認ポイント</h2>
+
+<ul>
+<li>この段階で何を確認すべきかを明確にする。</li>
+<li>秘密値や実ログを公開記事に含めない。</li>
+<li>問題が起きた場合は、前段階へ戻って切り分ける。</li>
+<li>作業後は必ずGit status、ビルド、対象ページ表示を確認する。</li>
+</ul>
+
+</section>
+
+<nav class="nextprev"><a href="stage01-base.html">← 前の記事：第01回：動いているPluginをbase-botへ分岐する</a><a href="stage03-modules.html">次の記事：第03回：handlerとschedulerを機能入口で整理する →</a></nav>
+<section class="card">
+<h2>persona.jsonで管理するもの</h2>
+
+<p>persona.jsonには、名前、口調、反応ワード、禁止事項、フォールバック文、システムプロンプトの核を持たせます。ここを外部化すると、Goコードを触らずに人格を更新できます。</p>
+<pre><code>personas/kyomu_neko/persona.json
+assets/kyomu_neko/refs
+IMAGE_REF_DIR=assets/kyomu_neko/refs</code></pre>
+<p>人格と素材はセットで考えます。personaだけ変えてassetsを変え忘れると、別キャラクターの画像素材を使う事故につながります。</p>
+
+</section>
+
+<section class="card">
+<h2>実作業の分解</h2>
+
+<p>人格外部化では、まず既存BOTの口調やプロンプトをpersona.jsonへ逃がします。次に、コード側がPERSONA_PATHを読んでpersona.jsonを読み込むようにします。最後に、IMAGE_REF_DIRを合わせて、画像素材も人格に紐づけます。</p>
+<p>人格名、フォルダ名、Railway Variablesの値が一致していることを確認します。専用repoでは、他人格を残さない方が事故が少なくなります。</p>
+
+<p>この段階で大事なのは、作業結果を「動いた」「動かない」だけで判断しないことです。どの入力に対して、どの設定を読み、どの外部サービスへ接続し、どのログへ残るのかを確認します。BOTは一度動くと自動で投稿・返信するため、目に見える成功よりも、誤作動しないための確認が重要です。</p>
+<p>また、ローカルで成功した作業とRailwayで成功した作業は分けて扱います。ローカルでは.envを読みますが、本番ではRailway Variablesを読みます。ローカルではファイルが残っていても、本番ではVolumeがなければ再デプロイで状態が消える可能性があります。この差を毎回意識します。</p>
+<p>作業後は、Gitの差分、ビルド結果、確認コマンド、必要ならブラウザ表示を確認します。特に公開ノート側では、HTMLのリンク切れ、スマホでの横はみ出し、モック画像の表示、詳細記事の前後ナビを確認します。</p>
 
 </section>
 

@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>詳細記事 | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="旧作業記録相当の第01回〜第08回。">
-  <link rel="stylesheet" href="../assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>詳細記事 | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="旧作業記録相当の第01回〜第08回。">
+<link rel="stylesheet" href="../assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / 詳細記事</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>詳細記事</h1>
     <p class="lead">旧作業記録相当の第01回〜第08回。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -26,7 +22,7 @@
     <h2>ページツリー</h2>
     <ul class="nav"><li><a href="../index.html">トップ</a></li>
 <li><a href="../worklog.html">作業記録</a></li>
-<li><a href="index.html">詳細記事一覧</a></li>
+<li><a class="current" href="index.html">詳細記事一覧</a></li>
 <li><a href="stage01-base.html">第01回</a></li>
 <li><a href="stage02-persona.html">第02回</a></li>
 <li><a href="stage03-modules.html">第03回</a></li>
@@ -41,15 +37,44 @@
 <h2>詳細記事一覧</h2>
 
 <div class="article-list">
-<a class="article-link" href="stage01-base.html"><strong>第01回：動いているPluginをbase-botへ分岐する</strong><small>既存Pluginのコピー、ビルド確認、汎用化の入口。</small></a>
-<a class="article-link" href="stage02-persona.html"><strong>第02回：人格を外部ファイル化して切り替える</strong><small>PERSONA、persona.json、画像素材の分離。</small></a>
-<a class="article-link" href="stage03-modules.html"><strong>第03回：handlerとschedulerを機能入口で整理する</strong><small>reply、theme、welcome、admin、schedulerの分解。</small></a>
-<a class="article-link" href="stage04-tools.html"><strong>第04回：検証コマンドとPowerShell作業導線を作る</strong><small>new-persona、switch-bot、configcheck、docs整備。</small></a>
-<a class="article-link" href="stage05-mixi2.html"><strong>第05回：OpenAI APIとmixi2 Pluginにつなぐ</strong><small>外部ID、Requirement、timeline取得、投稿確認。</small></a>
-<a class="article-link" href="stage06-railway.html"><strong>第06回：GitHubとRailwayで本番稼働させる</strong><small>秘密値除外、Dockerfile、Railway Volume、実返信確認。</small></a>
-<a class="article-link" href="stage07-config.html"><strong>第07回：虚無猫の人格調整とconfiguiの追加</strong><small>文字化け事故、ブラウザ編集、Railway反映。</small></a>
-<a class="article-link" href="stage08-pages.html"><strong>第08回：作業ログを公開サイトとして作り直す</strong><small>GitHub Pages、記事化、スナップショット化。</small></a>
+<a class="article-link" href="stage01-base.html"><strong>第01回</strong><small>制作段階ごとの詳細説明、モック、確認ポイントを含む。</small></a>
+<a class="article-link" href="stage02-persona.html"><strong>第02回</strong><small>制作段階ごとの詳細説明、モック、確認ポイントを含む。</small></a>
+<a class="article-link" href="stage03-modules.html"><strong>第03回</strong><small>制作段階ごとの詳細説明、モック、確認ポイントを含む。</small></a>
+<a class="article-link" href="stage04-tools.html"><strong>第04回</strong><small>制作段階ごとの詳細説明、モック、確認ポイントを含む。</small></a>
+<a class="article-link" href="stage05-mixi2.html"><strong>第05回</strong><small>制作段階ごとの詳細説明、モック、確認ポイントを含む。</small></a>
+<a class="article-link" href="stage06-railway.html"><strong>第06回</strong><small>制作段階ごとの詳細説明、モック、確認ポイントを含む。</small></a>
+<a class="article-link" href="stage07-config.html"><strong>第07回</strong><small>制作段階ごとの詳細説明、モック、確認ポイントを含む。</small></a>
+<a class="article-link" href="stage08-pages.html"><strong>第08回</strong><small>制作段階ごとの詳細説明、モック、確認ポイントを含む。</small></a>
 </div>
+
+</section>
+
+
+<section class="card">
+<h2>詳細記事の読み方</h2>
+
+<p>詳細記事は、制作の途中判断を追うためのページです。トップや作業記録は全体を俯瞰するためのページですが、詳細記事では各段階で何を目的にし、何を確認し、どの失敗を避けようとしたのかを読みます。</p>
+<p>第01回から第08回まで順番に読むと、既存Pluginのコピー、人格外部化、機能入口分離、確認コマンド、mixi2接続、Railway本番化、Config UI、GitHub Pages公開までの流れが分かります。各記事の下には前後記事へのボタンを置いているため、読み物として順番に進められます。</p>
+<p>この詳細記事群は、単なる作業ログではなく、次に同じ構成のBOTを作る時の制作マニュアルとして使う想定です。作業を省略する場合でも、各段階の確認ポイントは残しておくと事故が減ります。</p>
+
+</section>
+
+<section class="card">
+<h2>詳細記事を残す理由</h2>
+
+<p>詳細記事は、制作中に行った判断を後から追うためのページ群です。トップページや作業記録では全体像を説明していますが、実際に同じ作業を再現するには、各段階で何を確認し、どの順番で進め、どこで失敗しやすいかを知る必要があります。</p>
+<p>第01回では、既存Pluginを直接壊さずにコピーする考え方を扱います。第02回では、人格と素材を外へ出すことで、同じ本体を別キャラクターにできる構造を扱います。第03回では、handlerとschedulerを機能入口ごとに分け、FEATURESで止められるようにした理由を扱います。</p>
+<p>第04回以降は、検証コマンド、OpenAI API、mixi2 Plugin、Railway、Config UI、GitHub Pagesへ進みます。つまり詳細記事は、単なる過去ログではなく、テンプレートから本番運用までの制作マニュアルとして読める構成です。</p>
+<p>各記事には、作業目的、実作業の考え方、確認ポイント、モック図、前後記事ボタンを入れています。順番に読むことで、なぜ今のフォルダ構成、機能構成、Variables構成になっているのかが分かるようにしています。</p>
+
+</section>
+
+<section class="card">
+<h2>詳細記事を制作マニュアルとして読む</h2>
+
+<p>各詳細記事は、独立した読み物ではなく、作業手順の章として使います。たとえば新しいBOTを作る場合は、第01回のコピーとビルド確認を飛ばさず、第02回で人格と素材を分離し、第03回で機能入口を確認します。ここを飛ばしてRailwayへ進むと、ローカルでは動いているように見えても、本番でpersonaやassetsがずれていることがあります。</p>
+<p>また、詳細記事は「成功したコマンド」だけを残すためのものではありません。なぜその構成にしたか、なぜSecretを貼らないか、なぜVolumeを/dataにするか、なぜ固定ナビをタイトルだけにするか、といった判断を残すためのものです。次に作業する人が迷った時、作業ログよりも判断理由が役に立ちます。</p>
+<p>このサイトでは、詳細記事を短い抜粋にせず、モック、確認ポイント、前後記事ボタンを含めて残しています。ページ下部から前後へ進めるため、制作の流れを最初から最後まで追える構造になっています。</p>
 
 </section>
 

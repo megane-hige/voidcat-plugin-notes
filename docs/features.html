@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>機能一覧 | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="実行機能、補助機能、確認コマンド、運用機能まで含めた一覧。">
-  <link rel="stylesheet" href="assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>機能一覧 | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="実行機能、補助機能、確認コマンド、運用機能まで含めた一覧。">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / 機能一覧</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>機能一覧</h1>
     <p class="lead">実行機能、補助機能、確認コマンド、運用機能まで含めた一覧。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -39,16 +35,15 @@
 <section class="card">
 <h2>Pluginでできること</h2>
 
-<p>このページでは、利用者から見た機能と、内部的にどのFEATURESや補助コマンドに関わるかをまとめます。旧版の機能一覧より少なくならないよう、実行機能、補助機能、確認機能、運用機能まで含めています。</p>
-<figure class="snapshot"><img src="assets/snapshots/feature-map.svg" alt="機能構成"><figcaption class="caption">FEATURESで入口を切る機能と、補助コマンド群。</figcaption></figure>
-
+<p>このページでは、実行機能、補助機能、確認機能、運用機能まで含めて一覧化しています。単なるFEATURESの説明だけではなく、実際の運用で何ができるか、どの確認コマンドが支えているかまで分かるようにしています。</p>
+<figure class="snapshot"><img src="assets/snapshots/feature-map.svg" alt="FEATURESで入口を切る実行機能。"><figcaption class="caption">FEATURESで入口を切る実行機能。</figcaption></figure>
 </section>
 <section class="card">
 <h2>機能一覧</h2>
 <div class="table-wrap"><table class="table"><tr><th>機能名</th><th>役割</th><th>関連</th></tr><tr><td>自動返信</td><td>コミュニティ投稿を見て、各人格として自然に返信する中心機能。</td><td>reply</td></tr>
-<tr><td>反応ワード返信</td><td>虚無猫さん、フジタさん、アイちゃんなどの呼びかけに反応する。</td><td>reply</td></tr>
+<tr><td>反応ワード返信</td><td>虚無猫さん、虚無猫、虚無さん、パイセンなどの呼びかけに反応する。</td><td>reply</td></tr>
 <tr><td>メンションなし返信</td><td>明示メンションがなくても条件に合う投稿へ返信できる。</td><td>reply</td></tr>
-<tr><td>文脈参照返信</td><td>直近投稿や返信ツリーをもとに、単発ではない返答を作る。</td><td>reply</td></tr>
+<tr><td>文脈参照返信</td><td>直近投稿やツリー状況をもとに返答を作る。</td><td>reply</td></tr>
 <tr><td>返信済み管理</td><td>同じ投稿へ重複返信しないよう返信済みIDを記録する。</td><td>reply</td></tr>
 <tr><td>自己投稿除外</td><td>BOT自身の投稿に反応し続けないようにする。</td><td>reply</td></tr>
 <tr><td>AIお題投稿</td><td>コミュニティの会話を動かすためのお題や話題をAIで生成する。</td><td>theme</td></tr>
@@ -89,25 +84,13 @@
 <tr><td>GitHub Pages作業ログ</td><td>Plugin本体とは別に制作記録を公開サイトとして整理する。</td><td>docs</td></tr></table></div>
 </section>
 <section class="card">
-<h2>大きく分けると4系統</h2>
-
-<div class="grid">
-<div class="tile"><strong>会話する</strong><small>自動返信、反応ワード返信、文脈参照、画像返信。</small></div>
-<div class="tile"><strong>場を動かす</strong><small>AIお題、定時投稿、放置時投稿、歓迎。</small></div>
-<div class="tile"><strong>人格を変える</strong><small>persona.json、人格切替、反応ワード、口調設定。</small></div>
-<div class="tile"><strong>運用を支える</strong><small>ログ、重複防止、確認コマンド、Railway Volume。</small></div>
-</div>
-
+<h2>主な運用パターン</h2>
+<div class="table-wrap"><table class="table"><tr><th>運用</th><th>FEATURES例</th><th>説明</th></tr><tr><td>初期接続確認</td><td><code>admin</code></td><td>管理者機能だけで起動確認する。</td></tr>
+<tr><td>返信試験</td><td><code>reply,admin</code></td><td>自動返信と管理者操作を確認する。</td></tr>
+<tr><td>画像なし運用</td><td><code>reply,theme,idle_post,welcome,admin</code></td><td>画像コストを避けながら運用する。</td></tr>
+<tr><td>全部入り</td><td><code>reply,theme,scheduled_image,idle_post,image_reply,welcome,admin</code></td><td>標準のフル機能構成。</td></tr></table></div>
 </section>
-<section class="card">
-<h2>FEATURESで切る主な実行機能</h2>
 
-<div class="badges">
-<span>reply</span><span>theme</span><span>scheduled_image</span><span>idle_post</span><span>image_reply</span><span>welcome</span><span>admin</span>
-</div>
-<p>補助コマンドやログ保存はFEATURESだけで切るものではなく、運用を支える基盤として存在します。</p>
-
-</section>
 
     <nav class="bottom-nav">
       <a href="index.html">TOPへ戻る</a>

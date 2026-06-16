@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>コンフィグ項目一覧 | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="Config UI、Railway Variables、Secret、Volume、投稿時刻、画像設定の整理。">
-  <link rel="stylesheet" href="assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>コンフィグ項目一覧 | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="Config UI、Railway Variables、Secret、Volume、投稿時刻、画像設定の整理。">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / コンフィグ項目一覧</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>コンフィグ項目一覧</h1>
     <p class="lead">Config UI、Railway Variables、Secret、Volume、投稿時刻、画像設定の整理。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -39,36 +35,55 @@
 <section class="card">
 <h2>Config UIとは</h2>
 
-<p><code>cmd/configui</code> は、人格設定をブラウザで編集するためのローカル専用UIです。PowerShellで日本語JSONを直接触ると文字化けしやすいため、フォームから編集できるようにしました。</p>
-<figure class="browser-shot"><img src="assets/snapshots/configui-browser-mock.svg" alt="Config UIモック"><figcaption class="caption">Config UIはRailway本番を直接操作しない。ローカルpersonaと補助設定を扱う。</figcaption></figure>
+<p><code>cmd/configui</code> は、人格設定をブラウザで編集するためのローカル専用UIです。PowerShellで日本語JSONを直接触ると文字化けしやすいため、フォームから編集できるようにしています。</p>
+<figure class="snapshot"><img src="assets/snapshots/configui-browser-mock.svg" alt="Config UIの画面モック。"><figcaption class="caption">Config UIの画面モック。</figcaption></figure>
+</section>
+<section class="card">
+<h2>主要コンフィグ</h2>
+<div class="table-wrap"><table class="table"><tr><th>キー</th><th>意味</th><th>注意</th></tr><tr><td><code>PERSONA</code></td><td>使用する人格キー。</td><td>専用repoの人格名と揃える。</td></tr>
+<tr><td><code>PERSONA_PATH</code></td><td>人格シートのパス。</td><td>Test-Pathで確認。</td></tr>
+<tr><td><code>IMAGE_REF_DIR</code></td><td>画像参照素材の場所。</td><td>画像機能使用時に必要。</td></tr>
+<tr><td><code>MIXI2_CLIENT_ID</code></td><td>mixi2 PluginのClient ID。</td><td>公開記事に実値を載せない。</td></tr>
+<tr><td><code>MIXI2_CLIENT_SECRET</code></td><td>mixi2 PluginのClient Secret。</td><td>Railwayで実値。空欄上書き禁止。</td></tr>
+<tr><td><code>OPENAI_API_KEY</code></td><td>OpenAI APIキー。</td><td>公開禁止。</td></tr>
+<tr><td><code>FEATURES</code></td><td>有効機能一覧。</td><td>不要機能は外す。</td></tr>
+<tr><td><code>EVENT_LOG_PATH</code></td><td>イベントログ保存先。</td><td>/data配下推奨。</td></tr>
+<tr><td><code>REPLIED_LOG_PATH</code></td><td>返信済みID保存先。</td><td>重複返信防止。</td></tr></table></div>
+</section>
+<section class="card">
+<h2>空欄上書き注意</h2>
+
+<div class="callout warning"><p><code>MIXI2_CLIENT_SECRET=""</code> や <code>OPENAI_API_KEY=""</code> をRailwayへ貼ると実値が消えます。SecretはRailway画面で直接入力し、記事やテンプレには実値を書きません。</p></div>
+
+</section>
+
+
+<section class="card">
+<h2>ローカル.envとRailway Variablesの違い</h2>
+
+<p>ローカルでは <code>.env</code> を使って確認できますが、本番RailwayではVariablesが本体です。Config UIのローカル.env補助設定は、開発中に値を整えるためのものであり、Railway本番のSecretを直接更新するものではありません。ここを混同すると、ローカルでは動くのに本番で動かない、または本番のSecretを空欄で上書きする事故につながります。</p>
+<p>Railway Variablesへ貼るときは、実値を含むSecret系と、公開可能な通常設定を分けて扱います。記事やテンプレートにはSecretの実値を書かず、キー名と役割だけを載せるのが安全です。</p>
 
 </section>
 <section class="card">
-<h2>主要コンフィグ項目</h2>
-<div class="table-wrap"><table class="table"><tr><th>キー</th><th>意味</th><th>例・注意</th></tr><tr><td>PERSONA</td><td>使用する人格キー。</td><td>kyomu_neko / fujita / nanchatte_ai</td></tr>
-<tr><td>PERSONA_PATH</td><td>人格シートのパス。</td><td>personas/kyomu_neko/persona.json</td></tr>
-<tr><td>IMAGE_REF_DIR</td><td>画像参照素材の場所。</td><td>assets/kyomu_neko/refs</td></tr>
-<tr><td>MIXI2_CLIENT_ID</td><td>mixi2 PluginのClient ID。</td><td>公開資料では実値を出さない。</td></tr>
-<tr><td>MIXI2_CLIENT_SECRET</td><td>mixi2 PluginのClient Secret。</td><td>Railwayで実値。空欄上書き禁止。</td></tr>
-<tr><td>MIXI2_COMMUNITY_ID</td><td>対象コミュニティID。</td><td>Pluginごとに違う。</td></tr>
-<tr><td>OPENAI_API_KEY</td><td>OpenAI APIキー。</td><td>Railwayで実値。公開禁止。</td></tr>
-<tr><td>OPENAI_MODEL</td><td>テキスト生成モデル。</td><td>コストと品質で調整。</td></tr>
-<tr><td>OPENAI_IMAGE_ENABLED</td><td>画像生成の有効/無効。</td><td>falseなら画像生成しない。</td></tr>
-<tr><td>FEATURES</td><td>有効機能一覧。</td><td>reply,theme,...</td></tr>
-<tr><td>SCHEDULED_POST_TIMES</td><td>定時投稿時刻。</td><td>07:15,12:15,19:15</td></tr>
-<tr><td>IDLE_POST_TIMES</td><td>静寂投稿候補時刻。</td><td>10:30,15:30,21:30</td></tr>
-<tr><td>EVENT_LOG_PATH</td><td>イベントログ保存先。</td><td>/data/logs/events.jsonl</td></tr>
-<tr><td>REPLIED_LOG_PATH</td><td>返信済みID保存先。</td><td>/data/logs/replied_post_ids.txt</td></tr>
-<tr><td>USER_PREFS_PATH</td><td>呼称などの保存先。</td><td>/data/state/user_prefs.json</td></tr>
-<tr><td>APP_ENV</td><td>実行環境。</td><td>production</td></tr>
-<tr><td>LOG_LEVEL</td><td>ログレベル。</td><td>info</td></tr></table></div>
-</section>
-<section class="card">
-<h2>Secret空欄上書き事故</h2>
+<h2>設定確認の順番</h2>
 
-<div class="callout warning"><p><code>MIXI2_CLIENT_SECRET=""</code> や <code>OPENAI_API_KEY=""</code> をRailwayに貼ると、実値が空で上書きされます。テンプレには実値を書かず、Railway画面で直接入力します。</p></div>
-<pre><code>MIXI2_CLIENT_SECRET="&lt;Railwayで実値を設定&gt;"
-OPENAI_API_KEY="&lt;Railwayで実値を設定&gt;"</code></pre>
+<ol>
+<li><code>PERSONA</code>、<code>PERSONA_PATH</code>、<code>IMAGE_REF_DIR</code> が専用repoに合っているか見る。</li>
+<li><code>FEATURES</code> が必要な機能だけを含んでいるか見る。</li>
+<li>OpenAIとmixi2のSecretが空欄ではないかRailway画面で見る。</li>
+<li>ログや状態ファイルの保存先が <code>/data</code> 配下になっているか見る。</li>
+<li>Railway serviceに <code>/data</code> Volumeが付いているか見る。</li>
+</ol>
+
+</section>
+
+<section class="card">
+<h2>運用時の設定レビュー</h2>
+
+<p>本番運用では、設定は一度入れて終わりではありません。投稿頻度が高すぎる、画像生成が重い、返信が多すぎる、静寂投稿が場に合わない、といった問題は運用後に見えてきます。そのため、Config UIとRailway Variablesを見ながら、必要な項目だけを調整します。</p>
+<p>調整する時は、まずFEATURESで大きく止めるか、個別の確率や時刻で細かく調整するかを決めます。たとえば画像返信だけが多いなら <code>REPLY_IMAGE_PROBABILITY_PERCENT</code> を下げます。画像生成全体を止めたいなら <code>OPENAI_IMAGE_ENABLED=false</code> を使います。</p>
+<p>設定変更後は、Railwayの再デプロイまたは再起動が必要な場合があります。変更が反映されているかはログで確認します。</p>
 
 </section>
 

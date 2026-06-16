@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>第01回：動いているPluginをbase-botへ分岐する | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="既存Pluginのコピーから汎用化の入口まで。">
-  <link rel="stylesheet" href="../assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第01回：動いているPluginをbase-botへ分岐する | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="既存Pluginのコピー、ビルド確認、汎用化の入口。">
+<link rel="stylesheet" href="../assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / 第01回：動いているPluginをbase-botへ分岐する</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>第01回：動いているPluginをbase-botへ分岐する</h1>
-    <p class="lead">既存Pluginのコピーから汎用化の入口まで。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <p class="lead">既存Pluginのコピー、ビルド確認、汎用化の入口。</p>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -39,8 +35,42 @@
   <main class="content">
 <section class="card">
 <h2>第01回：動いているPluginをbase-botへ分岐する</h2>
-<p>既に動作していたシベリア・フジタPluginを直接壊さないため、まずは別フォルダへ丸コピーした。最初に目指したのは新機能ではなく、同じ状態でビルドできる安全な作業場を作ることだった。</p><p>この段階では、まだ人格や素材をきれいに分けない。先に全体の依存関係、Go module、cmd配下の入口、internal配下の処理がそのまま動くかを確認した。</p><p>確認は必ずコピー先で行い、go build ./...を通した。ここで通らない場合は、汎用化以前の問題としてコピーや依存関係を直す必要がある。</p><p>作業上の重要点は、フォルダ名とrepo名を混同しないことだった。後に虚無猫でこの混同が問題になったため、この段階の考え方は現在の三体標準化にもつながっている。</p>
-<div class="callout"><p>このページは公開用の制作記録です。APIキー、Client Secret、Railway Variables、.env、logs、実コミュニティの投稿データは掲載しません。</p></div>
+<p>最初に行ったのは、既に動いていたPluginを直接改造しないための分岐です。動いているものをそのまま触ると、何かが壊れた時に元の状態へ戻しにくくなります。そこで、まず既存Pluginを別フォルダへコピーし、base-botとして扱える作業場を作りました。</p><p>この段階では、人格分離や機能分離を急ぎません。最初に確認するのは、コピーした状態でGoのビルドが通るか、cmd配下の確認コマンドが壊れていないか、internal配下の依存が欠けていないかです。</p><p>作業の考え方は、動くものを小さく安全に変えることです。いきなり理想構造へ作り直すのではなく、動く土台を残しながら一つずつ外部化していきます。</p><p>ここでできたbase-botは、後の虚無猫、フジタ、空想アイへつながる共通テンプレの原型になりました。ただし、最終的な本番運用ではbase-botそのものをRailwayへ載せるのではなく、専用repoへ分岐したものを使います。</p><figure class="snapshot"><img src="../assets/snapshots/workflow.svg" alt="第01回：動いているPluginをbase-botへ分岐するのモック"><figcaption class="caption">第01回：動いているPluginをbase-botへ分岐するのモック</figcaption></figure>
+</section>
+<section class="card">
+<h2>確認ポイント</h2>
+
+<ul>
+<li>この段階で何を確認すべきかを明確にする。</li>
+<li>秘密値や実ログを公開記事に含めない。</li>
+<li>問題が起きた場合は、前段階へ戻って切り分ける。</li>
+<li>作業後は必ずGit status、ビルド、対象ページ表示を確認する。</li>
+</ul>
+
+</section>
+
+<nav class="nextprev"><a href="index.html">← 詳細記事一覧へ</a><a href="stage02-persona.html">次の記事：第02回：人格を外部ファイル化して切り替える →</a></nav>
+<section class="card">
+<h2>コピー後に確認すること</h2>
+
+<p>コピー後は、まずGitの向き先、go.mod、cmd配下の入口、internal配下の依存関係を確認します。ここで焦って人格追加やUI追加を始めると、元から壊れていたのか、自分の変更で壊したのかが分からなくなります。</p>
+<pre><code>git remote -v
+go test ./...
+go build ./cmd/plugin
+go run ./cmd/configcheck</code></pre>
+<p>base-bot化の初期段階では、機能を増やすよりも「壊れていない土台」を作ることが成果です。この考え方は、後の三体標準化にもそのまま使えます。</p>
+
+</section>
+
+<section class="card">
+<h2>実作業の分解</h2>
+
+<p>既存Pluginをコピーする時は、コピー元を壊さないことを最優先にします。コピー先でビルドが通るまで、人格追加や機能追加はしません。Goの依存が壊れていないか、cmd配下が揃っているか、internal配下のimportが解決できるかを確認します。</p>
+<p>この段階で作るbase-botは「完成品」ではなく「安全に分岐するための土台」です。後で専用repo化することを前提に、人格、素材、機能入口を切り出せるようにします。</p>
+
+<p>この段階で大事なのは、作業結果を「動いた」「動かない」だけで判断しないことです。どの入力に対して、どの設定を読み、どの外部サービスへ接続し、どのログへ残るのかを確認します。BOTは一度動くと自動で投稿・返信するため、目に見える成功よりも、誤作動しないための確認が重要です。</p>
+<p>また、ローカルで成功した作業とRailwayで成功した作業は分けて扱います。ローカルでは.envを読みますが、本番ではRailway Variablesを読みます。ローカルではファイルが残っていても、本番ではVolumeがなければ再デプロイで状態が消える可能性があります。この差を毎回意識します。</p>
+<p>作業後は、Gitの差分、ビルド結果、確認コマンド、必要ならブラウザ表示を確認します。特に公開ノート側では、HTMLのリンク切れ、スマホでの横はみ出し、モック画像の表示、詳細記事の前後ナビを確認します。</p>
 
 </section>
 

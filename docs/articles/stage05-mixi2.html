@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>第05回：OpenAI APIとmixi2 Pluginにつなぐ | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="外部ID、Requirement、timeline取得、投稿確認。">
-  <link rel="stylesheet" href="../assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第05回：OpenAI APIとmixi2 Pluginにつなぐ | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="外部ID、Requirement、timeline取得、投稿確認。">
+<link rel="stylesheet" href="../assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / 第05回：OpenAI APIとmixi2 Pluginにつなぐ</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>第05回：OpenAI APIとmixi2 Pluginにつなぐ</h1>
     <p class="lead">外部ID、Requirement、timeline取得、投稿確認。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -39,8 +35,41 @@
   <main class="content">
 <section class="card">
 <h2>第05回：OpenAI APIとmixi2 Pluginにつなぐ</h2>
-<p>OpenAI APIとmixi2 Pluginへの接続を確認した。OpenAI側ではAPIキーとモデル名、mixi2側ではClient ID、Client Secret、Community ID、Requirementが重要になる。</p><p>mixi2では、これはBotアプリではなくコミュニティ用Pluginアプリとして扱う。Requirement設定、Application Version更新、コミュニティへの再インストールまたは再許可を忘れると、コードが正しくてもPermissionDeniedになる。</p><p>timelinecheckで投稿読み取りを確認し、postcheckで投稿確認を行った。ここまで通って初めて、ローカルからmixi2コミュニティへPluginとして接続できていると判断できる。</p><p>外部IDやSecretはチャットやGitHubに載せない。必要なのは値そのものではなく、どのキーが設定済みかを確認することだった。</p>
-<div class="callout"><p>このページは公開用の制作記録です。APIキー、Client Secret、Railway Variables、.env、logs、実コミュニティの投稿データは掲載しません。</p></div>
+<p>ローカル構造が整ったら、OpenAI APIとmixi2 Pluginへ接続します。OpenAI側ではAPIキー、モデル、画像生成の有効/無効を確認し、mixi2側ではClient ID、Client Secret、Community ID、Requirementを確認します。</p><p>mixi2では、これはBotアプリではなくコミュニティ用Pluginです。Developer PlatformでRequirementを設定し、Application Versionを更新し、対象コミュニティへインストールまたは再許可する必要があります。</p><p>Requirementが不足していると、timelinecheckでPermissionDeniedになります。コードが正しくても権限が反映されていないと動きません。</p><p>この段階では、mixi2checkで認証とrequirementsを見て、timelinecheckで投稿取得を確認し、postpreviewとpostcheckで投稿内容と投稿可否を確認しました。</p><figure class="snapshot"><img src="../assets/snapshots/workflow.svg" alt="第05回：OpenAI APIとmixi2 Pluginにつなぐのモック"><figcaption class="caption">第05回：OpenAI APIとmixi2 Pluginにつなぐのモック</figcaption></figure>
+</section>
+<section class="card">
+<h2>確認ポイント</h2>
+
+<ul>
+<li>この段階で何を確認すべきかを明確にする。</li>
+<li>秘密値や実ログを公開記事に含めない。</li>
+<li>問題が起きた場合は、前段階へ戻って切り分ける。</li>
+<li>作業後は必ずGit status、ビルド、対象ページ表示を確認する。</li>
+</ul>
+
+</section>
+
+<nav class="nextprev"><a href="stage04-tools.html">← 前の記事：第04回：検証コマンドとPowerShell作業導線を作る</a><a href="stage06-railway.html">次の記事：第06回：GitHubとRailwayで本番稼働させる →</a></nav>
+<section class="card">
+<h2>Requirement変更後の確認順序</h2>
+
+<p>Requirementを変更したら、Developer Platformで設定しただけでは終わりません。Application Versionを更新し、対象コミュニティで再インストールまたは再許可し、<code>mixi2check</code> のrequirementsに反映されたことを確認します。</p>
+<pre><code>go run ./cmd/mixi2check
+go run ./cmd/timelinecheck
+go run ./cmd/postcheck</code></pre>
+<p>timelinecheckでPermissionDeniedが出る場合、コードより先にRequirementと再許可を疑います。</p>
+
+</section>
+
+<section class="card">
+<h2>実作業の分解</h2>
+
+<p>mixi2 Plugin接続では、Client IDやSecretだけでなく、RequirementとApplication Versionが重要です。Requirementを変えても、コミュニティ側で再許可されていなければ、Pluginは新しい権限で動きません。</p>
+<p>timelinecheckが失敗する場合は、コードより先にRequirementを疑います。postcheckが失敗する場合は、投稿権限、Community ID、認証情報を順番に確認します。</p>
+
+<p>この段階で大事なのは、作業結果を「動いた」「動かない」だけで判断しないことです。どの入力に対して、どの設定を読み、どの外部サービスへ接続し、どのログへ残るのかを確認します。BOTは一度動くと自動で投稿・返信するため、目に見える成功よりも、誤作動しないための確認が重要です。</p>
+<p>また、ローカルで成功した作業とRailwayで成功した作業は分けて扱います。ローカルでは.envを読みますが、本番ではRailway Variablesを読みます。ローカルではファイルが残っていても、本番ではVolumeがなければ再デプロイで状態が消える可能性があります。この差を毎回意識します。</p>
+<p>作業後は、Gitの差分、ビルド結果、確認コマンド、必要ならブラウザ表示を確認します。特に公開ノート側では、HTMLのリンク切れ、スマホでの横はみ出し、モック画像の表示、詳細記事の前後ナビを確認します。</p>
 
 </section>
 

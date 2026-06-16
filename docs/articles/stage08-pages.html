@@ -1,24 +1,20 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>第08回：作業ログを公開サイトとして作り直す | mixi2 Plugin BOT制作記</title>
-  <meta name="description" content="GitHub Pages、記事化、docs再構成。">
-  <link rel="stylesheet" href="../assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第08回：作業ログを公開サイトとして作り直す | mixi2 Plugin BOT制作記</title>
+<meta name="description" content="GitHub Pages、docs再構成。">
+<link rel="stylesheet" href="../assets/style.css">
 </head>
 <body id="top">
+<div class="top-title"><div class="top-title-inner">mixi2 Plugin BOT制作記 / 第08回：作業ログを公開サイトとして作り直す</div></div>
 <header class="site-header">
   <div class="header-inner">
     <span class="kicker">吹田珈琲BOT / mixi2 Plugin制作記</span>
     <h1>第08回：作業ログを公開サイトとして作り直す</h1>
-    <p class="lead">GitHub Pages、記事化、docs再構成。</p>
-    <div class="meta">
-      <span>再構成版：2026-06-16</span>
-      <span>3体標準化後</span>
-      <span>秘密値なし</span>
-      <span>固定ナビなし</span>
-    </div>
+    <p class="lead">GitHub Pages、docs再構成。</p>
+    <div class="meta"><span>再構成版：2026-06-16</span><span>制作マニュアル版</span><span>秘密値なし</span><span>固定表示はタイトルのみ</span></div>
   </div>
 </header>
 <div class="page">
@@ -39,8 +35,38 @@
   <main class="content">
 <section class="card">
 <h2>第08回：作業ログを公開サイトとして作り直す</h2>
-<p>Plugin本体のrepoとは別に、voidcat-plugin-notesを用意し、GitHub Pagesで公開できる制作記録を作った。公開記事には秘密値や実ログを含めない。</p><p>旧docsには構成解説、機能一覧、configui詳説、詳細記事などがあり、読み物としての厚みがあった。再構成時に一度内容が薄くなったため、作業記録と機能一覧を大幅に増補した。</p><p>最終的なページ構成は、最新記事、基本構造解説、作業記録、機能一覧、コンフィグ項目一覧、必要サービス、オリジナルbot化、詳細記事、共有方針になった。</p><p>スマホでの横はみ出しを避けるため、固定ナビを置かず、表やコードは内部スクロール、画像はSVGモックにした。</p>
-<div class="callout"><p>このページは公開用の制作記録です。APIキー、Client Secret、Railway Variables、.env、logs、実コミュニティの投稿データは掲載しません。</p></div>
+<p>Plugin本体とは別に、公開用のvoidcat-plugin-notesを作りました。ここには制作記録、構造、手順、注意点だけを載せます。APIキー、Client Secret、Railway Variables、.env、logs、実コミュニティ投稿データは含めません。</p><p>旧docsには構成解説、機能一覧、configui詳説、詳細記事がありました。再構成時に一度内容が薄くなったため、詳細記事を復活させ、各記事にモックと前後ボタンを戻しました。</p><p>スマホでの横はみ出しを避けるため、固定表示はタイトルだけにし、表とコードは内部スクロール、画像はSVGモック、サイドバーは通常のページツリーにしています。</p><p>最終構成は、最新記事、基本構造解説、作業記録、機能一覧、コンフィグ項目一覧、必要サービス、オリジナルbot化、詳細記事、共有方針です。</p><figure class="snapshot"><img src="../assets/snapshots/mobile-safe.svg" alt="第08回：作業ログを公開サイトとして作り直すのモック"><figcaption class="caption">第08回：作業ログを公開サイトとして作り直すのモック</figcaption></figure>
+</section>
+<section class="card">
+<h2>確認ポイント</h2>
+
+<ul>
+<li>この段階で何を確認すべきかを明確にする。</li>
+<li>秘密値や実ログを公開記事に含めない。</li>
+<li>問題が起きた場合は、前段階へ戻って切り分ける。</li>
+<li>作業後は必ずGit status、ビルド、対象ページ表示を確認する。</li>
+</ul>
+
+</section>
+
+<nav class="nextprev"><a href="stage07-config.html">← 前の記事：第07回：虚無猫の人格調整とconfiguiの追加</a><a href="../index.html">TOPへ戻る →</a></nav>
+<section class="card">
+<h2>公開サイトとして守ること</h2>
+
+<p>GitHub Pagesに載せるのは、構造、作業判断、手順、モックです。実際のSecret、.env、logs、投稿本文、ユーザー情報は載せません。制作記録として価値があるのは、値そのものではなく、どの値が必要で、どこに設定し、どう確認するかです。</p>
+<p>スマホ表示では、固定ボタンを増やすと画面を圧迫します。今回の版では、上部固定表示はタイトルだけにし、ページ移動はページツリーと下部ナビに寄せました。</p>
+
+</section>
+
+<section class="card">
+<h2>実作業の分解</h2>
+
+<p>GitHub Pages側では、見た目だけでなく情報量と導線が重要です。詳細記事が短くなりすぎると、過去の作業判断が追えません。そのため、各詳細記事には、作業目的、手順、確認ポイント、モック、前後記事へのボタンを残します。</p>
+<p>スマホ表示では、上部固定ボタンを増やさず、固定表示はタイトルだけにしました。ページ移動はページツリーと下部ナビで行い、表やコードは内部スクロールにしています。</p>
+
+<p>この段階で大事なのは、作業結果を「動いた」「動かない」だけで判断しないことです。どの入力に対して、どの設定を読み、どの外部サービスへ接続し、どのログへ残るのかを確認します。BOTは一度動くと自動で投稿・返信するため、目に見える成功よりも、誤作動しないための確認が重要です。</p>
+<p>また、ローカルで成功した作業とRailwayで成功した作業は分けて扱います。ローカルでは.envを読みますが、本番ではRailway Variablesを読みます。ローカルではファイルが残っていても、本番ではVolumeがなければ再デプロイで状態が消える可能性があります。この差を毎回意識します。</p>
+<p>作業後は、Gitの差分、ビルド結果、確認コマンド、必要ならブラウザ表示を確認します。特に公開ノート側では、HTMLのリンク切れ、スマホでの横はみ出し、モック画像の表示、詳細記事の前後ナビを確認します。</p>
 
 </section>
 
